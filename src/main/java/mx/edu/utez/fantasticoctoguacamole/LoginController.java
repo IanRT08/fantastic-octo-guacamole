@@ -316,7 +316,7 @@ public class LoginController {
 
     private void redirigirSegunRol(int rol) {
         try {
-            String fxmlFile = rol == 1 ? "mx/edu/utez/fantasticoctoguacamole/AdminDashboard.fxml" : "UserDashboard.fxml";
+            String fxmlFile = rol == 1 ? "AdminDashboard.fxml" : "UserDashboard.fxml";
             String titulo = rol == 1 ? "ElectroStock - Panel Administrador" : "ElectroStock - Panel Usuario";
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
