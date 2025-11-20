@@ -114,5 +114,113 @@ public class UsuarioDao {
         return lista;
     }
 
+    //Funcion de actualizar (U) del CRUD
+    public boolean updateUsuario(Usuario u) {
+        String query = "UPDATE USUARIOS SET Nombre=?, ApellidoPaterno=?, ApellidoMaterno=?, CorreoElectronico=?, Contrasenia=?, FechaNacimiento=?, Rol=?, Estado=? WHERE IDUSUARIO=?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, u.getNombre());
+            ps.setString(2, u.getApellidoPaterno());
+            ps.setString(3, u.getApellidoMaterno());
+            ps.setString(4, u.getCorreoElectronico());
+            ps.setString(5, u.getContrasenia());
+            ps.setDate(6, u.getFechaNacimiento());
+            ps.setInt(7, u.getRol() ? 1 : 0);  //Convertir boolean a NUMBER
+            ps.setInt(8, u.getEstado() ? 1 : 0); //Convertir boolean a NUMBER
+            ps.setInt(9, u.getIdUsuario());
+            int resultado = ps.executeUpdate();
+            return resultado > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar usuario: " + e.getMessage());
+            //Verificar si es error de correo duplicado
+            if (e.getMessage().contains("unique constraint") || e.getErrorCode() == 1) {
+                System.err.println("Correo electrónico ya está en uso");
+            }
+            return false;
+        }
+    }
+
+    //Funcion de eliminar (D) del CRUD
+    public boolean deleteUsuario(int idUsuario) {
+        String query = "DELETE FROM USUARIOS WHERE IDUSUARIO = ?";
+        try (Connection conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, idUsuario);
+            int resultado = ps.executeUpdate();
+            return resultado > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al eliminar usuario: " + e.getMessage());
+            return false;
+        }
+    }
+
+    //Metodo para obtener un usuario completo por su ID
+    public Usuario obtenerUsuarioPorId(int idUsuario) {
+        String query = "SELECT IdUsuario, Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Contrasenia, FechaNacimiento, Rol, Estado FROM USUARIOS WHERE IdUsuario = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, idUsuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Usuario(
+                            rs.getInt("IdUsuario"),
+                            rs.getString("Nombre"),
+                            rs.getString("ApellidoPaterno"),
+                            rs.getString("ApellidoMaterno"),
+                            rs.getString("CorreoElectronico"),
+                            rs.getString("Contrasenia"),
+                            rs.getDate("FechaNacimiento"),
+                            rs.getBoolean("Rol"),
+                            rs.getBoolean("Estado")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuario por ID: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public List<Usuario> obtenerTodosUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
+        String query = "SELECT IdUsuario, Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Contrasenia, FechaNacimiento, Rol, Estado FROM USUARIOS";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("IdUsuario"));
+                usuario.setNombre(rs.getString("Nombre"));
+                usuario.setApellidoPaterno(rs.getString("ApellidoPaterno"));
+                usuario.setApellidoMaterno(rs.getString("ApellidoMaterno"));
+                usuario.setCorreoElectronico(rs.getString("CorreoElectronico"));
+                usuario.setContrasenia(rs.getString("Contrasenia"));
+                usuario.setFechaNacimiento(rs.getDate("FechaNacimiento"));
+                usuario.setRol(rs.getBoolean("Rol"));
+                usuario.setEstado(rs.getBoolean("Estado"));
+
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener todos los usuarios: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return usuarios;
+    }
+
+    public boolean cambiarEstadoUsuario(int idUsuario, boolean nuevoEstado) {
+        String query = "UPDATE USUARIOS SET Estado = ? WHERE IdUsuario = ?";
+        try (Connection conn = getConnection();
+            PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, nuevoEstado ? 1 : 0);
+            ps.setInt(2, idUsuario);
+            int resultado = ps.executeUpdate();
+            return resultado > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al cambiar estado del usuario: " + e.getMessage());
+            return false;
+        }
+    }
+
 
 }

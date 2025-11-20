@@ -234,56 +234,97 @@ public class GestionUsuariosController implements Initializable {
         });
     }
 
-    private void abrirEditarUsuario() {
+    private void abrirVerUsuario(){
         try {
             Usuario usuarioSeleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
             if (usuarioSeleccionado != null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("EditarUsuario.fxml"));
-                Parent root = loader.load();
-                //Pasar el usuario al controlador de edición
-                EditarUsuariosController controller = loader.getController();
-                controller.setUsuario(usuarioSeleccionado);
-                Stage stage = new Stage();
-                stage.setTitle("Editar Usuario");
-                stage.setScene(new Scene(root));
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-                //Recargar datos después de cerrar la ventana de edición
-                recargarDatos();
-                aplicarFiltros();
+                //Obtener el usuario COMPLETO desde la BD usando el ID
+                UsuarioDao dao = new UsuarioDao();
+                Usuario usuarioCompleto = dao.obtenerUsuarioPorId(usuarioSeleccionado.getIdUsuario());
+                if (usuarioCompleto != null) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("VerUsuarios.fxml"));
+                    Parent root = loader.load();
+
+                    VerUsuariosController controller = loader.getController();
+                    controller.setUsuario(usuarioCompleto); // Pasar el usuario completo
+
+                    Stage stage = new Stage();
+                    stage.setTitle("ElectroStock - Detalles de Usuario");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } else {
+                    mostrarAlerta("Error", "No se pudieron cargar los detalles del usuario", Alert.AlertType.ERROR);
+                }
+            } else {
+                mostrarAlerta("Error", "Selecciona un usuario para ver", Alert.AlertType.WARNING);
+            }
+        } catch (IOException e) {
+            mostrarAlerta("Error", "No se pudo cargar los detalles del usuario", Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void abrirEditarUsuario(){
+        try {
+            Usuario usuarioSeleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
+            if (usuarioSeleccionado != null) {
+                //Obtener el usuario COMPLETO desde la BD
+                UsuarioDao dao = new UsuarioDao();
+                Usuario usuarioCompleto = dao.obtenerUsuarioPorId(usuarioSeleccionado.getIdUsuario());
+                if (usuarioCompleto != null) {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("EditarUsuarios.fxml"));
+                    Parent root = loader.load();
+                    EditarUsuariosController controller = loader.getController();
+                    controller.setUsuario(usuarioCompleto);
+                    controller.setOnUsuarioActualizado(() -> {
+                        System.out.println("Actualizando tabla después de edición...");
+                        recargarDatos(); //Recarga los usuarios desde la BD
+                    });
+                    Stage stage = new Stage();
+                    stage.setTitle("ElectroStock - Editar Usuario");
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } else {
+                    mostrarAlerta("Error", "No se pudieron cargar los datos del usuario", Alert.AlertType.ERROR);
+                }
             } else {
                 mostrarAlerta("Error", "Selecciona un usuario para editar", Alert.AlertType.WARNING);
             }
         } catch (IOException e) {
+            mostrarAlerta("Error", "No se pudo abrir la edición del usuario", Alert.AlertType.ERROR);
             e.printStackTrace();
-            mostrarAlerta("Error", "No se pudo abrir la ventana de edición", Alert.AlertType.ERROR);
         }
     }
 
-    private void cambiarEstadoUsuario() {
+
+    @FXML
+    private void cambiarEstadoUsuario(){
         Usuario usuarioSeleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
         if (usuarioSeleccionado != null) {
-            String nuevoEstado = usuarioSeleccionado.getEstado() ? "inactivo" : "activo";
-            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("Cambiar Estado");
-            confirmacion.setHeaderText("¿Estás seguro?");
-            confirmacion.setContentText("El usuario cambiará a estado: " + nuevoEstado);
-            Optional<ButtonType> resultado = confirmacion.showAndWait();
-            if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-                //Cambiar el estado
-                Boolean nuevoEstadoBoolean = !usuarioSeleccionado.getEstado();
-                usuarioSeleccionado.setEstado(nuevoEstadoBoolean);
-                //Actualizar en la base de datos
-                UsuarioDao dao = new UsuarioDao();
-                if (dao.updateUsuario(usuarioSeleccionado)) {
-                    //Forzar recreacion de la lista
-                    ObservableList<Usuario> listaTemporal = FXCollections.observableArrayList(listaOriginal);
-                    listaOriginal.setAll(listaTemporal);
-                    aplicarFiltros();
-                    mostrarAlerta("Éxito", "Estado cambiado correctamente", Alert.AlertType.INFORMATION);
-                } else {
-                    mostrarAlerta("Error", "No se pudo cambiar el estado", Alert.AlertType.ERROR);
+            try {
+                boolean nuevoEstado = !usuarioSeleccionado.getEstado();
+                String mensaje = nuevoEstado ?
+                        "¿Activar usuario " + usuarioSeleccionado.getNombre() + "?" :
+                        "¿Desactivar usuario " + usuarioSeleccionado.getNombre() + "?";
+                Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmacion.setTitle("Cambiar Estado");
+                confirmacion.setHeaderText(mensaje);
+                confirmacion.setContentText("Esta acción cambiará el estado del usuario.");
+                Optional<ButtonType> resultado = confirmacion.showAndWait();
+                if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+                    UsuarioDao dao = new UsuarioDao();
+                    if (dao.cambiarEstadoUsuario(usuarioSeleccionado.getIdUsuario(), nuevoEstado)) {
+                        usuarioSeleccionado.setEstado(nuevoEstado);
+                        mostrarAlerta("Éxito", "Estado del usuario actualizado correctamente", Alert.AlertType.INFORMATION);
+                        recargarDatos(); //Recargar la tabla
+                    } else {
+                        mostrarAlerta("Error", "No se pudo cambiar el estado del usuario", Alert.AlertType.ERROR);
+                    }
                 }
+            } catch (Exception e) {
+                mostrarAlerta("Error", "Error al cambiar estado: " + e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
             }
         } else {
             mostrarAlerta("Error", "Selecciona un usuario para cambiar estado", Alert.AlertType.WARNING);
@@ -339,6 +380,7 @@ public class GestionUsuariosController implements Initializable {
             List<Usuario> lista = dao.readUsuarios();
             tablaUsuario.setItems(FXCollections.observableArrayList(lista));
             tablaUsuario.refresh();
+            recargarDatos();
         } catch (IOException e) {
             e.printStackTrace();
         }
