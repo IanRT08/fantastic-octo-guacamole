@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.EditarUsuariosController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="730.0" layoutX="470.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+        <Circle fill="DODGERBLUE" layoutX="720.0" layoutY="79.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="709.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/agregarIcon.png" />
+            </image></ImageView>
+        <Label layoutX="685.0" layoutY="123.0" text="Editar usuario" />
+        <Label layoutX="651.0" layoutY="158.0" text="Edite los datos del usuario" />
+        <Label layoutX="510.0" layoutY="196.0" text="Editar nombre *" />
+        <TextField fx:id="nombre" layoutX="510.0" layoutY="217.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa el nombre" />
+        <TextField fx:id="aPaterno" layoutX="510.0" layoutY="279.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa apellido paterno" />
+        <Label layoutX="510.0" layoutY="258.0" text="Editar apellido paterno *" />
+        <TextField fx:id="aMaterno" layoutX="510.0" layoutY="341.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa apellido paterno" />
+        <Label layoutX="510.0" layoutY="320.0" text="Editar apellido materno *" />
+        <Label layoutX="510.0" layoutY="382.0" text="Editar correo electrónico *" />
+        <TextField fx:id="correo" layoutX="510.0" layoutY="403.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa apellido paterno" />
+        <Label layoutX="510.0" layoutY="444.0" text="Nueva Contraseña *" />
+        <PasswordField fx:id="contrasenia" layoutX="510.0" layoutY="465.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingrese contraseña" />
+        <Label layoutX="576.0" layoutY="496.0" text="Mínimo 8 caracteres, debe incluir mayúscula, minúscula y número">
+            <font>
+                <Font size="10.0" />
+            </font>
+        </Label>
+        <Label layoutX="510.0" layoutY="569.0" text="Editar fecha de nacimiento *" />
+        <DatePicker fx:id="fechaNac" layoutX="510.0" layoutY="590.0" prefHeight="31.0" prefWidth="421.0" promptText="Selecciona fecha de nacimiento" />
+        <Label layoutX="510.0" layoutY="631.0" text="Cambiar rol de usuario *" />
+        <PasswordField fx:id="confirmarContra" layoutX="510.0" layoutY="532.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingrese contraseña" />
+        <Label layoutX="510.0" layoutY="511.0" text="Confirmar nueva contraseña *" />
+        <ChoiceBox fx:id="roles" layoutX="510.0" layoutY="652.0" prefHeight="31.0" prefWidth="421.0" />
+        <Button fx:id="editarBoton" layoutX="510.0" layoutY="704.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="421.0" text="Editar usuario" />
+        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="897.0" layoutY="536.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/verContraIcon.png" />
+            </image></ImageView>
+        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="897.0" layoutY="469.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/verContraIcon.png" />
+            </image></ImageView>
+        <Button fx:id="regresarBoton" layoutX="1349.0" layoutY="25.0" mnemonicParsing="false" text="Regresar " />
+    </children>
+</AnchorPane>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.GestionUsuariosController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="650.0" layoutX="70.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="1300.0" />
+      <Circle fill="DODGERBLUE" layoutX="134.0" layoutY="129.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="178.0" layoutY="105.0" text="Usuarios Registrados" />
+      <Label layoutX="178.0" layoutY="125.0" text="Gestiona y visualiza todos los usuarios del sistema" />
+      <Button fx:id="botonAgregar" layoutX="1227.0" layoutY="104.0" mnemonicParsing="false" onAction="#agregarUsuario" text="Agregar usuario" />
+      <Label layoutX="110.0" layoutY="173.0" text="Buscar usuarios" />
+      <TextField fx:id="buscador" layoutX="110.0" layoutY="194.0" prefHeight="31.0" prefWidth="1219.0" promptText="Buscar por nombre, apellidos o rol" />
+      <Label layoutX="110.0" layoutY="245.0" text="Filtrar por estado o rol" />
+      <ChoiceBox fx:id="filtros" layoutX="109.0" layoutY="266.0" prefHeight="31.0" prefWidth="160.0" />
+      <TableView fx:id="tablaUsuario" layoutX="109.0" layoutY="317.0" prefHeight="358.0" prefWidth="1219.0">
+        <columns>
+            <TableColumn fx:id="tablaNombre" prefWidth="200.0" text="Nombre(s)" />
+            <TableColumn fx:id="tablaPaterno" prefWidth="200.0" text="Apellido Paterno" />
+          <TableColumn fx:id="tablaMaterno" prefWidth="175.0" text="Apellido Materno" />
+          <TableColumn fx:id="tablaRol" prefWidth="250.0" text="Rol" />
+            <TableColumn fx:id="tablaEstado" prefWidth="150.0" text="Estado" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
+            <TableColumn fx:id="tablaAcciones" prefWidth="250.0" text="Acciones" />
+        </columns>
+      </TableView>
+      <Button fx:id="volverMenu" layoutX="21.0" layoutY="19.0" mnemonicParsing="false" onAction="#regresarMenu" text="Volver al menu principal" />
+      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="122.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/userIcon.png" />
+         </image></ImageView>
+   </children>
+</AnchorPane>

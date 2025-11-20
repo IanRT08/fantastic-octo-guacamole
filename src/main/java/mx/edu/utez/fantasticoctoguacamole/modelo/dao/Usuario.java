@@ -10,8 +10,8 @@ public class Usuario {
     private String correoElectronico;
     private String contrasenia;
     private Date fechaNacimiento;
-    private boolean rol;
-    private boolean estado;
+    private Boolean rol;
+    private Boolean estado;
 
     //Constructores
     public Usuario() {}
@@ -91,14 +91,14 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
     //Rol
-    public boolean isRol() {
+    public Boolean getRol() {
         return rol;
     }
     public void setRol(boolean rol) {
         this.rol = rol;
     }
     //Estado
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
     public void setEstado(boolean estado) {

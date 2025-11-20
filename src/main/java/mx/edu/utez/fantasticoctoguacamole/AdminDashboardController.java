@@ -39,10 +39,7 @@ public class AdminDashboardController {
 
     @FXML
     private void manejarClickGestionUsuarios(MouseEvent event) {
-        System.out.println("Navegando a Gestión de Usuarios...");
-        //Mostrar mensaje de que la funcionalidad está en desarrollo
-        mostrarMensajeDesarrollo("Gestión de Usuarios");
-        //cargarPantalla("GestionUsuarios.fxml", "Gestión de Usuarios");
+        cargarPantalla("GestionUsuarios.fxml", "Gestión de Usuarios");
     }
 
     @FXML
