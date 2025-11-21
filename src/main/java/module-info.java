@@ -15,4 +15,5 @@ module mx.edu.utez.fantasticoctoguacamole {
     exports mx.edu.utez.fantasticoctoguacamole;
     exports mx.edu.utez.fantasticoctoguacamole.modelo;
     exports mx.edu.utez.fantasticoctoguacamole.modelo.dao;
+    opens mx.edu.utez.fantasticoctoguacamole.modelo.dao to javafx.fxml;
 }

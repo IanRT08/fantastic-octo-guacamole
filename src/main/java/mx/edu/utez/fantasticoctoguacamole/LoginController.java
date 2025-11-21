@@ -10,7 +10,7 @@ import javafx.concurrent.Task;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mx.edu.utez.fantasticoctoguacamole.modelo.SesionUsuario;
-import mx.edu.utez.fantasticoctoguacamole.modelo.UsuarioDao;
+import mx.edu.utez.fantasticoctoguacamole.modelo.dao.UsuarioDao;
 
 import java.io.IOException;
 import java.util.HashMap;

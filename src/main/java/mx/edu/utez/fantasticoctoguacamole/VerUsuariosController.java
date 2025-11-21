@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import mx.edu.utez.fantasticoctoguacamole.modelo.dao.Usuario;
+import mx.edu.utez.fantasticoctoguacamole.modelo.Usuario;
 import java.net.URL;
 import java.util.ResourceBundle;
 

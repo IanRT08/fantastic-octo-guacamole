@@ -1,6 +1,6 @@
-package mx.edu.utez.fantasticoctoguacamole.modelo;
+package mx.edu.utez.fantasticoctoguacamole.modelo.dao;
 
-import mx.edu.utez.fantasticoctoguacamole.modelo.dao.Usuario;
+import mx.edu.utez.fantasticoctoguacamole.modelo.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

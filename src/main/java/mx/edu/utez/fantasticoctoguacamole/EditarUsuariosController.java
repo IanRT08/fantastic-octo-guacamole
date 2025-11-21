@@ -7,8 +7,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import mx.edu.utez.fantasticoctoguacamole.modelo.UsuarioDao;
-import mx.edu.utez.fantasticoctoguacamole.modelo.dao.Usuario;
+import mx.edu.utez.fantasticoctoguacamole.modelo.dao.UsuarioDao;
+import mx.edu.utez.fantasticoctoguacamole.modelo.Usuario;
 
 import java.net.URL;
 import java.sql.Date;

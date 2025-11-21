@@ -16,14 +16,13 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import mx.edu.utez.fantasticoctoguacamole.modelo.UsuarioDao;
-import mx.edu.utez.fantasticoctoguacamole.modelo.dao.Usuario;
+import mx.edu.utez.fantasticoctoguacamole.modelo.dao.UsuarioDao;
+import mx.edu.utez.fantasticoctoguacamole.modelo.Usuario;
 
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;

@@ -1,4 +1,4 @@
-package mx.edu.utez.fantasticoctoguacamole.modelo.dao;
+package mx.edu.utez.fantasticoctoguacamole.modelo;
 
 import java.sql.Date;
 
