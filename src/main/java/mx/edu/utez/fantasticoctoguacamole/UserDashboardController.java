@@ -39,10 +39,7 @@ public class UserDashboardController {
 
     @FXML
     private void manejarClickGestionProductos(MouseEvent event) {
-        System.out.println("Navegando a Gestión de Productos...");
-        //Mostrar mensaje de que la funcionalidad está en desarrollo
-        mostrarMensajeDesarrollo("Gestión de Productos");
-        //cargarPantalla("GestionProductos.fxml", "Gestión de Productos");
+        cargarPantalla("GestionProductos.fxml", "Gestión de Productos");
     }
 
     @FXML

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.EditarProductosController">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="730.0" layoutX="470.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+        <Circle fill="DODGERBLUE" layoutX="720.0" layoutY="79.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="708.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@Images/editarIcon.png" />
+            </image></ImageView>
+        <Label layoutX="680.0" layoutY="124.0" text="Editar producto" />
+        <Label layoutX="645.0" layoutY="155.0" text="Edite los datos del producto" />
+        <Label layoutX="510.0" layoutY="196.0" text="Editar nombre *" />
+        <TextField fx:id="nombre" layoutX="510.0" layoutY="217.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa el nombre" />
+        <Label layoutX="510.0" layoutY="330.0" text="Editar descripción del producto" />
+        <Label layoutX="510.0" layoutY="263.0" text="Editar codigo del producto *" />
+        <TextField fx:id="producto" layoutX="510.0" layoutY="284.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingrese codigo del producto" />
+        <Label layoutX="511.0" layoutY="578.0" text="Editar precio *" />
+        <TextField fx:id="precio" layoutX="511.0" layoutY="599.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingrese precio" />
+        <TextField fx:id="stock" layoutX="510.0" layoutY="658.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingrese cantidad disponible en el inventario" />
+        <Label layoutX="510.0" layoutY="637.0" text="Actualizar stock *" />
+        <Button fx:id="editarBoton" layoutX="732.0" layoutY="704.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="200.0" text="Editar producto" />
+        <Button fx:id="regresarBoton" layoutX="1349.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresarMenu" text="Regresar " />
+        <TextArea fx:id="descripcion" layoutX="510.0" layoutY="352.0" prefHeight="211.0" prefWidth="421.0" promptText="Ingrese una descripción opcional del producto" />
+      <Button fx:id="eliminarBoton" layoutX="511.0" layoutY="704.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="200.0" text="Eliminar Producto" />
+    </children>
+</AnchorPane>
