@@ -195,5 +195,39 @@ public class UsuarioDao {
         }
     }
 
+    public boolean actualizarContrasenia(int idUsuario, String nuevaContrasenia) {
+        String query = "UPDATE USUARIOS SET Contrasenia = ? WHERE IdUsuario = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, nuevaContrasenia);
+            ps.setInt(2, idUsuario);
+            int resultado = ps.executeUpdate();
+            return resultado > 0;
+        } catch (SQLException e) {
+            System.err.println("Error al actualizar contraseña: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public Usuario obtenerUsuarioPorCorreo(String correo) {
+        String query = "SELECT IdUsuario, Nombre, CorreoElectronico FROM USUARIOS WHERE CorreoElectronico = ? AND Estado = 1";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, correo.toLowerCase().trim());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setIdUsuario(rs.getInt("IdUsuario"));
+                    usuario.setNombre(rs.getString("Nombre"));
+                    usuario.setCorreoElectronico(rs.getString("CorreoElectronico"));
+                    return usuario;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuario por correo: " + e.getMessage());
+        }
+        return null;
+    }
+
 
 }

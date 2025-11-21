@@ -8,6 +8,7 @@ module mx.edu.utez.fantasticoctoguacamole {
     requires javafx.base;
     requires javafx.graphics;
     requires java.prefs;
+    requires jakarta.mail;
 
 
     opens mx.edu.utez.fantasticoctoguacamole to javafx.fxml;
