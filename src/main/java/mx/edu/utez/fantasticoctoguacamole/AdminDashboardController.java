@@ -82,6 +82,11 @@ public class AdminDashboardController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
+            //Si es la pantalla de Gestion de Usuarios, establecer el usuario en sesion
+            if (fxmlFile.equals("GestionUsuarios.fxml")) {
+                GestionUsuariosController controller = loader.getController();
+                controller.setUsuarioEnSesion(SesionUsuario.getUsuarioActual());
+            }
             Stage stage = new Stage();
             stage.setTitle("ElectroStock - " + titulo);
             stage.setScene(new Scene(root));

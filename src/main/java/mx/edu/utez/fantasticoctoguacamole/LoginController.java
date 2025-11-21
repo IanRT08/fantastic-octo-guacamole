@@ -10,6 +10,7 @@ import javafx.concurrent.Task;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mx.edu.utez.fantasticoctoguacamole.modelo.SesionUsuario;
+import mx.edu.utez.fantasticoctoguacamole.modelo.Usuario;
 import mx.edu.utez.fantasticoctoguacamole.modelo.dao.UsuarioDao;
 
 import java.io.IOException;
@@ -52,19 +53,15 @@ public class LoginController {
             contrasenia.setText(savedPassword);
             recordarme.setSelected(true);
         }
-
         //Configurar el label como clickeable
         olvide.setOnMouseClicked(event -> recuperarContrasenia());
-
         //Configurar spinner
         if (spinner != null) {
             spinner.setVisible(false);
         }
-
         //Limpiar bloqueos expirados y actualizar estado del boton
         limpiarBloqueosExpirados();
         actualizarEstadoBoton();
-
         //Listener para actualizar estado del boton cuando cambie el correo
         correo.textProperty().addListener((observable, oldValue, newValue) -> {
             actualizarEstadoBoton();
@@ -82,7 +79,6 @@ public class LoginController {
                     "Demasiados intentos fallidos. Espere " + tiempoRestante + " minutos antes de intentar nuevamente.");
             return;
         }
-
         //Validaciones basicas
         if (correoTxt.isEmpty() || contraseniaTxt.isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos vacíos",
@@ -94,9 +90,7 @@ public class LoginController {
                     "Por favor, ingresa un correo electrónico válido");
             return;
         }
-
         setInterfazDeshabilitada(true);
-
         Task<Map<String, Object>> tareaLogin = new Task<>() {
             @Override
             protected Map<String, Object> call() {
@@ -112,7 +106,6 @@ public class LoginController {
                 }
             }
         };
-
         tareaLogin.setOnSucceeded(e -> {
             Map<String, Object> resultado = tareaLogin.getValue();
             boolean valido = (Boolean) resultado.get("valido");
@@ -305,13 +298,40 @@ public class LoginController {
     }
 
     private void guardarDatosSesion(Map<String, Object> usuarioData) {
-        SesionUsuario.iniciarSesion(
-        (Integer) usuarioData.get("idUsuario"),
-        (String) usuarioData.get("nombre"),
-        (String) usuarioData.get("apellidoPaterno"),
-        (Integer) usuarioData.get("rol"),
-        correo.getText().trim()
-        );
+        try {
+            int idUsuario = (Integer) usuarioData.get("idUsuario");
+            //Cargar el usuario desde la base de datos
+            UsuarioDao dao = new UsuarioDao();
+            Usuario usuarioCompleto = dao.obtenerUsuarioPorId(idUsuario);
+            if (usuarioCompleto != null) {
+                //Establecer el usuario completo en la sesion
+                SesionUsuario.setUsuarioActual(usuarioCompleto);
+                SesionUsuario.iniciarSesion(
+                        idUsuario,
+                        usuarioCompleto.getNombre(),
+                        usuarioCompleto.getApellidoPaterno(),
+                        usuarioCompleto.getRol() ? 1 : 0,
+                        usuarioCompleto.getCorreoElectronico()
+                );
+            } else {
+                Usuario usuarioBasico = new Usuario();
+                usuarioBasico.setIdUsuario(idUsuario);
+                usuarioBasico.setNombre((String) usuarioData.get("nombre"));
+                usuarioBasico.setApellidoPaterno((String) usuarioData.get("apellidoPaterno"));
+                usuarioBasico.setRol((Integer) usuarioData.get("rol") == 1);
+                usuarioBasico.setCorreoElectronico(correo.getText().trim());
+                SesionUsuario.setUsuarioActual(usuarioBasico);
+                SesionUsuario.iniciarSesion(
+                        idUsuario,
+                        usuarioBasico.getNombre(),
+                        usuarioBasico.getApellidoPaterno(),
+                        usuarioBasico.getRol() ? 1 : 0,
+                        usuarioBasico.getCorreoElectronico()
+                );
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar datos de sesión: " + e.getMessage());
+        }
     }
 
     private void redirigirSegunRol(int rol) {

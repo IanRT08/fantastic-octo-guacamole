@@ -51,6 +51,7 @@ public class GestionUsuariosController implements Initializable {
     @FXML
     private Button volverMenu;
 
+    private Usuario usuarioEnSesion;
     private ObservableList<Usuario> listaOriginal;
     private FilteredList<Usuario> datosFiltrados;
     private SortedList<Usuario> datosOrdenados;
@@ -66,6 +67,12 @@ public class GestionUsuariosController implements Initializable {
         cargarDatos();
         //Configurar filtros y búsqueda
         configurarFiltrosYBusqueda();
+    }
+
+    public void setUsuarioEnSesion(Usuario usuario) {
+        this.usuarioEnSesion = usuario;
+        System.out.println("Usuario en sesión establecido: " +
+                (usuario != null ? usuario.getNombre() : "null"));
     }
 
     private void cargarDatos() {
@@ -233,6 +240,22 @@ public class GestionUsuariosController implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
+                            Usuario usuarioActual = getTableView().getItems().get(getIndex());
+                            //Verificar si es el usuario en sesion
+                            boolean esUsuarioEnSesion = usuarioEnSesion != null &&
+                                    usuarioActual.getIdUsuario() == usuarioEnSesion.getIdUsuario();
+                            //Deshabilitar botones de edicion y cambio de estado para el usuario en sesion
+                            btnEditar.setDisable(esUsuarioEnSesion);
+                            btnCambiar.setDisable(esUsuarioEnSesion);
+                            if (esUsuarioEnSesion) {
+                                btnEditar.setTooltip(new Tooltip("No puedes editarte a ti mismo"));
+                                btnCambiar.setTooltip(new Tooltip("No puedes cambiar tu propio estado"));
+                            } else {
+                                btnEditar.setStyle("");
+                                btnCambiar.setStyle("");
+                                btnEditar.setTooltip(null);
+                                btnCambiar.setTooltip(null);
+                            }
                             setGraphic(botonesContainer);
                         }
                     }
@@ -276,6 +299,11 @@ public class GestionUsuariosController implements Initializable {
         try {
             Usuario usuarioSeleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
             if (usuarioSeleccionado != null) {
+                //Validar que no sea el usuario en sesion
+                if (usuarioEnSesion != null && usuarioSeleccionado.getIdUsuario() == usuarioEnSesion.getIdUsuario()) {
+                    mostrarAlerta("Acción no permitida", "No puedes editarte a ti mismo", Alert.AlertType.WARNING);
+                    return;
+                }
                 //Obtener el usuario COMPLETO desde la BD
                 UsuarioDao dao = new UsuarioDao();
                 Usuario usuarioCompleto = dao.obtenerUsuarioPorId(usuarioSeleccionado.getIdUsuario());
@@ -309,6 +337,11 @@ public class GestionUsuariosController implements Initializable {
     private void cambiarEstadoUsuario(){
         Usuario usuarioSeleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
         if (usuarioSeleccionado != null) {
+            //Validar que no sea el usuario en sesion
+            if (usuarioEnSesion != null && usuarioSeleccionado.getIdUsuario() == usuarioEnSesion.getIdUsuario()) {
+                mostrarAlerta("Acción no permitida", "No puedes cambiar tu propio estado", Alert.AlertType.WARNING);
+                return;
+            }
             try {
                 boolean nuevoEstado = !usuarioSeleccionado.getEstado();
                 String mensaje = nuevoEstado ?

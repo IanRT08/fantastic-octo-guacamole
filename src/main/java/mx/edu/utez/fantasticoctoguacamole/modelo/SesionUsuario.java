@@ -7,6 +7,7 @@ public class SesionUsuario {
     private static String email;
     private static int rol;
     private static boolean sesionActiva = false;
+    private static Usuario usuarioActual;
 
     //Getters y Setters
     public static int getIdUsuario() {
@@ -86,4 +87,13 @@ public class SesionUsuario {
     public static boolean haySesionActiva() {
         return sesionActiva && idUsuario > 0;
     }
+
+    public static Usuario getUsuarioActual() {
+        return usuarioActual;
+    }
+
+    public static void setUsuarioActual(Usuario usuario) {
+        usuarioActual = usuario;
+    }
+
 }

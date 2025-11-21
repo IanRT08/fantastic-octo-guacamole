@@ -181,33 +181,6 @@ public class UsuarioDao {
         return null;
     }
 
-    public List<Usuario> obtenerTodosUsuarios() {
-        List<Usuario> usuarios = new ArrayList<>();
-        String query = "SELECT IdUsuario, Nombre, ApellidoPaterno, ApellidoMaterno, CorreoElectronico, Contrasenia, FechaNacimiento, Rol, Estado FROM USUARIOS";
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setIdUsuario(rs.getInt("IdUsuario"));
-                usuario.setNombre(rs.getString("Nombre"));
-                usuario.setApellidoPaterno(rs.getString("ApellidoPaterno"));
-                usuario.setApellidoMaterno(rs.getString("ApellidoMaterno"));
-                usuario.setCorreoElectronico(rs.getString("CorreoElectronico"));
-                usuario.setContrasenia(rs.getString("Contrasenia"));
-                usuario.setFechaNacimiento(rs.getDate("FechaNacimiento"));
-                usuario.setRol(rs.getBoolean("Rol"));
-                usuario.setEstado(rs.getBoolean("Estado"));
-
-                usuarios.add(usuario);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener todos los usuarios: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return usuarios;
-    }
-
     public boolean cambiarEstadoUsuario(int idUsuario, boolean nuevoEstado) {
         String query = "UPDATE USUARIOS SET Estado = ? WHERE IdUsuario = ?";
         try (Connection conn = getConnection();
