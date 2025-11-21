@@ -59,17 +59,14 @@ public class GestionUsuariosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Configurar filtros
-        filtros.setItems(FXCollections.observableArrayList("Todos", "Activo", "Inactivo"));
+        filtros.setItems(FXCollections.observableArrayList("Todos", "Activo", "Inactivo", "Administrador", "Cajero"));
         filtros.getSelectionModel().selectFirst();
+        //Configurar columnas
+        configurarColumnas();
         //Cargar datos
         cargarDatos();
         //Configurar filtros y búsqueda
         configurarFiltrosYBusqueda();
-        //Configurar columnas
-        configurarColumnas();
-        configurarColumnaRol();
-        configurarColumnaEstado();
-        configurarColumnaAcciones();
     }
 
     private void cargarDatos() {
@@ -103,13 +100,24 @@ public class GestionUsuariosController implements Initializable {
                 return true;
             }
             boolean coincideEstado = true;
+            boolean coincideRol = true;
             boolean coincideBusqueda = true;
-            //Filtrar por estado
+            //Filtrar por estado o rol
             if (filtros.getValue() != null && !filtros.getValue().equals("Todos")) {
-                if (filtros.getValue().equals("Activo")) {
-                    coincideEstado = usuario.getEstado(); //true
-                } else if (filtros.getValue().equals("Inactivo")) {
-                    coincideEstado = !usuario.getEstado(); //false
+                String filtroSeleccionado = filtros.getValue();
+                switch (filtroSeleccionado) {
+                    case "Activo":
+                        coincideEstado = usuario.getEstado();
+                        break;
+                    case "Inactivo":
+                        coincideEstado = !usuario.getEstado();
+                        break;
+                    case "Administrador":
+                        coincideRol = usuario.getRol();
+                        break;
+                    case "Cajero":
+                        coincideRol = !usuario.getRol();
+                        break;
                 }
             }
             //Filtrar por busqueda de texto
@@ -127,7 +135,7 @@ public class GestionUsuariosController implements Initializable {
                         fechaFormatoLocal.contains(textoBusqueda) ||
                         usuario.getApellidoMaterno().toLowerCase().contains(textoBusqueda);
             }
-            return coincideEstado && coincideBusqueda;
+            return coincideEstado && coincideRol && coincideBusqueda;
         });
     }
 
@@ -315,9 +323,15 @@ public class GestionUsuariosController implements Initializable {
                 if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
                     UsuarioDao dao = new UsuarioDao();
                     if (dao.cambiarEstadoUsuario(usuarioSeleccionado.getIdUsuario(), nuevoEstado)) {
-                        usuarioSeleccionado.setEstado(nuevoEstado);
+                        //Actualizar el objeto en la lista original
+                        for (Usuario usuario : listaOriginal) {
+                            if (usuario.getIdUsuario() == usuarioSeleccionado.getIdUsuario()) {
+                                usuario.setEstado(nuevoEstado);
+                                break;
+                            }
+                        }
                         mostrarAlerta("Éxito", "Estado del usuario actualizado correctamente", Alert.AlertType.INFORMATION);
-                        recargarDatos(); //Recargar la tabla
+                        tablaUsuario.refresh();
                     } else {
                         mostrarAlerta("Error", "No se pudo cambiar el estado del usuario", Alert.AlertType.ERROR);
                     }
@@ -335,21 +349,12 @@ public class GestionUsuariosController implements Initializable {
         try {
             UsuarioDao dao = new UsuarioDao();
             List<Usuario> nuevosDatos = dao.readUsuarios();
-            String filtroEstado = filtros.getValue();
-            String textoBusqueda = buscador.getText();
+            //Guardar seleccion actual
             Usuario seleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
-            int indiceSeleccionado = tablaUsuario.getSelectionModel().getSelectedIndex();
+            //Limpiar y actualizar la lista original
             listaOriginal.clear();
             listaOriginal.addAll(nuevosDatos);
-            aplicarFiltros();
-            if (seleccionado != null) {
-                Optional<Usuario> usuarioActualizado = listaOriginal.stream()
-                        .filter(u -> u.getIdUsuario() == seleccionado.getIdUsuario())
-                        .findFirst();
-                if (usuarioActualizado.isPresent()) {
-                    tablaUsuario.getSelectionModel().select(usuarioActualizado.get());
-                }
-            }
+            //Los filtros se aplicaran automaticamente por los listeners
             System.out.println("Datos recargados. Registros: " + listaOriginal.size());
         } catch (Exception e) {
             System.out.println("Error al recargar datos: " + e.getMessage());
@@ -373,16 +378,13 @@ public class GestionUsuariosController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Registrar Usuarios");
-            stage.initModality(Modality.APPLICATION_MODAL); //Espera a que la ventana se cierre
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-            //Una vez cerrada la ventana de registro, actualizamos la tabla
-            UsuarioDao dao = new UsuarioDao();
-            List<Usuario> lista = dao.readUsuarios();
-            tablaUsuario.setItems(FXCollections.observableArrayList(lista));
-            tablaUsuario.refresh();
+            //Recargar datos manteniendo la estructura de filtros
             recargarDatos();
         } catch (IOException e) {
             e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo abrir la ventana de registro", Alert.AlertType.ERROR);
         }
     }
 

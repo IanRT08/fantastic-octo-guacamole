@@ -13,7 +13,7 @@
       <Label layoutX="178.0" layoutY="125.0" text="Gestiona y visualiza todos los usuarios del sistema" />
       <Button fx:id="botonAgregar" layoutX="1227.0" layoutY="104.0" mnemonicParsing="false" onAction="#agregarUsuario" text="Agregar usuario" />
       <Label layoutX="110.0" layoutY="173.0" text="Buscar usuarios" />
-      <TextField fx:id="buscador" layoutX="110.0" layoutY="194.0" prefHeight="31.0" prefWidth="1219.0" promptText="Buscar por nombre, apellidos o rol" />
+      <TextField fx:id="buscador" layoutX="110.0" layoutY="194.0" prefHeight="31.0" prefWidth="1219.0" promptText="Buscar por nombre o apellidos" />
       <Label layoutX="110.0" layoutY="245.0" text="Filtrar por estado o rol" />
       <ChoiceBox fx:id="filtros" layoutX="109.0" layoutY="266.0" prefHeight="31.0" prefWidth="160.0" />
       <TableView fx:id="tablaUsuario" layoutX="109.0" layoutY="317.0" prefHeight="358.0" prefWidth="1219.0">
