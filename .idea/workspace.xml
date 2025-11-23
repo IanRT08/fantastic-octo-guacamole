@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="99d62ca3-93fc-441b-9f82-8701865cc151" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/CambiosDevolucionesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/CambiosDevolucionesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionProductosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionProductosController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/PuntoVentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/PuntoVentaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/UserDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/UserDashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/VerVentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/VerVentaController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +86,7 @@
       <workItem from="1763850421636" duration="97000" />
       <workItem from="1763850905423" duration="112000" />
       <workItem from="1763851306627" duration="12870000" />
-      <workItem from="1763925257406" duration="11971000" />
+      <workItem from="1763925257406" duration="14334000" />
     </task>
     <servers />
   </component>

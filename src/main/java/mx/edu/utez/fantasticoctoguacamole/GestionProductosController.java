@@ -387,7 +387,16 @@ public class GestionProductosController implements Initializable {
 
     @FXML
     void regresarMenu(ActionEvent event) {
-        Stage currentStage = (Stage) volverMenu.getScene().getWindow();
-        currentStage.close();
+        try {
+            // Cargar el Dashboard en lugar de cerrar la ventana
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UserDashboard.fxml"));
+            Parent root = loader.load();
+            Stage currentStage = (Stage) volverMenu.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("ElectroStock - Userdashboard");
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo regresar al menú", Alert.AlertType.ERROR);
+        }
     }
 }

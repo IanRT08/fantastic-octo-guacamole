@@ -87,10 +87,10 @@ public class UserDashboardController {
             if (configuradorController != null) {
                 configuradorController.accept(loader.getController());
             }
-            Stage stage = new Stage();
-            stage.setTitle("ElectroStock - " + titulo);
-            stage.setScene(new Scene(root));
-            stage.show();
+            //Obtener la ventana actual y reemplazar la escena
+            Stage currentStage = (Stage) tarjeta.getScene().getWindow(); //Usar cualquier nodo de la escena actual
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("ElectroStock - " + titulo);
         } catch (IOException e) {
             mostrarError("Error al cargar " + titulo + ": " + e.getMessage());
             e.printStackTrace();

@@ -27,15 +27,24 @@ import java.util.ResourceBundle;
 
 public class VerVentaController implements Initializable {
 
-    @FXML private TableView<Venta> tablaVentas;
-    @FXML private TableColumn<Venta, Integer> tablaFolio;
-    @FXML private TableColumn<Venta, Date> tablaFecha;
-    @FXML private TableColumn<Venta, Integer> tablaItems;
-    @FXML private TableColumn<Venta, Double> tablaTotal;
-    @FXML private TableColumn<Venta, String> tablaDetalles;
-    @FXML private TextField buscador;
-    @FXML private Label totalVentas;
-    @FXML private Button botonVolver;
+    @FXML
+    private TableView<Venta> tablaVentas;
+    @FXML
+    private TableColumn<Venta, Integer> tablaFolio;
+    @FXML
+    private TableColumn<Venta, Date> tablaFecha;
+    @FXML
+    private TableColumn<Venta, Integer> tablaItems;
+    @FXML
+    private TableColumn<Venta, Double> tablaTotal;
+    @FXML
+    private TableColumn<Venta, String> tablaDetalles;
+    @FXML
+    private TextField buscador;
+    @FXML
+    private Label totalVentas;
+    @FXML
+    private Button botonVolver;
 
     private ObservableList<Venta> listaVentas;
     private FilteredList<Venta> datosFiltrados;
@@ -204,8 +213,15 @@ public class VerVentaController implements Initializable {
     @FXML
     private void volverAVentas() {
         try {
+            //Cargar el punto de venta en la misma ventana
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PuntoVenta.fxml"));
+            Parent root = loader.load();
+            //Pasar el ID del usuario al controlador del punto de venta
+            PuntoVentaController controller = loader.getController();
+            controller.setIdUsuarioActual(SesionUsuario.getIdUsuario());
             Stage currentStage = (Stage) botonVolver.getScene().getWindow();
-            currentStage.close();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("ElectroStock - Punto de Venta");
         } catch (Exception e) {
             e.printStackTrace();
             mostrarAlerta("Error", "No se pudo regresar al punto de venta", Alert.AlertType.ERROR);

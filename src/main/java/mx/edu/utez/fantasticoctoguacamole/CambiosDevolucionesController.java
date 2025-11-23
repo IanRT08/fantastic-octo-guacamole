@@ -254,8 +254,17 @@ public class CambiosDevolucionesController implements Initializable {
 
     @FXML
     private void regresar() {
-        Stage currentStage = (Stage) botonRegresar.getScene().getWindow();
-        currentStage.close();
+        try {
+            //Cargar lugar de cerrar la ventana
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PuntoVenta.fxml"));
+            Parent root = loader.load();
+            Stage currentStage = (Stage) botonRegresar.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("ElectroStock - Panel Administrador");
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo regresar al menú", Alert.AlertType.ERROR);
+        }
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {

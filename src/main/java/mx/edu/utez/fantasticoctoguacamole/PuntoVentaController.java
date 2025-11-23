@@ -353,8 +353,17 @@ public class PuntoVentaController implements Initializable {
 
     @FXML
     void regresarMenu(ActionEvent event) {
-        Stage currentStage = (Stage) botonRegresar.getScene().getWindow();
-        currentStage.close();
+        try {
+            //Cargar el Dashboard en lugar de cerrar la ventana
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("UserDashboard.fxml"));
+            Parent root = loader.load();
+            Stage currentStage = (Stage) botonRegresar.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("ElectroStock - Panel Administrador");
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo regresar al menú", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
@@ -362,11 +371,9 @@ public class PuntoVentaController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("VerVenta.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("ElectroStock - Registro de ventas");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            Stage currentStage = (Stage) botonVer.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("ElectroStock - Registro de ventas");
         } catch (IOException e) {
             e.printStackTrace();
             mostrarAlerta("Error", "No se pudo abrir la ventana de registro de ventas", Alert.AlertType.ERROR);
@@ -378,11 +385,9 @@ public class PuntoVentaController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CambiosDevoluciones.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("ElectroStock - Cambios y devoluciones");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            Stage currentStage = (Stage) botonVer.getScene().getWindow();
+            currentStage.setScene(new Scene(root));
+            currentStage.setTitle("ElectroStock - Cambios y devoluciones");
         } catch (IOException e) {
             e.printStackTrace();
             mostrarAlerta("Error", "No se pudo abrir la ventana de cambios y devoluciones", Alert.AlertType.ERROR);
