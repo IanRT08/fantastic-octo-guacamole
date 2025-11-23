@@ -39,15 +39,16 @@ public class UserDashboardController {
 
     @FXML
     private void manejarClickGestionProductos(MouseEvent event) {
-        cargarPantalla("GestionProductos.fxml", "Gestión de Productos");
+        cargarPantalla("GestionProductos.fxml", "Gestión de Productos", (controller -> {}));
     }
 
     @FXML
     private void manejarClickPuntoVenta(MouseEvent event) {
-        System.out.println("Navegando a Punto de Venta...");
-        //Por ahora mostrar mensaje de que la funcionalidad está en desarrollo
-        mostrarMensajeDesarrollo("Punto de Venta");
-        //cargarPantalla("PuntoVenta.fxml", "Punto de Venta");
+        cargarPantalla("PuntoVenta.fxml", "Punto de Venta", (controller) -> {
+            if (controller instanceof PuntoVentaController) {
+                ((PuntoVentaController) controller).setIdUsuarioActual(SesionUsuario.getIdUsuario());
+            }
+        });
     }
 
     @FXML
@@ -78,25 +79,22 @@ public class UserDashboardController {
         }
     }
 
-    private void cargarPantalla(String fxmlFile, String titulo) {
+    private void cargarPantalla(String fxmlFile, String titulo, java.util.function.Consumer<Object> configuradorController) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
+            //Configurar el controlador si se proporciona un configurador
+            if (configuradorController != null) {
+                configuradorController.accept(loader.getController());
+            }
             Stage stage = new Stage();
             stage.setTitle("ElectroStock - " + titulo);
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             mostrarError("Error al cargar " + titulo + ": " + e.getMessage());
+            e.printStackTrace();
         }
-    }
-
-    private void mostrarMensajeDesarrollo(String funcionalidad) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("En Desarrollo");
-        alert.setHeaderText(funcionalidad);
-        alert.setContentText("Esta funcionalidad está actualmente en desarrollo.\n¡Próximamente disponible!");
-        alert.showAndWait();
     }
 
     private void mostrarError(String mensaje) {
