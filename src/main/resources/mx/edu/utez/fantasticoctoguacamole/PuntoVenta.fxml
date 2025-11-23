@@ -26,7 +26,10 @@
             <TableColumn fx:id="tablaAccion" prefWidth="162.0" text="Acción" />
         </columns>
       </TableView>
-      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="107.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="106.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/ventasIcon.png" />
+         </image></ImageView>
       <Label layoutX="981.0" layoutY="203.0" text="Carrito de compras" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="1.0" layoutX="983.0" layoutY="403.0" stroke="BLACK" strokeType="INSIDE" width="350.0" />
       <Label layoutX="989.0" layoutY="421.0" text="Total" />
