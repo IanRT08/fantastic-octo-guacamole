@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesVentaController">
+    <children>
+        <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Comprobante de Venta">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+                <GridPane hgap="10.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Folio:" />
+                        <Label text="Fecha:" GridPane.rowIndex="1" />
+                        <Label text="Total:" GridPane.columnIndex="2" />
+                        <Label text="Items:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="labelFolio" text="-" GridPane.columnIndex="1" />
+                        <Label fx:id="labelFecha" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelTotal" text="-" GridPane.columnIndex="3" />
+                        <Label fx:id="labelItems" text="-" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    </children>
+                </GridPane>
+                <Label style="-fx-font-weight: bold;" text="Detalles de la Venta:" />
+                <TableView fx:id="tablaDetalles" prefHeight="300.0">
+                    <columns>
+                        <TableColumn fx:id="columnaProducto" prefWidth="200.0" text="Producto" />
+                        <TableColumn fx:id="columnaCodigo" prefWidth="133.00001525878906" text="Código" />
+                        <TableColumn fx:id="columnaCantidad" prefWidth="146.99996948242188" text="Cantidad" />
+                        <TableColumn fx:id="columnaPrecio" prefWidth="131.20001220703125" text="Precio Unitario" />
+                        <TableColumn fx:id="columnaSubtotal" prefWidth="148.20001220703125" text="Subtotal" />
+                    </columns>
+                </TableView>
+                <Button mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

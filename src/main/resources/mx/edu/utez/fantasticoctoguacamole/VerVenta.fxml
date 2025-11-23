@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerVentaController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="700.0" layoutX="70.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="1300.0" />
+      <Circle fill="DODGERBLUE" layoutX="123.0" layoutY="94.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="111.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/registrovIcon.png" />
+         </image></ImageView>
+      <Label layoutX="157.0" layoutY="70.0" text="Registros de venta" />
+      <Label layoutX="157.0" layoutY="89.0" text="Ver historial de ventas" />
+      <Button fx:id="botonVolver" layoutX="1220.0" layoutY="69.0" mnemonicParsing="false" onAction="#volverAVentas" text="Volver a ventas" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="100.0" layoutX="99.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" width="1243.0" />
+      <TableView fx:id="tablaVentas" layoutX="99.0" layoutY="317.0" prefHeight="400.0" prefWidth="1243.0">
+        <columns>
+          <TableColumn fx:id="tablaFolio" prefWidth="248.0" text="Folio de venta" />
+          <TableColumn fx:id="tablaFecha" prefWidth="248.0" text="Fecha" />
+            <TableColumn fx:id="tablaItems" prefWidth="248.0" text="Items" />
+            <TableColumn fx:id="tablaTotal" prefWidth="248.0" text="Total" />
+            <TableColumn fx:id="tablaDetalles" prefWidth="250.0" text="Ver detalles" />
+        </columns>
+      </TableView>
+      <TextField fx:id="buscador" layoutX="99.0" layoutY="266.0" prefHeight="31.0" prefWidth="1243.0" promptText="Buscar por fecha o total" />
+      <Label layoutX="100.0" layoutY="243.0" text="Buscar venta" />
+      <Label layoutX="118.0" layoutY="156.0" text="Total de ventas:" />
+      <Label fx:id="totalVentas" layoutX="118.0" layoutY="190.0" text="\$0.00" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="48.0" layoutX="1257.0" layoutY="166.0" stroke="BLACK" strokeType="INSIDE" width="48.0" />
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="1265.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/tiempoIcon.png" />
+         </image></ImageView>
+   </children>
+</AnchorPane>

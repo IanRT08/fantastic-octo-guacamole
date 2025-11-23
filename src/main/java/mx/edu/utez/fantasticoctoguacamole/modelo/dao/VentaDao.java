@@ -169,26 +169,25 @@ public class VentaDao {
     }
 
     //Obtener venta por ID
-    public Venta obtenerVentaPorId(int idVenta) {
-        String query = "SELECT IdVenta, Fecha, Total, IdUsuario FROM Ventas WHERE IdVenta = ?";
+    public List<Venta> obtenerVentasPorUsuario(int idUsuario) {
+        String query = "SELECT IdVenta, Fecha, Total, IdUsuario FROM Ventas WHERE IdUsuario = ? ORDER BY Fecha DESC";
+        List<Venta> ventas = new ArrayList<>();
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, idVenta);
+            pstmt.setInt(1, idUsuario);
             ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 Venta venta = new Venta();
                 venta.setIdVenta(rs.getInt("IdVenta"));
                 venta.setFecha(rs.getDate("Fecha"));
-                venta.setTotal(rs.getFloat("Total"));
+                venta.setTotal(rs.getDouble("Total"));
                 venta.setIdUsuario(rs.getInt("IdUsuario"));
-                //Cargar detalles de la venta
-                venta.setDetalles(obtenerDetallesVenta(idVenta));
-                return venta;
+                ventas.add(venta);
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener venta por ID: " + e.getMessage());
+            System.err.println("Error al obtener ventas por usuario: " + e.getMessage());
         }
-        return null;
+        return ventas;
     }
 
     //Obtener ventas por rango de fechas

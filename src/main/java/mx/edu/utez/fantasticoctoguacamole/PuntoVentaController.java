@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import mx.edu.utez.fantasticoctoguacamole.modelo.dao.ProductoDao;
@@ -358,7 +359,18 @@ public class PuntoVentaController implements Initializable {
 
     @FXML
     private void verRegistrosVenta(ActionEvent event) {
-        mostrarAlerta("Información", "Funcionalidad en desarrollo", Alert.AlertType.INFORMATION);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("VerVenta.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("ElectroStock - Registro de ventas");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo abrir la ventana de registro de ventas", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
