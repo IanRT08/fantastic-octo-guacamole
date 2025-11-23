@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.CambiosDevolucionesController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="700.0" layoutX="70.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="1300.0" />
+      <Circle fill="DODGERBLUE" layoutX="124.0" layoutY="94.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="112.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="159.0" layoutY="72.0" text="Cambios y devoluciones" />
+      <Label layoutX="159.0" layoutY="96.0" text="Gestiona cambios y devoluciones de productos" />
+      <TextField fx:id="buscador" layoutX="100.0" layoutY="148.0" prefHeight="31.0" prefWidth="1241.0" promptText="Buscar por fecha o monto" />
+      <Label layoutX="100.0" layoutY="126.0" text="Buscar ventas" />
+      <Button fx:id="botonRegresar" layoutX="1262.0" layoutY="67.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <TableView fx:id="tablaVenta" layoutX="100.0" layoutY="199.0" prefHeight="509.0" prefWidth="1241.0">
+        <columns>
+          <TableColumn fx:id="tablaFolio" prefWidth="248.0" text="Folio de venta" />
+          <TableColumn fx:id="tablaFecha" prefWidth="248.0" text="Fecha" />
+            <TableColumn fx:id="tablaItems" prefWidth="248.0" text="Items" />
+            <TableColumn fx:id="tablaTotal" prefWidth="248.0" text="Total" />
+            <TableColumn fx:id="tablaAccion" prefWidth="248.0" text="Acción" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

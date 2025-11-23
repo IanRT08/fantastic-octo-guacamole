@@ -375,7 +375,18 @@ public class PuntoVentaController implements Initializable {
 
     @FXML
     private void cambiosDevoluciones(ActionEvent event) {
-        mostrarAlerta("Información", "Funcionalidad en desarrollo", Alert.AlertType.INFORMATION);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CambiosDevoluciones.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("ElectroStock - Cambios y devoluciones");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo abrir la ventana de cambios y devoluciones", Alert.AlertType.ERROR);
+        }
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
