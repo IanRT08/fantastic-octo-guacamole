@@ -168,7 +168,7 @@ public class VentaDao {
         return detalles;
     }
 
-    //Obtener venta por ID
+    //Obtener venta por Usuario
     public List<Venta> obtenerVentasPorUsuario(int idUsuario) {
         String query = "SELECT IdVenta, Fecha, Total, IdUsuario FROM Ventas WHERE IdUsuario = ? ORDER BY Fecha DESC";
         List<Venta> ventas = new ArrayList<>();
@@ -190,93 +190,102 @@ public class VentaDao {
         return ventas;
     }
 
-    //Obtener ventas por rango de fechas
-    public List<Venta> obtenerVentasPorFecha(Date fechaInicio, Date fechaFin) {
-        String query = "SELECT IdVenta, Fecha, Total, IdUsuario FROM Ventas " +
-                "WHERE Fecha BETWEEN ? AND ? " +
-                "ORDER BY Fecha DESC";
+    public List<Venta> obtenerTodasLasVentas() {
+        String query = "SELECT IdVenta, Fecha, Total, IdUsuario FROM Ventas ORDER BY Fecha DESC";
         List<Venta> ventas = new ArrayList<>();
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setDate(1, new java.sql.Date(fechaInicio.getTime()));
-            pstmt.setDate(2, new java.sql.Date(fechaFin.getTime()));
-            ResultSet rs = pstmt.executeQuery();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 Venta venta = new Venta();
                 venta.setIdVenta(rs.getInt("IdVenta"));
                 venta.setFecha(rs.getDate("Fecha"));
-                venta.setTotal(rs.getFloat("Total"));
+                venta.setTotal(rs.getDouble("Total"));
                 venta.setIdUsuario(rs.getInt("IdUsuario"));
                 ventas.add(venta);
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener ventas por fecha: " + e.getMessage());
+            System.err.println("Error al obtener todas las ventas: " + e.getMessage());
         }
         return ventas;
     }
 
-    //Obtener total de ventas por dia
-    public double obtenerTotalVentasDelDia(Date fecha) {
-        String query = "SELECT NVL(SUM(Total), 0) AS TotalDia FROM Ventas WHERE TRUNC(Fecha) = TRUNC(?)";
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setDate(1, new java.sql.Date(fecha.getTime()));
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return rs.getDouble("TotalDia");
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener total de ventas del día: " + e.getMessage());
-        }
-        return 0.0;
-    }
-
-    //Obtener productos más vendidos
-    public List<Object[]> obtenerProductosMasVendidos(int limite) {
-        String query = "SELECT p.NombreProducto, p.Codigo, SUM(dv.Cantidad) as TotalVendido " +
-                "FROM DetalleVentas dv " +
-                "JOIN Productos p ON dv.IdProducto = p.IdProducto " +
-                "GROUP BY p.NombreProducto, p.Codigo " +
-                "ORDER BY TotalVendido DESC " +
-                "FETCH FIRST ? ROWS ONLY";
-        List<Object[]> resultados = new ArrayList<>();
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, limite);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Object[] fila = new Object[3];
-                fila[0] = rs.getString("NombreProducto");
-                fila[1] = rs.getString("Codigo");
-                fila[2] = rs.getInt("TotalVendido");
-                resultados.add(fila);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener productos más vendidos: " + e.getMessage());
-        }
-        return resultados;
-    }
-
-    //Verificar si existe una venta
-    public boolean existeVenta(int idVenta) {
-        String query = "SELECT COUNT(*) FROM Ventas WHERE IdVenta = ?";
+    //Obtener una venta especifica por su ID
+    public Venta obtenerVentaPorId(int idVenta) {
+        String query = "SELECT IdVenta, Fecha, Total, IdUsuario FROM Ventas WHERE IdVenta = ?";
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, idVenta);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0;
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("IdVenta"));
+                venta.setFecha(rs.getDate("Fecha"));
+                venta.setTotal(rs.getDouble("Total"));
+                venta.setIdUsuario(rs.getInt("IdUsuario"));
+                venta.setDetalles(obtenerDetallesVenta(idVenta));
+                return venta;
             }
         } catch (SQLException e) {
-            System.err.println("Error al verificar venta: " + e.getMessage());
+            System.err.println("Error al obtener venta por ID: " + e.getMessage());
         }
-        return false;
+        return null;
     }
 
+    //Obtener detalle de venta por ID
+    public DetalleVenta obtenerDetalleVentaPorId(int idDetalle) {
+        String query = "SELECT dv.IdDetalle, dv.IdVenta, dv.IdProducto, dv.Cantidad, dv.PrecioUnitario, dv.Subtotal, " +
+                "p.NombreProducto, p.Codigo " +
+                "FROM DetalleVentas dv " +
+                "LEFT JOIN Productos p ON dv.IdProducto = p.IdProducto " +
+                "WHERE dv.IdDetalle = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, idDetalle);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                DetalleVenta detalle = new DetalleVenta();
+                detalle.setIdDetalle(rs.getInt("IdDetalle"));
+                detalle.setIdVenta(rs.getInt("IdVenta"));
+                detalle.setIdProducto(rs.getInt("IdProducto"));
+                detalle.setCantidad(rs.getInt("Cantidad"));
+                detalle.setPrecioUnitario(rs.getDouble("PrecioUnitario"));
+                detalle.setSubtotal(rs.getDouble("Subtotal"));
+                //Crear producto basico para mostrar información
+                Producto producto = new Producto();
+                producto.setNombre(rs.getString("NombreProducto"));
+                producto.setCodigo(rs.getString("Codigo"));
+                detalle.setProducto(producto);
+                return detalle;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener detalle de venta por ID: " + e.getMessage());
+        }
+        return null;
+    }
 
-
-
-
-
+    //Obtener venta desde un detalle
+    public Venta obtenerVentaDesdeDetalle(int idDetalle) {
+        String query = "SELECT v.IdVenta, v.Fecha, v.Total, v.IdUsuario " +
+                "FROM Ventas v " +
+                "JOIN DetalleVentas dv ON v.IdVenta = dv.IdVenta " +
+                "WHERE dv.IdDetalle = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, idDetalle);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Venta venta = new Venta();
+                venta.setIdVenta(rs.getInt("IdVenta"));
+                venta.setFecha(rs.getDate("Fecha"));
+                venta.setTotal(rs.getDouble("Total"));
+                venta.setIdUsuario(rs.getInt("IdUsuario"));
+                return venta;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener venta desde detalle: " + e.getMessage());
+        }
+        return null;
+    }
 
 }

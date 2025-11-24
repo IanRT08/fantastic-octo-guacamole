@@ -44,10 +44,7 @@ public class AdminDashboardController {
 
     @FXML
     private void manejarClickHistorialTransacciones(MouseEvent event) {
-        System.out.println("Navegando a Historial de Transacciones...");
-        //Mostrar mensaje de que la funcionalidad está en desarrollo
-        mostrarMensajeDesarrollo("Historial de Transacciones");
-        //cargarPantalla("HistorialTransacciones.fxml", "Historial de Transacciones");
+        cargarPantalla("HistorialTransacciones.fxml", "Historial de Transacciones");
     }
 
     @FXML
@@ -94,14 +91,6 @@ public class AdminDashboardController {
         } catch (IOException e) {
             mostrarError("Error al cargar " + titulo + ": " + e.getMessage());
         }
-    }
-
-    private void mostrarMensajeDesarrollo(String funcionalidad) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("En Desarrollo");
-        alert.setHeaderText(funcionalidad);
-        alert.setContentText("Esta funcionalidad está actualmente en desarrollo.\n¡Próximamente disponible!");
-        alert.showAndWait();
     }
 
     private void mostrarError(String mensaje) {

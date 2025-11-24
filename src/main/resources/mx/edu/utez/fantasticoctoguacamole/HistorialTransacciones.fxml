@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.HistorialTransaccionesController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="700.0" layoutX="70.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="1300.0" />
+      <Circle fill="DODGERBLUE" layoutX="124.0" layoutY="94.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button fx:id="botonRegresar" layoutX="1262.0" layoutY="70.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="111.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/ventasIcon.png" />
+         </image></ImageView>
+      <Label layoutX="154.0" layoutY="70.0" text="Historial de transacciones" />
+      <Label layoutX="154.0" layoutY="91.0" text="Consulta todas las transacciones, cambios y devoluciones del sistema" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="130.0" layoutX="100.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="130.0" layoutX="330.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="130.0" layoutX="560.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <TextField fx:id="buscador" layoutX="99.0" layoutY="295.0" prefHeight="31.0" prefWidth="1241.0" promptText="Buscar por cajero o fecha" />
+      <Label layoutX="101.0" layoutY="272.0" text="Buscar transacción" />
+      <ChoiceBox fx:id="filtros" layoutX="97.0" layoutY="355.0" prefWidth="150.0" />
+      <TableView fx:id="tablaTransacciones" layoutX="100.0" layoutY="400.0" prefHeight="310.0" prefWidth="1241.0">
+        <columns>
+          <TableColumn fx:id="tablaCajero" prefWidth="310.0" text="Cajero" />
+          <TableColumn fx:id="tablaTipo" prefWidth="310.0" text="Tipo de transacción" />
+            <TableColumn fx:id="tablaFecha" prefWidth="310.0" text="Fecha" />
+            <TableColumn fx:id="tablaVer" prefWidth="310.0" text="Ver más" />
+        </columns>
+      </TableView>
+      <Label layoutX="111.0" layoutY="149.0" text="Total de ventas (mes)" />
+      <Label layoutX="338.0" layoutY="149.0" text="Total de devoluciones (mes)" />
+      <Label layoutX="567.0" layoutY="149.0" text="Total de cambios (mes)" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="130.0" layoutX="780.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Label layoutX="786.0" layoutY="149.0" text="Total de transacciones (mes)" />
+      <Label layoutX="99.0" layoutY="333.0" text="Filtrar por tipo de transacción" />
+      <Label fx:id="totalVentas" layoutX="180.0" layoutY="193.0" text="\$0.00" />
+      <Label fx:id="totalDevoluciones" layoutX="412.0" layoutY="193.0" text="..." />
+      <Label fx:id="totalCambios" layoutX="642.0" layoutY="193.0" text="..." />
+      <Label fx:id="totalTransacciones" layoutX="862.0" layoutY="193.0" text="..." />
+   </children>
+</AnchorPane>

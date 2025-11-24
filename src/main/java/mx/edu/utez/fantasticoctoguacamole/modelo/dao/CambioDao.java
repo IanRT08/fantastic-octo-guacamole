@@ -31,12 +31,10 @@ public class CambioDao {
         PreparedStatement pstmtCambio = null;
         PreparedStatement pstmtStockOrigen = null;
         PreparedStatement pstmtStockNuevo = null;
-
         try {
             conn = getConnection();
             conn.setAutoCommit(false);
-
-            // 1. Insertar cambio
+            //1. Insertar cambio
             String sqlCambio = "INSERT INTO Cambios (IdCambio, IdDetalleVentaOrigen, IdProductoNuevo, FechaCambio, " +
                     "CantidadCambiada, PrecioUnitarioOrigen, PrecioUnitarioNuevo, DiferenciaPago, Motivo) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -95,20 +93,14 @@ public class CambioDao {
         }
     }
 
-    public List<Cambio> obtenerCambiosPorVenta(int idVenta) {
-        String query = "SELECT c.*, dv.IdProducto as IdProductoOrigen, p_origen.NombreProducto as NombreProductoOrigen, " +
-                "p_nuevo.NombreProducto as NombreProductoNuevo, p_nuevo.Codigo as CodigoNuevo " +
-                "FROM Cambios c " +
+    public List<Cambio> obtenerTodosLosCambios() {
+        String query = "SELECT c.*, dv.IdVenta FROM Cambios c " +
                 "JOIN DetalleVentas dv ON c.IdDetalleVentaOrigen = dv.IdDetalle " +
-                "JOIN Productos p_origen ON dv.IdProducto = p_origen.IdProducto " +
-                "JOIN Productos p_nuevo ON c.IdProductoNuevo = p_nuevo.IdProducto " +
-                "WHERE dv.IdVenta = ? " +
                 "ORDER BY c.FechaCambio DESC";
         List<Cambio> cambios = new ArrayList<>();
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setInt(1, idVenta);
-            ResultSet rs = pstmt.executeQuery();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 Cambio cambio = new Cambio();
                 cambio.setIdCambio(rs.getInt("IdCambio"));
@@ -120,23 +112,37 @@ public class CambioDao {
                 cambio.setPrecioUnitarioNuevo(rs.getDouble("PrecioUnitarioNuevo"));
                 cambio.setDiferenciaPago(rs.getDouble("DiferenciaPago"));
                 cambio.setMotivo(rs.getString("Motivo"));
-                //Producto origen
-                DetalleVenta detalleOrigen = new DetalleVenta();
-                detalleOrigen.setIdProducto(rs.getInt("IdProductoOrigen"));
-                Producto productoOrigen = new Producto();
-                productoOrigen.setNombre(rs.getString("NombreProductoOrigen"));
-                detalleOrigen.setProducto(productoOrigen);
-                cambio.setDetalleVentaOrigen(detalleOrigen);
-                //Producto nuevo
-                Producto productoNuevo = new Producto();
-                productoNuevo.setNombre(rs.getString("NombreProductoNuevo"));
-                productoNuevo.setCodigo(rs.getString("CodigoNuevo"));
-                cambio.setProductoNuevo(productoNuevo);
                 cambios.add(cambio);
             }
         } catch (SQLException e) {
-            System.err.println("Error al obtener cambios por venta: " + e.getMessage());
+            System.err.println("Error al obtener todos los cambios: " + e.getMessage());
         }
         return cambios;
     }
+
+    public Cambio obtenerCambioPorId(int idCambio) {
+        String query = "SELECT * FROM Cambios WHERE IdCambio = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, idCambio);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Cambio cambio = new Cambio();
+                cambio.setIdCambio(rs.getInt("IdCambio"));
+                cambio.setIdDetalleVentaOrigen(rs.getInt("IdDetalleVentaOrigen"));
+                cambio.setIdProductoNuevo(rs.getInt("IdProductoNuevo"));
+                cambio.setFechaCambio(rs.getDate("FechaCambio"));
+                cambio.setCantidadCambiada(rs.getInt("CantidadCambiada"));
+                cambio.setPrecioUnitarioOrigen(rs.getDouble("PrecioUnitarioOrigen"));
+                cambio.setPrecioUnitarioNuevo(rs.getDouble("PrecioUnitarioNuevo"));
+                cambio.setDiferenciaPago(rs.getDouble("DiferenciaPago"));
+                cambio.setMotivo(rs.getString("Motivo"));
+                return cambio;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener cambio por ID: " + e.getMessage());
+        }
+        return null;
+    }
+
 }

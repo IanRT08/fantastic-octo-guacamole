@@ -144,4 +144,50 @@ public class DevolucionDao {
         }
         return 0;
     }
+
+    public List<Devolucion> obtenerTodasLasDevoluciones() {
+        String query = "SELECT d.*, dv.IdVenta FROM Devoluciones d " +
+                "JOIN DetalleVentas dv ON d.IdDetalleVenta = dv.IdDetalle " +
+                "ORDER BY d.FechaDevolucion DESC";
+        List<Devolucion> devoluciones = new ArrayList<>();
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                Devolucion devolucion = new Devolucion();
+                devolucion.setIdDevolucion(rs.getInt("IdDevolucion"));
+                devolucion.setIdDetalleVenta(rs.getInt("IdDetalleVenta"));
+                devolucion.setFechaDevolucion(rs.getDate("FechaDevolucion"));
+                devolucion.setCantidadDevuelta(rs.getInt("CantidadDevuelta"));
+                devolucion.setMontoReembolsado(rs.getDouble("MontoReembolsado"));
+                devolucion.setMotivo(rs.getString("Motivo"));
+                devoluciones.add(devolucion);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener todas las devoluciones: " + e.getMessage());
+        }
+        return devoluciones;
+    }
+
+    public Devolucion obtenerDevolucionPorId(int idDevolucion) {
+        String query = "SELECT * FROM Devoluciones WHERE IdDevolucion = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, idDevolucion);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Devolucion devolucion = new Devolucion();
+                devolucion.setIdDevolucion(rs.getInt("IdDevolucion"));
+                devolucion.setIdDetalleVenta(rs.getInt("IdDetalleVenta"));
+                devolucion.setFechaDevolucion(rs.getDate("FechaDevolucion"));
+                devolucion.setCantidadDevuelta(rs.getInt("CantidadDevuelta"));
+                devolucion.setMontoReembolsado(rs.getDouble("MontoReembolsado"));
+                devolucion.setMotivo(rs.getString("Motivo"));
+                return devolucion;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener devolución por ID: " + e.getMessage());
+        }
+        return null;
+    }
 }
