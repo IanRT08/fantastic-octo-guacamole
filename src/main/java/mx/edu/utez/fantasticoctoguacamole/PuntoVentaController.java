@@ -322,6 +322,7 @@ public class PuntoVentaController implements Initializable {
             Venta venta = new Venta();
             venta.setFecha(new Date());
             venta.setIdUsuario(idUsuarioActual);
+            System.out.println(idUsuarioActual);
             //Calcular total y crear detalles
             double total = 0;
             List<DetalleVenta> detalles = new ArrayList<>();

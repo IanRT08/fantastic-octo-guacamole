@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import mx.edu.utez.fantasticoctoguacamole.modelo.Venta;
@@ -235,16 +236,16 @@ public class CambiosDevolucionesController implements Initializable {
 
     private void abrirCambio(Venta venta) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ProcesarDevolucion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SeleccionarProductosCambio.fxml"));
             Parent root = loader.load();
-            ProcesarDevolucionController controller = loader.getController();
+            SeleccionarProductosCambioController controller = loader.getController();
             controller.setVenta(venta);
-            controller.setTipoProceso("CAMBIO");
             Stage stage = new Stage();
-            stage.setTitle("ElectroStock - Procesar Cambio - Venta #" + venta.getIdVenta());
+            stage.setTitle("ElectroStock - Seleccionar Productos a Cambiar - Venta #" + venta.getIdVenta());
             stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-            //Recargar ventas
+            //Recargar ventas después de procesar el cambio
             cargarVentas();
         } catch (IOException e) {
             e.printStackTrace();

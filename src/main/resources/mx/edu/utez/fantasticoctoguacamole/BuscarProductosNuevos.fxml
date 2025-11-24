@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.BuscarProductosNuevosController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label text="Buscar Productos de Reemplazo" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                <Label fx:id="labelProductosSeleccionados" text="Productos a cambiar: " wrapText="true" />
+                <TextField fx:id="buscador" prefHeight="31.0" prefWidth="860.0" promptText="Buscar por nombre, código o precio..." />
+                <Label text="Productos disponibles:" style="-fx-font-weight: bold;" />
+                <TableView fx:id="tablaProductos" prefHeight="350.0">
+                    <columns>
+                        <TableColumn fx:id="columnaCodigo" prefWidth="120.0" text="Código" />
+                        <TableColumn fx:id="columnaNombre" prefWidth="200.0" text="Nombre" />
+                        <TableColumn fx:id="columnaPrecio" prefWidth="100.0" text="Precio" />
+                        <TableColumn fx:id="columnaStock" prefWidth="100.0" text="Stock" />
+                        <TableColumn fx:id="columnaSeleccionar" prefWidth="120.0" text="Acción" />
+                    </columns>
+                </TableView>
+                <HBox spacing="10.0">
+                    <children>
+                        <Button fx:id="btnContinuar" mnemonicParsing="false" onAction="#continuar" text="Continuar" />
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

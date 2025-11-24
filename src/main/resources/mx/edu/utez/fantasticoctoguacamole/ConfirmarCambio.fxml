@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.ConfirmarCambioController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label text="Confirmar Cambio" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                <GridPane hgap="10.0" vgap="10.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Folio Venta:" />
+                        <Label text="Fecha Venta:" GridPane.rowIndex="1" />
+                        <Label text="Total a Cambiar:" GridPane.rowIndex="2" />
+                        <Label fx:id="labelFolio" text="-" GridPane.columnIndex="1" />
+                        <Label fx:id="labelFecha" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="labelTotalOrigen" text="-" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Total Nuevo:" GridPane.columnIndex="2" />
+                        <Label text="Diferencia:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="labelTotalNuevo" text="-" GridPane.columnIndex="3" />
+                        <Label fx:id="labelDiferencia" text="-" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    </children>
+                </GridPane>
+                <Label text="Motivo del cambio:" style="-fx-font-weight: bold;" />
+                <TextArea fx:id="textAreaMotivo" prefHeight="100.0" promptText="Ingrese el motivo del cambio..." />
+                <HBox spacing="10.0">
+                    <children>
+                        <Button fx:id="btnConfirmar" mnemonicParsing="false" onAction="#confirmar" text="Confirmar Cambio" />
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
