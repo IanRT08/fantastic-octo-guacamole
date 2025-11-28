@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="99d62ca3-93fc-441b-9f82-8701865cc151" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/AdminDashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/AdminDashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/CambioDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/CambioDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/DevolucionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/DevolucionDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/VentaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/VentaDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionUsuariosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionUsuariosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/RegistrarUsuariosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/RegistrarUsuariosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/RegistrarUsuario.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/RegistrarUsuario.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +59,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -85,7 +84,13 @@
       <workItem from="1763850421636" duration="97000" />
       <workItem from="1763850905423" duration="112000" />
       <workItem from="1763851306627" duration="12870000" />
-      <workItem from="1763925257406" duration="24259000" />
+      <workItem from="1763925257406" duration="24545000" />
+      <workItem from="1764002121042" duration="1007000" />
+      <workItem from="1764004028396" duration="412000" />
+      <workItem from="1764016139970" duration="7000" />
+      <workItem from="1764098828074" duration="1002000" />
+      <workItem from="1764344236704" duration="977000" />
+      <workItem from="1764369921422" duration="2672000" />
     </task>
     <servers />
   </component>

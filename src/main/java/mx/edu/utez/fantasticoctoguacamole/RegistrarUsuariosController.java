@@ -160,7 +160,7 @@ public class RegistrarUsuariosController {
             mostrarAlerta("Error!", "El apellido paterno solo debe contener letras", Alert.AlertType.ERROR);
             return;
         }
-        if (!aMaterno.getText().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$")) {
+        if (!aMaterno.getText().isEmpty() && !aMaterno.getText().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$")) {
             mostrarAlerta("Error!", "El apellido materno solo debe contener letras", Alert.AlertType.ERROR);
             return;
         }

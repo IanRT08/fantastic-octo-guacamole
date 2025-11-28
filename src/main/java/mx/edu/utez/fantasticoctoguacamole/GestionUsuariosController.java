@@ -230,9 +230,18 @@ public class GestionUsuariosController implements Initializable {
                     {
                         botonesContainer.getChildren().addAll(btnEditar, btnCambiar, btnVer);
                         //Agregar eventos a los botones
-                        btnEditar.setOnAction(event -> abrirEditarUsuario());
-                        btnVer.setOnAction(event -> abrirVerUsuario());
-                        btnCambiar.setOnAction(event -> cambiarEstadoUsuario());
+                        btnEditar.setOnAction(event -> {
+                            Usuario usuarioActual = getTableView().getItems().get(getIndex());
+                            abrirEditarUsuario(usuarioActual);
+                        });
+                        btnVer.setOnAction(event -> {
+                            Usuario usuarioActual = getTableView().getItems().get(getIndex());
+                            abrirVerUsuario(usuarioActual);
+                        });
+                        btnCambiar.setOnAction(event -> {
+                            Usuario usuarioActual = getTableView().getItems().get(getIndex());
+                            cambiarEstadoUsuario(usuarioActual);
+                        });
                     }
                     @Override
                     protected void updateItem(String item, boolean empty) {
@@ -244,18 +253,23 @@ public class GestionUsuariosController implements Initializable {
                             //Verificar si es el usuario en sesion
                             boolean esUsuarioEnSesion = usuarioEnSesion != null &&
                                     usuarioActual.getIdUsuario() == usuarioEnSesion.getIdUsuario();
-                            //Deshabilitar botones de edicion y cambio de estado para el usuario en sesion
-                            btnEditar.setDisable(esUsuarioEnSesion);
+                            //Configurar el botón de edición según si es el usuario en sesión
+                            if (esUsuarioEnSesion) {
+                                btnEditar.setText("Editar tu perfil");
+                                btnEditar.setTooltip(new Tooltip("Editar tu propio perfil"));
+                            } else {
+                                btnEditar.setText("✏");
+                                btnEditar.setTooltip(new Tooltip("Editar usuario"));
+                            }
+                            //Deshabilitar botón de cambio de estado para el usuario en sesion
                             btnCambiar.setDisable(esUsuarioEnSesion);
                             if (esUsuarioEnSesion) {
-                                btnEditar.setTooltip(new Tooltip("No puedes editarte a ti mismo"));
                                 btnCambiar.setTooltip(new Tooltip("No puedes cambiar tu propio estado"));
                             } else {
-                                btnEditar.setStyle("");
-                                btnCambiar.setStyle("");
-                                btnEditar.setTooltip(null);
-                                btnCambiar.setTooltip(null);
+                                btnCambiar.setTooltip(new Tooltip("Cambiar estado del usuario"));
                             }
+                            //Configurar tooltip para el botón de ver
+                            btnVer.setTooltip(new Tooltip("Ver detalles del usuario"));
                             setGraphic(botonesContainer);
                         }
                     }
@@ -264,9 +278,8 @@ public class GestionUsuariosController implements Initializable {
         });
     }
 
-    private void abrirVerUsuario(){
+    private void abrirVerUsuario(Usuario usuarioSeleccionado){
         try {
-            Usuario usuarioSeleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
             if (usuarioSeleccionado != null) {
                 //Obtener el usuario COMPLETO desde la BD usando el ID
                 UsuarioDao dao = new UsuarioDao();
@@ -274,10 +287,8 @@ public class GestionUsuariosController implements Initializable {
                 if (usuarioCompleto != null) {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("VerUsuarios.fxml"));
                     Parent root = loader.load();
-
                     VerUsuariosController controller = loader.getController();
-                    controller.setUsuario(usuarioCompleto); // Pasar el usuario completo
-
+                    controller.setUsuario(usuarioCompleto); //Pasar el usuario completo
                     Stage stage = new Stage();
                     stage.setTitle("ElectroStock - Detalles de Usuario");
                     stage.setScene(new Scene(root));
@@ -294,17 +305,9 @@ public class GestionUsuariosController implements Initializable {
         }
     }
 
-    @FXML
-    private void abrirEditarUsuario(){
+    private void abrirEditarUsuario(Usuario usuarioSeleccionado){
         try {
-            Usuario usuarioSeleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
             if (usuarioSeleccionado != null) {
-                //Validar que no sea el usuario en sesion
-                if (usuarioEnSesion != null && usuarioSeleccionado.getIdUsuario() == usuarioEnSesion.getIdUsuario()) {
-                    mostrarAlerta("Acción no permitida", "No puedes editarte a ti mismo", Alert.AlertType.WARNING);
-                    return;
-                }
-                //Obtener el usuario COMPLETO desde la BD
                 UsuarioDao dao = new UsuarioDao();
                 Usuario usuarioCompleto = dao.obtenerUsuarioPorId(usuarioSeleccionado.getIdUsuario());
                 if (usuarioCompleto != null) {
@@ -332,10 +335,7 @@ public class GestionUsuariosController implements Initializable {
         }
     }
 
-
-    @FXML
-    private void cambiarEstadoUsuario(){
-        Usuario usuarioSeleccionado = tablaUsuario.getSelectionModel().getSelectedItem();
+    private void cambiarEstadoUsuario(Usuario usuarioSeleccionado){
         if (usuarioSeleccionado != null) {
             //Validar que no sea el usuario en sesion
             if (usuarioEnSesion != null && usuarioSeleccionado.getIdUsuario() == usuarioEnSesion.getIdUsuario()) {
@@ -425,5 +425,4 @@ public class GestionUsuariosController implements Initializable {
         Stage currentStage = (Stage) volverMenu.getScene().getWindow();
         currentStage.close();
     }
-
 }

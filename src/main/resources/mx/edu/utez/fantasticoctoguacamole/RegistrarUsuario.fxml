@@ -21,7 +21,7 @@
       <TextField fx:id="aPaterno" layoutX="510.0" layoutY="279.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa apellido paterno" />
       <Label layoutX="510.0" layoutY="258.0" text="Apellido Paterno *" />
       <TextField fx:id="aMaterno" layoutX="510.0" layoutY="341.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa apellido paterno" />
-      <Label layoutX="510.0" layoutY="320.0" text="Apellido Materno *" />
+      <Label layoutX="510.0" layoutY="320.0" text="Apellido Materno" />
       <Label layoutX="510.0" layoutY="382.0" text="Correo electrónico *" />
       <TextField fx:id="correo" layoutX="510.0" layoutY="403.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa apellido paterno" />
       <Label layoutX="510.0" layoutY="444.0" text="Contraseña *" />
