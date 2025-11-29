@@ -265,7 +265,8 @@ public class HistorialTransaccionesController implements Initializable {
         System.out.println("Transacciones cargadas: " + listaTransacciones.size() +
                 " (Ventas: " + ventas.size() +
                 ", Cambios: " + cambios.size() +
-                ", Devoluciones: " + devoluciones.size() + ")");
+                ", Devoluciones: " + devoluciones.size() +
+                ", Canceladas:" + ventasCanceladas.size() + ")");
     }
 
     private void configurarBusqueda() {

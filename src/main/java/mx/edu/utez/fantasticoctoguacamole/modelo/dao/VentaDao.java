@@ -113,27 +113,6 @@ public class VentaDao {
         }
     }
 
-    //Obtener todas las ventas
-    public List<Venta> obtenerVentas() {
-        String query = "SELECT IdVenta, Fecha, Total, IdUsuario FROM Ventas ORDER BY Fecha DESC";
-        List<Venta> ventas = new ArrayList<>();
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query);
-             ResultSet rs = pstmt.executeQuery()) {
-            while (rs.next()) {
-                Venta venta = new Venta();
-                venta.setIdVenta(rs.getInt("IdVenta"));
-                venta.setFecha(rs.getDate("Fecha"));
-                venta.setTotal(rs.getFloat("Total"));
-                venta.setIdUsuario(rs.getInt("IdUsuario"));
-                ventas.add(venta);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener ventas: " + e.getMessage());
-        }
-        return ventas;
-    }
-
     //Obtener detalles de una venta especifica
     public List<DetalleVenta> obtenerDetallesVenta(int idVenta) {
         String query = "SELECT dv.IdDetalle, dv.IdVenta, dv.IdProducto, dv.Cantidad, dv.PrecioUnitario, dv.Subtotal, " +
@@ -284,6 +263,36 @@ public class VentaDao {
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener venta desde detalle: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public Date obtenerFechaVentaMasAntigua(int idUsuario) {
+        String sql = "SELECT MIN(Fecha) as FechaMinima FROM Ventas WHERE IdUsuario = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idUsuario);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getDate("FechaMinima");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Date obtenerFechaVentaMasReciente(int idUsuario) {
+        String sql = "SELECT MAX(Fecha) as FechaMaxima FROM Ventas WHERE IdUsuario = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, idUsuario);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getDate("FechaMaxima");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }

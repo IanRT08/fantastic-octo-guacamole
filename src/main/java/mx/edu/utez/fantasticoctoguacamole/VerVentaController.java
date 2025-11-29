@@ -23,6 +23,8 @@ import mx.edu.utez.fantasticoctoguacamole.modelo.dao.VentaDao;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -48,18 +50,154 @@ public class VerVentaController implements Initializable {
     private Label totalVentas;
     @FXML
     private Button botonVolver;
+    @FXML
+    private DatePicker datePickerDesde;
+    @FXML
+    private DatePicker datePickerHasta;
+    @FXML
+    private Button btnAplicarFiltro;
+    @FXML
+    private Button btnLimpiarFiltro;
 
     private ObservableList<Venta> listaVentas;
     private FilteredList<Venta> datosFiltrados;
     private SortedList<Venta> datosOrdenados;
     private VentaDao ventaDao;
+    private LocalDate fechaMinima;
+    private LocalDate fechaMaxima;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ventaDao = new VentaDao();
+        configurarFiltrosFecha();
         configurarColumnas();
         cargarVentas();
         configurarBusqueda();
+        actualizarTotalVentas();
+    }
+
+    private void configurarFiltrosFecha() {
+        //Obtener fechas mínima y máxima de las ventas del usuario
+        int idUsuario = SesionUsuario.getIdUsuario();
+        Date fechaMasAntigua = ventaDao.obtenerFechaVentaMasAntigua(idUsuario);
+        Date fechaMasReciente = ventaDao.obtenerFechaVentaMasReciente(idUsuario);
+        //Convertir a LocalDate de manera segura
+        if (fechaMasAntigua != null) {
+            fechaMinima = convertToLocalDate(fechaMasAntigua);
+        } else {
+            fechaMinima = LocalDate.now(); // Si no hay ventas, usar fecha actual
+        }
+        if (fechaMasReciente != null) {
+            fechaMaxima = convertToLocalDate(fechaMasReciente);
+        } else {
+            fechaMaxima = LocalDate.now();
+        }
+        //Configurar DatePickers con restricciones
+        datePickerDesde.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(fechaMinima) < 0 || date.compareTo(fechaMaxima) > 0);
+            }
+        });
+        datePickerHasta.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.compareTo(fechaMinima) < 0 || date.compareTo(fechaMaxima) > 0);
+            }
+        });
+        //Establecer tooltips informativos
+        String rangoFechas = String.format("Rango disponible: %s - %s",
+                formatLocalDate(fechaMinima),
+                formatLocalDate(fechaMaxima));
+        datePickerDesde.setTooltip(new Tooltip(rangoFechas));
+        datePickerHasta.setTooltip(new Tooltip(rangoFechas));
+    }
+
+    private LocalDate convertToLocalDate(Date dateToConvert) {
+        if (dateToConvert instanceof java.sql.Date) {
+            // Para java.sql.Date, convertir a java.util.Date primero
+            return new java.util.Date(dateToConvert.getTime())
+                    .toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+        } else {
+            return dateToConvert.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
+        }
+    }
+
+    private String formatLocalDate(LocalDate date) {
+        return date.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+
+    @FXML
+    private void aplicarFiltroFechas() {
+        LocalDate fechaDesde = datePickerDesde.getValue();
+        LocalDate fechaHasta = datePickerHasta.getValue();
+        //Validaciones
+        if (fechaDesde == null && fechaHasta == null) {
+            mostrarAlerta("Advertencia", "Seleccione al menos una fecha para filtrar", Alert.AlertType.WARNING);
+            return;
+        }
+        if (fechaDesde != null && fechaHasta != null && fechaDesde.isAfter(fechaHasta)) {
+            mostrarAlerta("Error", "La fecha 'Desde' no puede ser posterior a la fecha 'Hasta'", Alert.AlertType.ERROR);
+            return;
+        }
+        if (fechaDesde != null && fechaDesde.isBefore(fechaMinima)) {
+            mostrarAlerta("Error",
+                    String.format("La fecha 'Desde' no puede ser anterior a %s", formatLocalDate(fechaMinima)),
+                    Alert.AlertType.ERROR);
+            return;
+        }
+        if (fechaHasta != null && fechaHasta.isAfter(fechaMaxima)) {
+            mostrarAlerta("Error",
+                    String.format("La fecha 'Hasta' no puede ser posterior a %s", formatLocalDate(fechaMaxima)),
+                    Alert.AlertType.ERROR);
+            return;
+        }
+        //Aplicar filtro
+        aplicarFiltroCombinado();
+    }
+
+    @FXML
+    private void limpiarFiltroFechas() {
+        datePickerDesde.setValue(null);
+        datePickerHasta.setValue(null);
+        aplicarFiltroCombinado();
+    }
+
+    private void aplicarFiltroCombinado() {
+        datosFiltrados.setPredicate(venta -> {
+            //Filtro por fechas
+            LocalDate fechaDesde = datePickerDesde.getValue();
+            LocalDate fechaHasta = datePickerHasta.getValue();
+            LocalDate fechaVenta = convertToLocalDate(venta.getFecha());
+            boolean coincideFecha = true;
+            if (fechaDesde != null && fechaHasta != null) {
+                //Rango completo
+                coincideFecha = (fechaVenta.isEqual(fechaDesde) || fechaVenta.isAfter(fechaDesde)) &&
+                        (fechaVenta.isEqual(fechaHasta) || fechaVenta.isBefore(fechaHasta));
+            } else if (fechaDesde != null) {
+                //Solo fecha desde
+                coincideFecha = fechaVenta.isEqual(fechaDesde) || fechaVenta.isAfter(fechaDesde);
+            } else if (fechaHasta != null) {
+                //Solo fecha hasta
+                coincideFecha = fechaVenta.isEqual(fechaHasta) || fechaVenta.isBefore(fechaHasta);
+            }
+            //Filtro por busqueda de texto
+            boolean coincideBusqueda = true;
+            String textoBusqueda = buscador.getText();
+            if (textoBusqueda != null && !textoBusqueda.isEmpty()) {
+                textoBusqueda = textoBusqueda.toLowerCase();
+                coincideBusqueda = String.valueOf(venta.getIdVenta()).contains(textoBusqueda) ||
+                        new SimpleDateFormat("dd/MM/yyyy").format(venta.getFecha()).toLowerCase().contains(textoBusqueda) ||
+                        String.format("%.2f", venta.getTotal()).contains(textoBusqueda);
+            }
+            return coincideFecha && coincideBusqueda;
+        });
         actualizarTotalVentas();
     }
 
@@ -130,7 +268,7 @@ public class VerVentaController implements Initializable {
                 return new TableCell<Venta, String>() {
                     private final HBox botonesContainer = new HBox(5);
                     private final Button btnVerDetalles = new Button("Ver más");
-                    private final Button btnCancelar = new Button("x");
+                    private final Button btnCancelar = new Button("Cancelar venta");
                     {
                         botonesContainer.getChildren().addAll(btnVerDetalles, btnCancelar);
                         btnVerDetalles.setOnAction(event -> {
@@ -149,7 +287,7 @@ public class VerVentaController implements Initializable {
                             setGraphic(null);
                         } else {
                             Venta venta = getTableView().getItems().get(getIndex());
-                            // Verificar si la venta ya fue cancelada
+                            //Verificar si la venta ya fue cancelada
                             VentaCanceladaDao ventaCanceladaDao = new VentaCanceladaDao();
                             boolean yaCancelada = ventaCanceladaDao.obtenerVentaCanceladaPorIdOriginal(venta.getIdVenta()) != null;
                             btnCancelar.setDisable(yaCancelada);
@@ -168,7 +306,7 @@ public class VerVentaController implements Initializable {
 
     private void cancelarVenta(Venta venta) {
         if (venta == null) return;
-        //Ingresar motivo
+        //Diálogo para ingresar motivo
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Cancelar Venta");
         dialog.setHeaderText("Cancelar Venta #" + venta.getIdVenta());
@@ -176,7 +314,7 @@ public class VerVentaController implements Initializable {
         Optional<String> resultado = dialog.showAndWait();
         if (resultado.isPresent() && !resultado.get().trim().isEmpty()) {
             String motivo = resultado.get().trim();
-            // Confirmación
+            //Confirmación
             Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
             confirmacion.setTitle("Confirmar Cancelación");
             confirmacion.setHeaderText("¿Cancelar venta #" + venta.getIdVenta() + "?");
@@ -186,7 +324,6 @@ public class VerVentaController implements Initializable {
             if (resultadoConfirmacion.isPresent() && resultadoConfirmacion.get() == ButtonType.OK) {
                 VentaCanceladaDao ventaCanceladaDao = new VentaCanceladaDao();
                 int idUsuarioActual = SesionUsuario.getIdUsuario();
-
                 if (ventaCanceladaDao.cancelarVenta(venta.getIdVenta(), motivo, idUsuarioActual)) {
                     mostrarAlerta("Éxito", "Venta cancelada correctamente. Stock restaurado.", Alert.AlertType.INFORMATION);
                     cargarVentas(); // Recargar datos
@@ -216,27 +353,7 @@ public class VerVentaController implements Initializable {
 
     private void configurarBusqueda() {
         buscador.textProperty().addListener((observable, oldValue, nuevoTexto) -> {
-            datosFiltrados.setPredicate(venta -> {
-                if (nuevoTexto == null || nuevoTexto.isEmpty()) {
-                    return true;
-                }
-                String textoBusqueda = nuevoTexto.toLowerCase();
-                //Buscar por folio
-                if (String.valueOf(venta.getIdVenta()).contains(textoBusqueda)) {
-                    return true;
-                }
-                //Buscar por fecha
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                if (dateFormat.format(venta.getFecha()).toLowerCase().contains(textoBusqueda)) {
-                    return true;
-                }
-                //Buscar por total
-                if (String.format("%.2f", venta.getTotal()).contains(textoBusqueda)) {
-                    return true;
-                }
-                return false;
-            });
-            actualizarTotalVentas();
+            aplicarFiltroCombinado();
         });
     }
 

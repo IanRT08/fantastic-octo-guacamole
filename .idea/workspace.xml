@@ -8,7 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/HistorialTransaccionesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/HistorialTransaccionesController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/VerVentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/VerVentaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/DetalleVenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/DetalleVenta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/VentaDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/VentaDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/VerVenta.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/VerVenta.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,7 +93,7 @@
       <workItem from="1764344236704" duration="977000" />
       <workItem from="1764369921422" duration="9291000" />
       <workItem from="1764383027207" duration="171000" />
-      <workItem from="1764383203853" duration="3105000" />
+      <workItem from="1764383203853" duration="4434000" />
     </task>
     <servers />
   </component>
