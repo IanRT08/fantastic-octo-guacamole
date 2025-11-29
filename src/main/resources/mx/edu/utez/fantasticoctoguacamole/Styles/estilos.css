@@ -1,0 +1,118 @@
+/* 1. Configuración Global y Fuente */
+.root {
+    -fx-font-family: 'Inter', 'Segoe UI', sans-serif;
+    /* Fondo general de la ventana (un color suave para que resalte la tarjeta) */
+    -fx-background-color: #F3F4F6;
+}
+
+/* 2. Tarjeta Blanca*/
+/* Añade styleClass="card-background" a tu Rectángulo en el FXML */
+.card-background {
+    -fx-fill: white;
+    -fx-arc-width: 20;
+    -fx-arc-height: 20;
+    /* Sombra suave para dar profundidad (elevation) */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 20, 0, 0, 0);
+    -fx-stroke: transparent;
+}
+
+/* 3. Títulos y Etiquetas */
+.label {
+    -fx-text-fill: #2D3748; /* Gris oscuro elegante */
+    -fx-font-size: 14px;
+}
+
+/* Título "Inicio de sesión"*/
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A202C;
+}
+
+/* Subtítulo */
+.subtitle-label {
+    -fx-text-fill: #718096;
+    -fx-font-size: 13px;
+}
+
+/* 4. Campos de Texto (TextField y PasswordField) */
+.text-field, .password-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0; /* Borde gris muy suave */
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px;
+    -fx-prompt-text-fill: #A0AEC0;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #667EEA;
+    -fx-effect: dropshadow(three-pass-box, rgba(102, 126, 234, 0.3), 8, 0, 0, 0);
+}
+
+/* 5. CheckBox */
+.check-box {
+    -fx-text-fill: #4A5568;
+    -fx-font-size: 13px;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #CBD5E0;
+    -fx-border-radius: 3px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #667EEA;
+    -fx-border-color: #667EEA;
+}
+
+/* 6. Botón Principal*/
+.button {
+    -fx-background-color: linear-gradient(to right, #667EEA, #764BA2);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(118, 75, 162, 0.3), 10, 0, 0, 4);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #5a6fd6, #674191);
+    -fx-effect: dropshadow(three-pass-box, rgba(118, 75, 162, 0.5), 12, 0, 0, 5);
+}
+
+.button:pressed {
+    -fx-background-color: #764BA2;
+    -fx-translate-y: 1; /* Pequeño efecto de hundimiento */
+}
+
+/* 7. Label "¿Olvidaste tu contraseña?" como Link */
+#olvide {
+    -fx-text-fill: #667EEA;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+#olvide:hover {
+    -fx-text-fill: #764BA2;
+    -fx-underline: true;
+}
+
+/* 8. Círculos Decorativos*/
+.circle-bg-big {
+    -fx-fill: linear-gradient(to bottom, #667EEA, #764BA2);
+    -fx-opacity: 0.8;
+}
+
+.circle-icon-bg {
+    -fx-fill: #667EEA;
+    -fx-stroke: transparent;
+}

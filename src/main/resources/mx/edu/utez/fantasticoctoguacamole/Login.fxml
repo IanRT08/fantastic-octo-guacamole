@@ -5,23 +5,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="779.0" prefWidth="1440.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.LoginController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="520.0" layoutX="495.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" width="450.0" />
-      <Circle fill="#1100ff" layoutX="720.0" layoutY="184.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="679.0" layoutY="240.0" text="Inicio de sesión" />
-      <Label layoutX="623.0" layoutY="277.0" text="Ingresa tus credenciales para acceder" />
+      <Circle fill="DODGERBLUE" layoutX="160.0" layoutY="674.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="401.0" layoutY="531.0" radius="150.0" stroke="#ffffff00" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="520.0" layoutX="495.0" layoutY="130.0" stroke="BLACK" strokeType="INSIDE" styleClass="card-background" width="450.0" />
+      <Circle fill="#1100ff" layoutX="720.0" layoutY="184.0" radius="24.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-icon-bg" />
+      <Label layoutX="634.0" layoutY="225.0" styleClass="title-label" text="Inicio de sesión" />
+      <Label layoutX="604.0" layoutY="272.0" styleClass="subtitle-label" text="Ingresa tus credenciales para acceder" />
       <Label layoutX="545.0" layoutY="337.0" text="Correo electrónico *" />
-      <TextField fx:id="correo" layoutX="545.0" layoutY="357.0" prefHeight="31.0" prefWidth="352.0" />
+      <TextField fx:id="correo" layoutX="545.0" layoutY="357.0" prefHeight="31.0" prefWidth="352.0" styleClass="text-field" />
       <Label layoutX="544.0" layoutY="428.0" text="Contraseña *" />
-      <PasswordField fx:id="contrasenia" layoutX="545.0" layoutY="449.0" prefHeight="31.0" prefWidth="352.0" />
-      <CheckBox fx:id="recordarme" layoutX="551.0" layoutY="520.0" mnemonicParsing="false" text="Recordarme" />
+      <PasswordField fx:id="contrasenia" layoutX="545.0" layoutY="449.0" prefHeight="31.0" prefWidth="352.0" styleClass="password-field" />
+      <CheckBox fx:id="recordarme" layoutX="551.0" layoutY="520.0" mnemonicParsing="false" styleClass="check-box" text="Recordarme" />
       <Label fx:id="olvide" layoutX="761.0" layoutY="520.0" text="¿Olvidaste tu contraseña?" />
-      <Button fx:id="iniciar" layoutX="546.0" layoutY="589.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="31.0" prefWidth="352.0" text="Iniciar sesión" />
+      <Button fx:id="iniciar" layoutX="546.0" layoutY="589.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="31.0" prefWidth="352.0" styleClass="button" text="Iniciar sesión" />
       <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="704.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/userIcon.png" />
          </image></ImageView>
       <ProgressIndicator fx:id="spinner" layoutX="696.0" layoutY="364.0" visible="false" />
+      <Circle fill="DODGERBLUE" layoutX="1346.0" layoutY="116.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="1146.0" layoutY="130.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
    </children>
 </AnchorPane>
