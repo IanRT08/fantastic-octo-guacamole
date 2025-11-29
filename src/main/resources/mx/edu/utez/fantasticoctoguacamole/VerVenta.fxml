@@ -23,7 +23,7 @@
           <TableColumn fx:id="tablaFecha" prefWidth="248.0" text="Fecha" />
             <TableColumn fx:id="tablaItems" prefWidth="248.0" text="Items" />
             <TableColumn fx:id="tablaTotal" prefWidth="248.0" text="Total" />
-            <TableColumn fx:id="tablaDetalles" prefWidth="250.0" text="Ver detalles" />
+            <TableColumn fx:id="tablaDetalles" prefWidth="250.0" text="Acciones" />
         </columns>
       </TableView>
       <TextField fx:id="buscador" layoutX="99.0" layoutY="266.0" prefHeight="31.0" prefWidth="1243.0" promptText="Buscar por fecha o total" />

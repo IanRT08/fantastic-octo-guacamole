@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="99d62ca3-93fc-441b-9f82-8701865cc151" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionProductosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionProductosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/ProductoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/dao/ProductoDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/GestionProductos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/GestionProductos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/HistorialTransaccionesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/HistorialTransaccionesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/VerVentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/VerVentaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/DetalleVenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/modelo/DetalleVenta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/VerVenta.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/VerVenta.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,6 +92,8 @@
       <workItem from="1764098828074" duration="1002000" />
       <workItem from="1764344236704" duration="977000" />
       <workItem from="1764369921422" duration="9291000" />
+      <workItem from="1764383027207" duration="171000" />
+      <workItem from="1764383203853" duration="3105000" />
     </task>
     <servers />
   </component>

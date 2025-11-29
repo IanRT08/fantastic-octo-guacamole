@@ -20,13 +20,8 @@ import mx.edu.utez.fantasticoctoguacamole.modelo.dao.*;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static mx.edu.utez.fantasticoctoguacamole.utils.OracleDatabaseConnectionManager.getConnection;
 
 public class HistorialTransaccionesController implements Initializable {
 
@@ -61,6 +56,7 @@ public class HistorialTransaccionesController implements Initializable {
     private DevolucionDao devolucionDao;
     private CambioDao cambioDao;
     private UsuarioDao usuarioDao;
+    private VentaCanceladaDao ventaCanceladaDao;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -68,6 +64,7 @@ public class HistorialTransaccionesController implements Initializable {
         devolucionDao = new DevolucionDao();
         cambioDao = new CambioDao();
         usuarioDao = new UsuarioDao();
+        ventaCanceladaDao = new VentaCanceladaDao();
         configurarFiltros();
         configurarColumnas();
         cargarTransacciones();
@@ -77,7 +74,7 @@ public class HistorialTransaccionesController implements Initializable {
 
     private void configurarFiltros() {
         filtros.setItems(FXCollections.observableArrayList(
-                "Todas", "Ventas", "Devoluciones", "Cambios"
+                "Todas", "Ventas", "Devoluciones", "Cambios", "Canceladas"
         ));
         filtros.getSelectionModel().selectFirst();
         filtros.getSelectionModel().selectedItemProperty().addListener(
@@ -113,6 +110,9 @@ public class HistorialTransaccionesController implements Initializable {
                                     break;
                                 case "DEVOLUCION":
                                     tipoLabel.setStyle("-fx-background-color: #F44336; -fx-padding: 5px 10px; -fx-background-radius: 10px; -fx-text-fill: white; -fx-font-weight: bold;");
+                                    break;
+                                case "CANCELADA":
+                                    tipoLabel.setStyle("-fx-background-color: #FF9800; -fx-padding: 5px 10px; -fx-background-radius: 10px; -fx-text-fill: white; -fx-font-weight: bold;");
                                     break;
                                 default:
                                     tipoLabel.setStyle("-fx-background-color: #2196F3; -fx-padding: 5px 10px; -fx-background-radius: 10px; -fx-text-fill: white; -fx-font-weight: bold;");
@@ -168,7 +168,7 @@ public class HistorialTransaccionesController implements Initializable {
 
     private void cargarTransacciones() {
         listaTransacciones = FXCollections.observableArrayList();
-        //Cargar ventas
+        //Cargar ventas activas
         List<Venta> ventas = ventaDao.obtenerTodasLasVentas();
         for (Venta venta : ventas) {
             Transaccion transaccion = new Transaccion();
@@ -242,6 +242,19 @@ public class HistorialTransaccionesController implements Initializable {
             }
             listaTransacciones.add(transaccion);
         }
+        List<VentaCancelada> ventasCanceladas = ventaCanceladaDao.obtenerTodasLasVentasCanceladas();
+        for (VentaCancelada ventaCancelada : ventasCanceladas) {
+            Transaccion transaccion = new Transaccion();
+            transaccion.setTipo("CANCELADA");
+            transaccion.setFecha(ventaCancelada.getFechaCancelacion());
+            transaccion.setIdTransaccion(ventaCancelada.getIdVentaCancelada());
+            transaccion.setMonto(ventaCancelada.getTotalVenta());
+            transaccion.setIdUsuario(ventaCancelada.getIdUsuarioCancelacion());
+            transaccion.setNombreCajero(ventaCancelada.getNombreUsuarioCancelacion() != null ?
+                    ventaCancelada.getNombreUsuarioCancelacion() : "N/A");
+            transaccion.setObjetoTransaccion(ventaCancelada);
+            listaTransacciones.add(transaccion);
+        }
         //Ordenar por fecha
         listaTransacciones.sort((t1, t2) -> t2.getFecha().compareTo(t1.getFecha()));
         datosFiltrados = new FilteredList<>(listaTransacciones, p -> true);
@@ -265,13 +278,14 @@ public class HistorialTransaccionesController implements Initializable {
         datosFiltrados.setPredicate(transaccion -> {
             String filtroTipo = filtros.getValue();
             String textoBusqueda = buscador.getText();
-            // Filtrar por tipo
+            //Filtrar por tipo
             if (filtroTipo != null && !filtroTipo.equals("Todas")) {
                 String tipoEsperado = "";
                 switch (filtroTipo) {
                     case "Ventas": tipoEsperado = "VENTA"; break;
                     case "Devoluciones": tipoEsperado = "DEVOLUCION"; break;
                     case "Cambios": tipoEsperado = "CAMBIO"; break;
+                    case "Canceladas": tipoEsperado = "CANCELADA"; break;
                 }
                 if (!transaccion.getTipo().equals(tipoEsperado)) {
                     return false;
@@ -334,41 +348,52 @@ public class HistorialTransaccionesController implements Initializable {
         try {
             String fxmlFile = "";
             String titulo = "";
-            switch (transaccion.getTipo()) {
-                case "VENTA":
-                    fxmlFile = "VerDetallesVenta.fxml";
-                    titulo = "Comprobante de Venta";
-                    break;
-                case "CAMBIO":
-                    fxmlFile = "VerDetallesCambio.fxml";
-                    titulo = "Detalles de Cambio";
-                    break;
-                case "DEVOLUCION":
-                    fxmlFile = "VerDetallesDevolucion.fxml";
-                    titulo = "Detalles de Devolución";
-                    break;
+            if ("CANCELADA".equals(transaccion.getTipo())) {
+                fxmlFile = "VerDetallesCancelacion.fxml";
+                titulo = "Detalles de Venta Cancelada #" + transaccion.getIdTransaccion();
+            } else {
+                switch (transaccion.getTipo()) {
+                    case "VENTA":
+                        fxmlFile = "VerDetallesVenta.fxml";
+                        titulo = "Comprobante de Venta #" + transaccion.getIdTransaccion();
+                        break;
+                    case "CAMBIO":
+                        fxmlFile = "VerDetallesCambio.fxml";
+                        titulo = "Detalles de Cambio #" + transaccion.getIdTransaccion();
+                        break;
+                    case "DEVOLUCION":
+                        fxmlFile = "VerDetallesDevolucion.fxml";
+                        titulo = "Detalles de Devolución #" + transaccion.getIdTransaccion();
+                        break;
+                }
             }
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
-            //Configurar el controlador por tipo
-            switch (transaccion.getTipo()) {
-                case "VENTA":
-                    VerDetallesVentaController ventaController = loader.getController();
-                    Venta venta = (Venta) transaccion.getObjetoTransaccion();
-                    //Cargar detalles completos de la venta
-                    Venta ventaCompleta = ventaDao.obtenerVentaPorId(venta.getIdVenta());
-                    ventaController.setVenta(ventaCompleta);
-                    break;
-                case "CAMBIO":
-                    VerDetallesCambioController cambioController = loader.getController();
-                    Cambio cambio = (Cambio) transaccion.getObjetoTransaccion();
-                    cambioController.setCambio(cambio);
-                    break;
-                case "DEVOLUCION":
-                    VerDetallesDevolucionController devolucionController = loader.getController();
-                    Devolucion devolucion = (Devolucion) transaccion.getObjetoTransaccion();
-                    devolucionController.setDevolucion(devolucion);
-                    break;
+            if ("CANCELADA".equals(transaccion.getTipo())) {
+                VerDetallesCancelacionController cancelacionController = loader.getController();
+                VentaCancelada ventaCancelada = (VentaCancelada) transaccion.getObjetoTransaccion();
+                cancelacionController.setVentaCancelada(ventaCancelada);
+            } else {
+                // Configurar según el tipo de transacción
+                switch (transaccion.getTipo()) {
+                    case "VENTA":
+                        VerDetallesVentaController ventaController = loader.getController();
+                        Venta venta = (Venta) transaccion.getObjetoTransaccion();
+                        // Cargar detalles completos de la venta
+                        Venta ventaCompleta = ventaDao.obtenerVentaPorId(venta.getIdVenta());
+                        ventaController.setVenta(ventaCompleta);
+                        break;
+                    case "CAMBIO":
+                        VerDetallesCambioController cambioController = loader.getController();
+                        Cambio cambio = (Cambio) transaccion.getObjetoTransaccion();
+                        cambioController.setCambio(cambio);
+                        break;
+                    case "DEVOLUCION":
+                        VerDetallesDevolucionController devolucionController = loader.getController();
+                        Devolucion devolucion = (Devolucion) transaccion.getObjetoTransaccion();
+                        devolucionController.setDevolucion(devolucion);
+                        break;
+                }
             }
             Stage stage = new Stage();
             stage.setTitle("ElectroStock - " + titulo);

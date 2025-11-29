@@ -8,6 +8,7 @@ public class DetalleVenta {
     private double precioUnitario;
     private double subtotal;
     private Producto producto;
+    private String nombreProducto; //Propiedad temporal para mostrar en la tabla
 
     public DetalleVenta() {}
 
@@ -84,4 +85,13 @@ public class DetalleVenta {
     public void setProducto(Producto producto) {
         this.producto = producto;
     }
+
+    //Propiedad temporal
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
 }

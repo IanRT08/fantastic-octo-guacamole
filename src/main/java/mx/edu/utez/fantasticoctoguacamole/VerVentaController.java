@@ -11,11 +11,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import mx.edu.utez.fantasticoctoguacamole.modelo.Venta;
 import mx.edu.utez.fantasticoctoguacamole.modelo.DetalleVenta;
 import mx.edu.utez.fantasticoctoguacamole.modelo.SesionUsuario;
+import mx.edu.utez.fantasticoctoguacamole.modelo.dao.VentaCanceladaDao;
 import mx.edu.utez.fantasticoctoguacamole.modelo.dao.VentaDao;
 
 import java.io.IOException;
@@ -23,6 +25,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class VerVentaController implements Initializable {
@@ -125,11 +128,18 @@ public class VerVentaController implements Initializable {
             @Override
             public TableCell<Venta, String> call(TableColumn<Venta, String> param) {
                 return new TableCell<Venta, String>() {
+                    private final HBox botonesContainer = new HBox(5);
                     private final Button btnVerDetalles = new Button("Ver más");
+                    private final Button btnCancelar = new Button("x");
                     {
+                        botonesContainer.getChildren().addAll(btnVerDetalles, btnCancelar);
                         btnVerDetalles.setOnAction(event -> {
                             Venta venta = getTableView().getItems().get(getIndex());
                             verDetallesVenta(venta);
+                        });
+                        btnCancelar.setOnAction(event -> {
+                            Venta venta = getTableView().getItems().get(getIndex());
+                            cancelarVenta(venta);
                         });
                     }
                     @Override
@@ -138,12 +148,55 @@ public class VerVentaController implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            setGraphic(btnVerDetalles);
+                            Venta venta = getTableView().getItems().get(getIndex());
+                            // Verificar si la venta ya fue cancelada
+                            VentaCanceladaDao ventaCanceladaDao = new VentaCanceladaDao();
+                            boolean yaCancelada = ventaCanceladaDao.obtenerVentaCanceladaPorIdOriginal(venta.getIdVenta()) != null;
+                            btnCancelar.setDisable(yaCancelada);
+                            if (yaCancelada) {
+                                btnCancelar.setTooltip(new Tooltip("Venta ya cancelada"));
+                            } else {
+                                btnCancelar.setTooltip(new Tooltip("Cancelar venta"));
+                            }
+                            setGraphic(botonesContainer);
                         }
                     }
                 };
             }
         });
+    }
+
+    private void cancelarVenta(Venta venta) {
+        if (venta == null) return;
+        //Ingresar motivo
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Cancelar Venta");
+        dialog.setHeaderText("Cancelar Venta #" + venta.getIdVenta());
+        dialog.setContentText("Motivo de cancelación:");
+        Optional<String> resultado = dialog.showAndWait();
+        if (resultado.isPresent() && !resultado.get().trim().isEmpty()) {
+            String motivo = resultado.get().trim();
+            // Confirmación
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacion.setTitle("Confirmar Cancelación");
+            confirmacion.setHeaderText("¿Cancelar venta #" + venta.getIdVenta() + "?");
+            confirmacion.setContentText("Monto a reembolsar: $" + String.format("%.2f", venta.getTotal()) +
+                    "\nStock será restaurado.\nEsta acción no se puede deshacer.");
+            Optional<ButtonType> resultadoConfirmacion = confirmacion.showAndWait();
+            if (resultadoConfirmacion.isPresent() && resultadoConfirmacion.get() == ButtonType.OK) {
+                VentaCanceladaDao ventaCanceladaDao = new VentaCanceladaDao();
+                int idUsuarioActual = SesionUsuario.getIdUsuario();
+
+                if (ventaCanceladaDao.cancelarVenta(venta.getIdVenta(), motivo, idUsuarioActual)) {
+                    mostrarAlerta("Éxito", "Venta cancelada correctamente. Stock restaurado.", Alert.AlertType.INFORMATION);
+                    cargarVentas(); // Recargar datos
+                } else {
+                    mostrarAlerta("Error", "No se pudo cancelar la venta", Alert.AlertType.ERROR);
+                }
+            }
+        } else {
+            mostrarAlerta("Error", "Debe ingresar un motivo para cancelar la venta", Alert.AlertType.WARNING);
+        }
     }
 
     private void cargarVentas() {
