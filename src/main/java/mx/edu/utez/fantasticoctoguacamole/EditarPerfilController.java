@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class EditarUsuariosController implements Initializable {
+public class EditarPerfilController implements Initializable {
 
     @FXML
     private TextField nombre;
@@ -33,11 +33,7 @@ public class EditarUsuariosController implements Initializable {
     @FXML
     private DatePicker fechaNac;
     @FXML
-    private ChoiceBox<String> roles;
-    @FXML
     private Button editarBoton;
-    @FXML
-    private Button eliminarBoton;
     @FXML
     private Button regresarBoton;
     @FXML
@@ -56,11 +52,8 @@ public class EditarUsuariosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Inicializar ChoiceBox con roles
-        roles.getItems().addAll("Administrador", "Cajero");
         //Configurar botones
         editarBoton.setOnAction(event -> editarUsuario());
-        eliminarBoton.setOnAction(event -> borrarUsuario());
         regresarBoton.setOnAction(event -> regresarMenu());
         //Configurar funcionalidad de mostrar/ocultar contraseña
         configurarVisualizacionContrasenia();
@@ -185,10 +178,6 @@ public class EditarUsuariosController implements Initializable {
                 if (fechaNac != null && usuario.getFechaNacimiento() != null) {
                     fechaNac.setValue(usuario.getFechaNacimiento().toLocalDate());
                 }
-                //Cargar rol
-                if (roles != null) {
-                    roles.setValue(usuario.getRol() ? "Administrador" : "Cajero");
-                }
                 //Las contraseñas no se cargan por seguridad
                 contrasenia.clear();
                 confirmarContra.clear();
@@ -217,8 +206,7 @@ public class EditarUsuariosController implements Initializable {
         if (nombre.getText().isEmpty() ||
                 aPaterno.getText().isEmpty() ||
                 correo.getText().isEmpty() ||
-                fechaNac.getValue() == null ||
-                roles.getValue() == null) {
+                fechaNac.getValue() == null) {
             mostrarAlerta("Error!", "Todos los campos marcados con * son obligatorios", Alert.AlertType.ERROR);
             return;
         }
@@ -273,13 +261,10 @@ public class EditarUsuariosController implements Initializable {
             if (aMaterno != null && aMaterno.getText() != null) {
                 usuario.setApellidoMaterno(aMaterno.getText());
             } else {
-                usuario.setApellidoMaterno(null);
+                usuario.setApellidoMaterno("");
             }
             usuario.setCorreoElectronico(correo.getText());
             usuario.setFechaNacimiento(Date.valueOf(fechaNac.getValue()));
-            //Convertir rol a boolean
-            boolean rol = roles.getValue().equals("Administrador");
-            usuario.setRol(rol);
             //Actualizar contraseña solo si se proporcionó una nueva
             if (!contraseniaTexto.isEmpty()) {
                 usuario.setContrasenia(contraseniaTexto);
@@ -299,27 +284,6 @@ public class EditarUsuariosController implements Initializable {
         } catch (Exception e) {
             mostrarAlerta("Error", "Error al actualizar: " + e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();
-        }
-    }
-
-    private void borrarUsuario() {
-        if (confirmDelete()) {
-            try {
-                UsuarioDao dao = new UsuarioDao();
-                if (dao.deleteUsuario(usuario.getIdUsuario())) {
-                    mostrarAlerta("Éxito", "Usuario eliminado correctamente", Alert.AlertType.INFORMATION);
-                    if (onUsuarioActualizado != null) {
-                        onUsuarioActualizado.run();
-                    }
-                    Stage stage = (Stage) eliminarBoton.getScene().getWindow();
-                    stage.close();
-                } else {
-                    mostrarAlerta("Error", "No se pudo eliminar el usuario", Alert.AlertType.ERROR);
-                }
-            } catch (Exception e) {
-                mostrarAlerta("Error", "Error al eliminar: " + e.getMessage(), Alert.AlertType.ERROR);
-                e.printStackTrace();
-            }
         }
     }
 
