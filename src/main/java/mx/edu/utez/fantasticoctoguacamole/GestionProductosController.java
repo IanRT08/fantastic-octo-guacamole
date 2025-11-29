@@ -223,10 +223,19 @@ public class GestionProductosController implements Initializable {
                     private final Button btnVer = new Button("[👁]");
                     {
                         botonesContainer.getChildren().addAll(btnEditar, btnCambiar, btnVer);
-                        //Agregar eventos a los botones
-                        btnEditar.setOnAction(event -> abrirEditarProducto());
-                        btnVer.setOnAction(event -> abrirVerProducto());
-                        btnCambiar.setOnAction(event -> cambiarEstadoProducto());
+                        // Agregar eventos a los botones
+                        btnEditar.setOnAction(event -> {
+                            Producto productoActual = getTableView().getItems().get(getIndex());
+                            abrirEditarProducto(productoActual);
+                        });
+                        btnVer.setOnAction(event -> {
+                            Producto productoActual = getTableView().getItems().get(getIndex());
+                            abrirVerProducto(productoActual);
+                        });
+                        btnCambiar.setOnAction(event -> {
+                            Producto productoActual = getTableView().getItems().get(getIndex());
+                            cambiarEstadoProducto(productoActual);
+                        });
                     }
                     @Override
                     protected void updateItem(String item, boolean empty) {
@@ -242,9 +251,8 @@ public class GestionProductosController implements Initializable {
         });
     }
 
-    private void abrirVerProducto(){
+    private void abrirVerProducto(Producto productoSeleccionado){
         try {
-            Producto productoSeleccionado = tablaProducto.getSelectionModel().getSelectedItem();
             if (productoSeleccionado != null) {
                 //Obtener el producto COMPLETO desde la BD usando el ID
                 ProductoDao dao = new ProductoDao();
@@ -270,10 +278,8 @@ public class GestionProductosController implements Initializable {
         }
     }
 
-    @FXML
-    private void abrirEditarProducto(){
+    private void abrirEditarProducto(Producto productoSeleccionado){
         try {
-            Producto productoSeleccionado = tablaProducto.getSelectionModel().getSelectedItem();
             if (productoSeleccionado != null) {
                 //Obtener el producto COMPLETO desde la BD
                 ProductoDao dao = new ProductoDao();
@@ -303,9 +309,7 @@ public class GestionProductosController implements Initializable {
         }
     }
 
-    @FXML
-    private void cambiarEstadoProducto(){
-        Producto productoSeleccionado = tablaProducto.getSelectionModel().getSelectedItem();
+    private void cambiarEstadoProducto(Producto productoSeleccionado){
         if (productoSeleccionado != null) {
             try {
                 boolean nuevoEstado = !productoSeleccionado.getEstado();
