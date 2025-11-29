@@ -5,24 +5,28 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.UserDashboardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="779.0" prefWidth="1440.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.UserDashboardController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="600.0" layoutX="370.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" width="700.0" />
-        <Circle fill="DODGERBLUE" layoutX="720.0" layoutY="142.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-        <Label layoutX="678.0" layoutY="180.0" text="Menu de cajero" />
-        <Label layoutX="620.0" layoutY="214.0" text="Selecciona una opción para continuar" />
-        <Rectangle fx:id="tarjeta" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" layoutX="520.0" layoutY="300.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
-        <Rectangle fx:id="tarjeta2" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" layoutX="520.0" layoutY="480.0" stroke="BLACK" strokeType="INSIDE" width="400.0" />
+      <Circle fill="DODGERBLUE" layoutX="1302.0" layoutY="90.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="1019.0" layoutY="90.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="330.0" layoutY="681.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="111.0" layoutY="690.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="600.0" layoutX="370.0" layoutY="90.0" stroke="BLACK" strokeType="INSIDE" styleClass="card-background" width="700.0" />
+        <Circle fill="DODGERBLUE" layoutX="719.0" layoutY="143.0" radius="24.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-icon-bg" />
+        <Label layoutX="631.0" layoutY="177.0" styleClass="title-label" text="Menu de cajero" />
+        <Label layoutX="603.0" layoutY="216.0" styleClass="subtitle-label" text="Selecciona una opción para continuar" />
+        <Rectangle fx:id="tarjeta" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" layoutX="520.0" layoutY="300.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="clickable-card" width="400.0" />
+        <Rectangle fx:id="tarjeta2" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="150.0" layoutX="520.0" layoutY="480.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="clickable-card" width="400.0" />
         <Label fx:id="cerrarSesion" layoutX="684.0" layoutY="646.0" text="Cerrar sesión" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="546.0" layoutY="350.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="546.0" layoutY="530.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
-        <Label layoutX="618.0" layoutY="340.0" text="Gestión de productos" />
-        <Label layoutX="618.0" layoutY="520.0" text="Punto de venta" />
-        <Label layoutX="618.0" layoutY="365.0" text="Administra tu inventario, registra" />
-        <Label layoutX="618.0" layoutY="545.0" prefHeight="21.0" prefWidth="260.0" text="Procesa ventas, genera facturas y " />
-        <Label layoutX="618.0" layoutY="566.0" prefHeight="21.0" prefWidth="260.0" text="gestiona el registro de ventas" />
-        <Label layoutX="618.0" layoutY="385.0" text="nuevos productos y actualiza información" />
-        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="708.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="546.0" layoutY="350.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-icon-bg" width="50.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="546.0" layoutY="530.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-icon-bg" width="50.0" />
+        <Label layoutX="618.0" layoutY="338.0" styleClass="card-title" text="Gestión de productos" />
+        <Label layoutX="618.0" layoutY="520.0" styleClass="card-title" text="Punto de venta" />
+        <Label layoutX="618.0" layoutY="365.0" styleClass="card-description" text="Administra tu inventario, registra" />
+        <Label layoutX="618.0" layoutY="545.0" prefHeight="21.0" prefWidth="260.0" styleClass="card-description" text="Procesa ventas, genera facturas y " />
+        <Label layoutX="618.0" layoutY="566.0" prefHeight="21.0" prefWidth="260.0" styleClass="card-description" text="gestiona el registro de ventas" />
+        <Label layoutX="618.0" layoutY="385.0" styleClass="card-description" text="nuevos productos y actualiza información" />
+        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="707.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/cajeroIcon.png" />
             </image></ImageView>
@@ -34,6 +38,6 @@
             <image>
                 <Image url="@Images/ventasIcon.png" />
             </image></ImageView>
-      <Button fx:id="btnEditarPerfil" layoutX="680.0" layoutY="252.0" mnemonicParsing="false" onAction="#abrirEditarUsuario" text="Editar perfil" />
+      <Button fx:id="btnEditarPerfil" layoutX="671.0" layoutY="252.0" mnemonicParsing="false" onAction="#abrirEditarUsuario" text="Editar perfil" />
     </children>
 </AnchorPane>

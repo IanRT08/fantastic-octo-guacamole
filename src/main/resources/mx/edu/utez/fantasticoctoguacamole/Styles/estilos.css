@@ -94,14 +94,14 @@
 }
 
 /* 7. Label "¿Olvidaste tu contraseña?" como Link */
-#olvide {
+#olvide, #cerrarSesion {
     -fx-text-fill: #667EEA;
     -fx-font-weight: bold;
     -fx-cursor: hand;
     -fx-font-size: 12px;
 }
 
-#olvide:hover {
+#olvide, #cerrarSesion:hover {
     -fx-text-fill: #764BA2;
     -fx-underline: true;
 }
@@ -115,4 +115,41 @@
 .circle-icon-bg {
     -fx-fill: #667EEA;
     -fx-stroke: transparent;
+}
+
+.clickable-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: transparent;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 2);
+    -fx-cursor: hand;
+    -fx-padding: 10px;
+}
+
+.clickable-card:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #667EEA;
+    -fx-effect: dropshadow(three-pass-box, rgba(102, 126, 234, 0.2), 15, 0, 0, 4);
+    -fx-translate-y: -2;
+}
+
+.clickable-card:pressed {
+    -fx-background-color: #F8FAFC;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+    -fx-translate-y: 1;
+}
+
+/* Título de la tarjeta*/
+.card-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
+}
+
+/* Descripción de la tarjeta */
+.card-description {
+    -fx-font-size: 12px;
+    -fx-text-fill: #718096; /* Gris más claro */
 }
