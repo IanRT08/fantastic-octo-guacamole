@@ -1,5 +1,7 @@
 package mx.edu.utez.fantasticoctoguacamole;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import mx.edu.utez.fantasticoctoguacamole.modelo.ProductoMasVendido;
 import mx.edu.utez.fantasticoctoguacamole.modelo.dao.ProductoDao;
 import mx.edu.utez.fantasticoctoguacamole.modelo.Producto;
 
@@ -48,15 +51,18 @@ public class GestionProductosController implements Initializable {
     private TableColumn<Producto, String> tablaAcciones;
     @FXML
     private Button volverMenu;
+    @FXML
+    private Button botonNormal;
 
     private ObservableList<Producto> listaOriginal;
     private FilteredList<Producto> datosFiltrados;
     private SortedList<Producto> datosOrdenados;
+    private boolean mostrandoMasVendidos = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Configurar filtros (solo por estado como mencionaste)
-        filtros.setItems(FXCollections.observableArrayList("Todos", "Activo", "Inactivo"));
+        //Configurar filtros (agregar opción de Más Vendidos)
+        filtros.setItems(FXCollections.observableArrayList("Todos", "Activo", "Inactivo", "Más Vendidos"));
         filtros.getSelectionModel().selectFirst();
         //Configurar columnas
         configurarColumnas();
@@ -82,11 +88,22 @@ public class GestionProductosController implements Initializable {
     private void configurarFiltrosYBusqueda() {
         //Listener para el ChoiceBox
         filtros.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, nuevoFiltro) -> aplicarFiltros()
+                (observable, oldValue, nuevoFiltro) -> {
+                    if ("Más Vendidos".equals(nuevoFiltro)) {
+                        mostrarProductosMasVendidos();
+                        botonNormal.setVisible(true);
+                        filtros.setDisable(true);
+                    } else {
+                        mostrandoMasVendidos = false;
+                        aplicarFiltros();
+                    }
+                }
         );
         //Listener para el TextField
         buscador.textProperty().addListener((observable, oldValue, nuevoTexto) -> {
-            aplicarFiltros();
+            if (!mostrandoMasVendidos) {
+                aplicarFiltros();
+            }
         });
     }
 
@@ -117,6 +134,34 @@ public class GestionProductosController implements Initializable {
         });
     }
 
+    private void mostrarProductosMasVendidos() {
+        try {
+            mostrandoMasVendidos = true;
+            ProductoDao dao = new ProductoDao();
+            List<ProductoMasVendido> productosMasVendidos = dao.obtenerProductosMasVendidos(15);
+            //Crear una lista observable
+            ObservableList<Producto> listaMasVendidos = FXCollections.observableArrayList();
+            listaMasVendidos.addAll(productosMasVendidos);
+            //Actualizar la tabla
+            tablaProducto.setItems(listaMasVendidos);
+            //Deshabilitar búsqueda mientras se muestran más vendidos
+            buscador.setDisable(true);
+        } catch (Exception e) {
+            mostrarAlerta("Error", "No se pudieron cargar los productos más vendidos: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void volverAVistaNormal() {
+        mostrandoMasVendidos = false;
+        buscador.setDisable(false);
+        botonNormal.setVisible(false);
+        filtros.setDisable(false);
+        filtros.getSelectionModel().selectFirst();
+        cargarDatos();
+    }
+
     private void configurarColumnas() {
         tablaCodigo.setCellValueFactory(new PropertyValueFactory<>("codigo"));
         tablaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -127,6 +172,20 @@ public class GestionProductosController implements Initializable {
         configurarColumnaStock();
         configurarColumnaEstado();
         configurarColumnaAcciones();
+        TableColumn<Producto, String> columnaVendidos = new TableColumn<>("Vendidos");
+        columnaVendidos.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Producto, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Producto, String> param) {
+                Producto producto = param.getValue();
+                if (producto instanceof ProductoMasVendido) {
+                    int totalVendido = ((ProductoMasVendido) producto).getTotalVendido();
+                    return new SimpleStringProperty(String.valueOf(totalVendido));
+                }
+                return new SimpleStringProperty("-");
+            }
+        });
+        //Agregar la columna a la tabla
+        tablaProducto.getColumns().add(columnaVendidos);
     }
 
     private void configurarColumnaPrecio() {

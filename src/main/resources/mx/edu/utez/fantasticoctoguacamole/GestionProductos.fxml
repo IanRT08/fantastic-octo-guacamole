@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.GestionProductosController">
+<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.GestionProductosController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="650.0" layoutX="70.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="1300.0" />
         <Circle fill="DODGERBLUE" layoutX="134.0" layoutY="129.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
@@ -20,12 +19,12 @@
         <TableView fx:id="tablaProducto" layoutX="109.0" layoutY="317.0" prefHeight="358.0" prefWidth="1219.0">
             <columns>
                 <TableColumn fx:id="tablaCodigo" prefWidth="200.0" text="Codigo" />
-                <TableColumn fx:id="tablaNombre" prefWidth="200.0" text="Nombre" />
-                <TableColumn fx:id="tablaPrecio" prefWidth="175.0" text="Precio" />
-                <TableColumn fx:id="tablaStock" prefWidth="250.0" text="Stock" />
-                <TableColumn fx:id="tablaEstado" prefWidth="150.0" text="Estado" />
+                <TableColumn fx:id="tablaNombre" prefWidth="220.0" text="Nombre" />
+                <TableColumn fx:id="tablaPrecio" prefWidth="150.0" text="Precio" />
+                <TableColumn fx:id="tablaStock" prefWidth="150.0" text="Stock" />
+                <TableColumn fx:id="tablaEstado" prefWidth="220.0" text="Estado" />
                 <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
-                <TableColumn fx:id="tablaAcciones" prefWidth="250.0" text="Acciones" />
+                <TableColumn fx:id="tablaAcciones" prefWidth="205.0" text="Acciones" />
             </columns>
         </TableView>
         <Button fx:id="volverMenu" layoutX="21.0" layoutY="19.0" mnemonicParsing="false" onAction="#regresarMenu" text="Volver al menu principal" />
@@ -41,5 +40,6 @@
       <Label layoutX="719.0" layoutY="255.0" text="Stock medio" />
       <Circle fill="#4caf50" layoutX="903.0" layoutY="264.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="938.0" layoutY="255.0" text="Stock alto" />
+      <Button fx:id="botonNormal" layoutX="1205.0" layoutY="269.0" mnemonicParsing="false" onAction="#volverAVistaNormal" text="Volver a vista normal" visible="false" />
     </children>
 </AnchorPane>

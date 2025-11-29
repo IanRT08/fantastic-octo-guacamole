@@ -1,6 +1,7 @@
 package mx.edu.utez.fantasticoctoguacamole.modelo.dao;
 
 import mx.edu.utez.fantasticoctoguacamole.modelo.Producto;
+import mx.edu.utez.fantasticoctoguacamole.modelo.ProductoMasVendido;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -172,73 +173,33 @@ public class ProductoDao {
         return false;
     }
 
-    //Metodo adicional: actualizar stock
-    public boolean actualizarStock(int idProducto, int nuevoStock) {
-        String query = "UPDATE PRODUCTOS SET Stock = ? WHERE IdProducto = ?";
+    public List<ProductoMasVendido> obtenerProductosMasVendidos(int limite) {
+        List<ProductoMasVendido> productos = new ArrayList<>();
+        String query = "SELECT p.IdProducto, p.Codigo, p.NombreProducto, p.Precio, p.Stock, " +
+                "SUM(dv.Cantidad) as TotalVendido " +
+                "FROM Productos p " +
+                "INNER JOIN DetalleVentas dv ON p.IdProducto = dv.IdProducto " +
+                "GROUP BY p.IdProducto, p.Codigo, p.NombreProducto, p.Precio, p.Stock " +
+                "ORDER BY TotalVendido DESC " +
+                "FETCH FIRST ? ROWS ONLY";
         try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, nuevoStock);
-            ps.setInt(2, idProducto);
-            int resultado = ps.executeUpdate();
-            return resultado > 0;
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, limite);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ProductoMasVendido producto = new ProductoMasVendido();
+                producto.setIdProducto(rs.getInt("IdProducto"));
+                producto.setCodigo(rs.getString("Codigo"));
+                producto.setNombre(rs.getString("NombreProducto"));
+                producto.setPrecio(rs.getDouble("Precio"));
+                producto.setStock(rs.getInt("Stock"));
+                producto.setTotalVendido(rs.getInt("TotalVendido"));
+                productos.add(producto);
+            }
         } catch (SQLException e) {
-            System.err.println("Error al actualizar stock: " + e.getMessage());
-            return false;
-        }
-    }
-
-    //Metodo adicional: buscar productos por nombre o código
-    public List<Producto> buscarProductos(String criterio) {
-        String query = "SELECT IdProducto, Codigo, NombreProducto, Descripción, Precio, Stock, Estado FROM PRODUCTOS WHERE NombreProducto LIKE ? OR Codigo LIKE ? ORDER BY NombreProducto ASC";
-        List<Producto> lista = new ArrayList<>();
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            String likeCriterio = "%" + criterio + "%";
-            ps.setString(1, likeCriterio);
-            ps.setString(2, likeCriterio);
-            try (ResultSet rs = ps.executeQuery()) {
-                while(rs.next()){
-                    Producto p = new Producto();
-                    p.setIdProducto(rs.getInt("IdProducto"));
-                    p.setCodigo(rs.getString("Codigo"));
-                    p.setNombre(rs.getString("NombreProducto"));
-                    p.setDescripcion(rs.getString("Descripcion"));
-                    p.setPrecio(rs.getDouble("Precio"));
-                    p.setStock(rs.getInt("Stock"));
-                    p.setEstado(rs.getInt("Estado") == 1);
-                    lista.add(p);
-                }
-            }
-        } catch(SQLException e) {
             e.printStackTrace();
         }
-        return lista;
-    }
-
-    //Metodo adicional: obtener productos con stock bajo
-    public List<Producto> obtenerProductosStockBajo(int stockMinimo) {
-        String query = "SELECT IdProducto, Codigo, NombreProducto, Descripción, Precio, Stock, Estado FROM PRODUCTOS WHERE Stock <= ? AND Estado = 1 ORDER BY Stock ASC";
-        List<Producto> lista = new ArrayList<>();
-        try (Connection conn = getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, stockMinimo);
-            try (ResultSet rs = ps.executeQuery()) {
-                while(rs.next()){
-                    Producto p = new Producto();
-                    p.setIdProducto(rs.getInt("IdProducto"));
-                    p.setCodigo(rs.getString("Codigo"));
-                    p.setNombre(rs.getString("NombreProducto"));
-                    p.setDescripcion(rs.getString("Descripcion"));
-                    p.setPrecio(rs.getDouble("Precio"));
-                    p.setStock(rs.getInt("Stock"));
-                    p.setEstado(rs.getInt("Estado") == 1);
-                    lista.add(p);
-                }
-            }
-        } catch(SQLException e) {
-            e.printStackTrace();
-        }
-        return lista;
+        return productos;
     }
 
 }
