@@ -52,9 +52,6 @@ public class EditarUsuariosController implements Initializable {
     private Usuario usuario;
     private TextField contraseniaVisible1;
     private TextField contraseniaVisible2;
-    private boolean contrasenia1Visible = false;
-    private boolean contrasenia2Visible = false;
-
     private Runnable onUsuarioActualizado;
 
     @Override
@@ -73,77 +70,97 @@ public class EditarUsuariosController implements Initializable {
         //Crear TextFields para contraseñas visibles
         contraseniaVisible1 = new TextField();
         contraseniaVisible1.setPromptText("Ingrese contraseña");
-        contraseniaVisible1.setManaged(false);
-        contraseniaVisible1.setVisible(false);
-        contraseniaVisible1.layoutXProperty().bind(contrasenia.layoutXProperty());
-        contraseniaVisible1.layoutYProperty().bind(contrasenia.layoutYProperty());
-        contraseniaVisible1.prefWidthProperty().bind(contrasenia.prefWidthProperty());
-        contraseniaVisible1.prefHeightProperty().bind(contrasenia.prefHeightProperty());
+        contraseniaVisible1.getStyleClass().add("text-field");
         contraseniaVisible2 = new TextField();
-        contraseniaVisible2.setPromptText("Ingrese contraseña");
-        contraseniaVisible2.setManaged(false);
+        contraseniaVisible2.setPromptText("Confirme la contraseña");
+        contraseniaVisible2.getStyleClass().add("text-field");
+        //Posicionar los TextFields exactamente sobre los PasswordFields
+        AnchorPane parent1 = (AnchorPane) contrasenia.getParent();
+        parent1.getChildren().add(contraseniaVisible1);
+        AnchorPane parent2 = (AnchorPane) confirmarContra.getParent();
+        parent2.getChildren().add(contraseniaVisible2);
+        //Configurar layout de los TextFields
+        contraseniaVisible1.setLayoutX(contrasenia.getLayoutX());
+        contraseniaVisible1.setLayoutY(contrasenia.getLayoutY());
+        contraseniaVisible1.setPrefWidth(contrasenia.getPrefWidth());
+        contraseniaVisible1.setPrefHeight(contrasenia.getPrefHeight());
+        contraseniaVisible2.setLayoutX(confirmarContra.getLayoutX());
+        contraseniaVisible2.setLayoutY(confirmarContra.getLayoutY());
+        contraseniaVisible2.setPrefWidth(confirmarContra.getPrefWidth());
+        contraseniaVisible2.setPrefHeight(confirmarContra.getPrefHeight());
+        //Inicialmente ocultar los TextFields
+        contraseniaVisible1.setVisible(false);
         contraseniaVisible2.setVisible(false);
-        contraseniaVisible2.layoutXProperty().bind(confirmarContra.layoutXProperty());
-        contraseniaVisible2.layoutYProperty().bind(confirmarContra.layoutYProperty());
-        contraseniaVisible2.prefWidthProperty().bind(confirmarContra.prefWidthProperty());
-        contraseniaVisible2.prefHeightProperty().bind(confirmarContra.prefHeightProperty());
-        //Agregar al AnchorPane
-        AnchorPane parent = (AnchorPane) contrasenia.getParent();
-        parent.getChildren().addAll(contraseniaVisible1, contraseniaVisible2);
         //Sincronizar texto entre PasswordField y TextField
-        contrasenia.textProperty().bindBidirectional(contraseniaVisible1.textProperty());
-        confirmarContra.textProperty().bindBidirectional(contraseniaVisible2.textProperty());
+        contrasenia.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!contraseniaVisible1.isFocused()) {
+                contraseniaVisible1.setText(newValue);
+            }
+        });
+        contraseniaVisible1.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (contraseniaVisible1.isFocused()) {
+                contrasenia.setText(newValue);
+            }
+        });
+        confirmarContra.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!contraseniaVisible2.isFocused()) {
+                contraseniaVisible2.setText(newValue);
+            }
+        });
+        contraseniaVisible2.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (contraseniaVisible2.isFocused()) {
+                confirmarContra.setText(newValue);
+            }
+        });
         //Configurar eventos de los ImageView
-        verContrasenia1.setOnMouseClicked(this::toggleContrasenia1);
-        verContrasenia2.setOnMouseClicked(this::toggleContrasenia2);
-        ocultar1.setOnMouseClicked(this::toggleContrasenia1);
-        ocultar2.setOnMouseClicked(this::toggleContrasenia2);
+        verContrasenia1.setOnMouseClicked(this::mostrarContrasenia1);
+        verContrasenia2.setOnMouseClicked(this::mostrarContrasenia2);
+        ocultar1.setOnMouseClicked(this::ocultarContrasenia1);
+        ocultar2.setOnMouseClicked(this::ocultarContrasenia2);
     }
 
     @FXML
-    private void toggleContrasenia1(MouseEvent event) {
-        if (contrasenia1Visible) {
-            //Ocultar contraseña
-            contrasenia.setVisible(true);
-            contrasenia.setManaged(true);
-            contraseniaVisible1.setVisible(false);
-            contraseniaVisible1.setManaged(false);
-            verContrasenia1.setVisible(true);
-            ocultar1.setVisible(false);
-            contrasenia1Visible = false;
-        } else {
-            //Mostrar contraseña
-            contrasenia.setVisible(false);
-            contrasenia.setManaged(false);
-            contraseniaVisible1.setVisible(true);
-            contraseniaVisible1.setManaged(true);
-            verContrasenia1.setVisible(false);
-            ocultar1.setVisible(true);
-            contrasenia1Visible = true;
-        }
+    private void mostrarContrasenia1(MouseEvent event) {
+        contrasenia.setVisible(false);
+        contraseniaVisible1.setVisible(true);
+        verContrasenia1.setVisible(false);
+        ocultar1.setVisible(true);
+        //Enfocar el campo visible
+        contraseniaVisible1.requestFocus();
+        contraseniaVisible1.positionCaret(contraseniaVisible1.getText().length());
     }
 
     @FXML
-    private void toggleContrasenia2(MouseEvent event) {
-        if (contrasenia2Visible) {
-            //Ocultar contraseña
-            confirmarContra.setVisible(true);
-            confirmarContra.setManaged(true);
-            contraseniaVisible2.setVisible(false);
-            contraseniaVisible2.setManaged(false);
-            verContrasenia2.setVisible(true);
-            ocultar2.setVisible(false);
-            contrasenia2Visible = false;
-        } else {
-            //Mostrar contraseña
-            confirmarContra.setVisible(false);
-            confirmarContra.setManaged(false);
-            contraseniaVisible2.setVisible(true);
-            contraseniaVisible2.setManaged(true);
-            verContrasenia2.setVisible(false);
-            ocultar2.setVisible(true);
-            contrasenia2Visible = true;
-        }
+    private void ocultarContrasenia1(MouseEvent event) {
+        contrasenia.setVisible(true);
+        contraseniaVisible1.setVisible(false);
+        verContrasenia1.setVisible(true);
+        ocultar1.setVisible(false);
+        //Enfocar el campo de contraseña
+        contrasenia.requestFocus();
+        contrasenia.positionCaret(contrasenia.getText().length());
+    }
+
+    @FXML
+    private void mostrarContrasenia2(MouseEvent event) {
+        confirmarContra.setVisible(false);
+        contraseniaVisible2.setVisible(true);
+        verContrasenia2.setVisible(false);
+        ocultar2.setVisible(true);
+        //Enfocar el campo visible
+        contraseniaVisible2.requestFocus();
+        contraseniaVisible2.positionCaret(contraseniaVisible2.getText().length());
+    }
+
+    @FXML
+    private void ocultarContrasenia2(MouseEvent event) {
+        confirmarContra.setVisible(true);
+        contraseniaVisible2.setVisible(false);
+        verContrasenia2.setVisible(true);
+        ocultar2.setVisible(false);
+        //Enfocar el campo de contraseña
+        confirmarContra.requestFocus();
+        confirmarContra.positionCaret(confirmarContra.getText().length());
     }
 
     public void setUsuario(Usuario usuario) {
@@ -175,6 +192,8 @@ public class EditarUsuariosController implements Initializable {
                 //Las contraseñas no se cargan por seguridad
                 contrasenia.clear();
                 confirmarContra.clear();
+                contraseniaVisible1.clear();
+                contraseniaVisible2.clear();
             } else {
                 System.out.println("Usuario es null en cargarDatosUsuario");
             }
@@ -200,7 +219,9 @@ public class EditarUsuariosController implements Initializable {
             return;
         }
         //Validar que las contraseñas coincidan (si se están cambiando)
-        if (!contrasenia.getText().isEmpty() && !contrasenia.getText().equals(confirmarContra.getText())) {
+        String contraseniaTexto = contrasenia.getText();
+        String confirmarContraTexto = confirmarContra.getText();
+        if (!contraseniaTexto.isEmpty() && !contraseniaTexto.equals(confirmarContraTexto)) {
             mostrarAlerta("Error!", "Las contraseñas no coinciden", Alert.AlertType.ERROR);
             return;
         }
@@ -213,7 +234,9 @@ public class EditarUsuariosController implements Initializable {
             mostrarAlerta("Error!", "El apellido paterno solo debe contener letras", Alert.AlertType.ERROR);
             return;
         }
-        if (!aMaterno.getText().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$")) {
+        //Validar apellido materno (no obligatorio)
+        String aMaternoText = aMaterno.getText().trim();
+        if (!aMaternoText.isEmpty() && !aMaternoText.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$")) {
             mostrarAlerta("Error!", "El apellido materno solo debe contener letras", Alert.AlertType.ERROR);
             return;
         }
@@ -233,7 +256,7 @@ public class EditarUsuariosController implements Initializable {
             return;
         }
         //Validar fortaleza de contraseña (solo si se está cambiando)
-        if (!contrasenia.getText().isEmpty() && !validarFortalezaContrasenia(contrasenia.getText())) {
+        if (!contraseniaTexto.isEmpty() && !validarFortalezaContrasenia(contraseniaTexto)) {
             mostrarAlerta("Error!",
                     "La contraseña debe tener:\n- Mínimo 8 caracteres\n- Al menos una mayúscula\n- Al menos una minúscula\n- Al menos un número",
                     Alert.AlertType.ERROR);
@@ -250,8 +273,8 @@ public class EditarUsuariosController implements Initializable {
             boolean rol = roles.getValue().equals("Administrador");
             usuario.setRol(rol);
             //Actualizar contraseña solo si se proporcionó una nueva
-            if (!contrasenia.getText().isEmpty()) {
-                usuario.setContrasenia(contrasenia.getText());
+            if (!contraseniaTexto.isEmpty()) {
+                usuario.setContrasenia(contraseniaTexto);
             }
             //Guardar en la base de datos
             UsuarioDao dao = new UsuarioDao();
@@ -301,20 +324,19 @@ public class EditarUsuariosController implements Initializable {
         alert.setTitle("Confirmación de Eliminación");
         alert.setHeaderText("¿Estás seguro de eliminar este usuario?");
         alert.setContentText("Esta acción no se puede deshacer. Se eliminarán todos los datos del usuario: " + usuario.getNombre());
-
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
     }
 
     private boolean validarFortalezaContrasenia(String contrasenia) {
-        // Mínimo 8 caracteres, al menos una mayúscula, una minúscula y un número
+        //Minimo 8 caracteres, al menos una mayúscula, una minúscula y un número
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$";
         return contrasenia.matches(regex);
     }
 
     @FXML
     private void regresarMenu() {
-        // Simplemente cerrar esta ventana
+        //Simplemente cerrar esta ventana
         Stage currentStage = (Stage) regresarBoton.getScene().getWindow();
         currentStage.close();
     }

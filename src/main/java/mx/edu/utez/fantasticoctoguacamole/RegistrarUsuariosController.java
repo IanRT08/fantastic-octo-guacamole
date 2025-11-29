@@ -2,6 +2,7 @@ package mx.edu.utez.fantasticoctoguacamole;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -11,8 +12,10 @@ import mx.edu.utez.fantasticoctoguacamole.modelo.dao.UsuarioDao;
 import mx.edu.utez.fantasticoctoguacamole.modelo.Usuario;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class RegistrarUsuariosController {
+public class RegistrarUsuariosController implements Initializable {
 
     @FXML
     private TextField nombre;
@@ -37,15 +40,17 @@ public class RegistrarUsuariosController {
     @FXML
     private ImageView verContrasenia2;
     @FXML
+    private ImageView ocultarContra1;
+    @FXML
+    private ImageView ocultarContra2;
+    @FXML
     private Button regresarBoton;
 
     private TextField contraseniaVisible1;
     private TextField contraseniaVisible2;
-    private boolean contrasenia1Visible = false;
-    private boolean contrasenia2Visible = false;
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         //Inicializar ChoiceBox con roles
         roles.getItems().addAll("Administrador", "Cajero");
         roles.setValue("Cajero"); // Valor por defecto
@@ -57,67 +62,97 @@ public class RegistrarUsuariosController {
         //Crear TextFields para contraseñas visibles
         contraseniaVisible1 = new TextField();
         contraseniaVisible1.setPromptText("Ingrese contraseña");
-        contraseniaVisible1.setManaged(false);
-        contraseniaVisible1.setVisible(false);
-        contraseniaVisible1.layoutXProperty().bind(contrasenia.layoutXProperty());
-        contraseniaVisible1.layoutYProperty().bind(contrasenia.layoutYProperty());
-        contraseniaVisible1.prefWidthProperty().bind(contrasenia.prefWidthProperty());
-        contraseniaVisible1.prefHeightProperty().bind(contrasenia.prefHeightProperty());
+        contraseniaVisible1.getStyleClass().add("text-field");
         contraseniaVisible2 = new TextField();
-        contraseniaVisible2.setPromptText("Ingrese contraseña");
-        contraseniaVisible2.setManaged(false);
+        contraseniaVisible2.setPromptText("Confirme la contraseña");
+        contraseniaVisible2.getStyleClass().add("text-field");
+        //Posicionar los TextFields exactamente sobre los PasswordFields
+        AnchorPane parent1 = (AnchorPane) contrasenia.getParent();
+        parent1.getChildren().add(contraseniaVisible1);
+        AnchorPane parent2 = (AnchorPane) confirmarContra.getParent();
+        parent2.getChildren().add(contraseniaVisible2);
+        //Configurar layout de los TextFields
+        contraseniaVisible1.setLayoutX(contrasenia.getLayoutX());
+        contraseniaVisible1.setLayoutY(contrasenia.getLayoutY());
+        contraseniaVisible1.setPrefWidth(contrasenia.getPrefWidth());
+        contraseniaVisible1.setPrefHeight(contrasenia.getPrefHeight());
+        contraseniaVisible2.setLayoutX(confirmarContra.getLayoutX());
+        contraseniaVisible2.setLayoutY(confirmarContra.getLayoutY());
+        contraseniaVisible2.setPrefWidth(confirmarContra.getPrefWidth());
+        contraseniaVisible2.setPrefHeight(confirmarContra.getPrefHeight());
+        //Inicialmente ocultar los TextFields
+        contraseniaVisible1.setVisible(false);
         contraseniaVisible2.setVisible(false);
-        contraseniaVisible2.layoutXProperty().bind(confirmarContra.layoutXProperty());
-        contraseniaVisible2.layoutYProperty().bind(confirmarContra.layoutYProperty());
-        contraseniaVisible2.prefWidthProperty().bind(confirmarContra.prefWidthProperty());
-        contraseniaVisible2.prefHeightProperty().bind(confirmarContra.prefHeightProperty());
-        //Agregar al AnchorPane
-        AnchorPane parent = (AnchorPane) contrasenia.getParent();
-        parent.getChildren().addAll(contraseniaVisible1, contraseniaVisible2);
         //Sincronizar texto entre PasswordField y TextField
-        contrasenia.textProperty().bindBidirectional(contraseniaVisible1.textProperty());
-        confirmarContra.textProperty().bindBidirectional(contraseniaVisible2.textProperty());
+        contrasenia.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!contraseniaVisible1.isFocused()) {
+                contraseniaVisible1.setText(newValue);
+            }
+        });
+        contraseniaVisible1.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (contraseniaVisible1.isFocused()) {
+                contrasenia.setText(newValue);
+            }
+        });
+        confirmarContra.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!contraseniaVisible2.isFocused()) {
+                contraseniaVisible2.setText(newValue);
+            }
+        });
+        contraseniaVisible2.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (contraseniaVisible2.isFocused()) {
+                confirmarContra.setText(newValue);
+            }
+        });
         //Configurar eventos de los ImageView
-        verContrasenia1.setOnMouseClicked(this::toggleContrasenia1);
-        verContrasenia2.setOnMouseClicked(this::toggleContrasenia2);
+        verContrasenia1.setOnMouseClicked(this::mostrarContrasenia1);
+        verContrasenia2.setOnMouseClicked(this::mostrarContrasenia2);
+        ocultarContra1.setOnMouseClicked(this::ocultarContrasenia1);
+        ocultarContra2.setOnMouseClicked(this::ocultarContrasenia2);
     }
 
     @FXML
-    private void toggleContrasenia1(MouseEvent event) {
-        if (contrasenia1Visible) {
-            // Ocultar contraseña
-            contrasenia.setVisible(true);
-            contrasenia.setManaged(true);
-            contraseniaVisible1.setVisible(false);
-            contraseniaVisible1.setManaged(false);
-            contrasenia1Visible = false;
-        } else {
-            // Mostrar contraseña
-            contrasenia.setVisible(false);
-            contrasenia.setManaged(false);
-            contraseniaVisible1.setVisible(true);
-            contraseniaVisible1.setManaged(true);
-            contrasenia1Visible = true;
-        }
+    private void mostrarContrasenia1(MouseEvent event) {
+        contrasenia.setVisible(false);
+        contraseniaVisible1.setVisible(true);
+        verContrasenia1.setVisible(false);
+        ocultarContra1.setVisible(true);
+        //Enfocar el campo visible
+        contraseniaVisible1.requestFocus();
+        contraseniaVisible1.positionCaret(contraseniaVisible1.getText().length());
     }
 
     @FXML
-    private void toggleContrasenia2(MouseEvent event) {
-        if (contrasenia2Visible) {
-            //Ocultar contraseña
-            confirmarContra.setVisible(true);
-            confirmarContra.setManaged(true);
-            contraseniaVisible2.setVisible(false);
-            contraseniaVisible2.setManaged(false);
-            contrasenia2Visible = false;
-        } else {
-            //Mostrar contraseña
-            confirmarContra.setVisible(false);
-            confirmarContra.setManaged(false);
-            contraseniaVisible2.setVisible(true);
-            contraseniaVisible2.setManaged(true);
-            contrasenia2Visible = true;
-        }
+    private void ocultarContrasenia1(MouseEvent event) {
+        contrasenia.setVisible(true);
+        contraseniaVisible1.setVisible(false);
+        verContrasenia1.setVisible(true);
+        ocultarContra1.setVisible(false);
+        //Enfocar el campo de contraseña
+        contrasenia.requestFocus();
+        contrasenia.positionCaret(contrasenia.getText().length());
+    }
+
+    @FXML
+    private void mostrarContrasenia2(MouseEvent event) {
+        confirmarContra.setVisible(false);
+        contraseniaVisible2.setVisible(true);
+        verContrasenia2.setVisible(false);
+        ocultarContra2.setVisible(true);
+        //Enfocar el campo visible
+        contraseniaVisible2.requestFocus();
+        contraseniaVisible2.positionCaret(contraseniaVisible2.getText().length());
+    }
+
+    @FXML
+    private void ocultarContrasenia2(MouseEvent event) {
+        confirmarContra.setVisible(true);
+        contraseniaVisible2.setVisible(false);
+        verContrasenia2.setVisible(true);
+        ocultarContra2.setVisible(false);
+        //Enfocar el campo de contraseña
+        confirmarContra.requestFocus();
+        confirmarContra.positionCaret(confirmarContra.getText().length());
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
@@ -160,7 +195,9 @@ public class RegistrarUsuariosController {
             mostrarAlerta("Error!", "El apellido paterno solo debe contener letras", Alert.AlertType.ERROR);
             return;
         }
-        if (!aMaterno.getText().isEmpty() && !aMaterno.getText().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$")) {
+        //Validar apellido materno (no obligatorio)
+        String aMaternoText = aMaterno.getText().trim();
+        if (!aMaternoText.isEmpty() && !aMaternoText.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$")) {
             mostrarAlerta("Error!", "El apellido materno solo debe contener letras", Alert.AlertType.ERROR);
             return;
         }
@@ -231,11 +268,17 @@ public class RegistrarUsuariosController {
         correo.clear();
         contrasenia.clear();
         confirmarContra.clear();
+        contraseniaVisible1.clear();
+        contraseniaVisible2.clear();
         fechaNac.setValue(null);
         roles.setValue("Cajero");
-        //Asegurarse de que los PasswordField esten visibles
-        if (contrasenia1Visible) toggleContrasenia1(null);
-        if (contrasenia2Visible) toggleContrasenia2(null);
+        //Asegurarse de que los PasswordField estén visibles
+        if (!contrasenia.isVisible()) {
+            ocultarContrasenia1(null);
+        }
+        if (!confirmarContra.isVisible()) {
+            ocultarContrasenia2(null);
+        }
     }
 
     @FXML
