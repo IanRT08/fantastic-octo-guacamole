@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.GestionProductosController">
+<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.GestionProductosController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="650.0" layoutX="70.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="1300.0" />
         <Circle fill="DODGERBLUE" layoutX="134.0" layoutY="129.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
@@ -32,5 +33,13 @@
             <image>
                 <Image url="@Images/produIcon.png" />
             </image></ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="395.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
+      <Label layoutX="403.0" layoutY="255.0" text="Simbología:" />
+      <Circle fill="#f44336" layoutX="522.0" layoutY="264.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="547.0" layoutY="255.0" text="Stock bajo" />
+      <Circle fill="#ff9800" layoutX="688.0" layoutY="264.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="719.0" layoutY="255.0" text="Stock medio" />
+      <Circle fill="#4caf50" layoutX="903.0" layoutY="264.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="938.0" layoutY="255.0" text="Stock alto" />
     </children>
 </AnchorPane>

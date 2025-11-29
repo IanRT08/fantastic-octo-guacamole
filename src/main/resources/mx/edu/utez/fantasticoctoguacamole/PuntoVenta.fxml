@@ -34,10 +34,18 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" height="1.0" layoutX="983.0" layoutY="403.0" stroke="BLACK" strokeType="INSIDE" width="350.0" />
       <Label layoutX="989.0" layoutY="421.0" text="Total" />
       <Label fx:id="totalLabel" layoutX="1295.0" layoutY="421.0" text="\$0.00" />
-      <Button fx:id="botonComprobante" disable="true" layoutX="983.0" layoutY="455.0" mnemonicParsing="false" onAction="#generarComprobante" prefHeight="31.0" prefWidth="350.0" text="Generar comprobante" />
+      <Button fx:id="botonComprobante" disable="true" layoutX="983.0" layoutY="455.0" mnemonicParsing="false" onAction="#generarComprobante" prefHeight="31.0" prefWidth="350.0" text="Registrar venta" />
       <Button fx:id="botonLimpiar" disable="true" layoutX="983.0" layoutY="504.0" mnemonicParsing="false" onAction="#limpiarCarrito" prefHeight="31.0" prefWidth="350.0" text="Limpiar carrito" />
       <VBox fx:id="contenidoCarrito" layoutX="981.0" layoutY="225.0" prefHeight="164.0" prefWidth="356.0" />
       <Label fx:id="contenido" layoutX="1101.0" layoutY="275.0" text="El carrito esta vacio" />
       <ScrollBar fx:id="deslizador" layoutX="1322.0" layoutY="225.0" orientation="VERTICAL" prefHeight="164.0" prefWidth="18.0" visible="false" />
+       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="970.0" layoutY="589.0" stroke="BLACK" strokeType="INSIDE" width="375.0" />
+       <Label layoutX="971.0" layoutY="568.0" text="Simbología:" />
+       <Circle fill="#f44336" layoutX="1004.0" layoutY="613.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+       <Label layoutX="1032.0" layoutY="604.0" text="Stock bajo" />
+       <Circle fill="#ff9800" layoutX="1130.0" layoutY="613.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+       <Label layoutX="1158.0" layoutY="602.0" text="Stock medio" />
+       <Circle fill="#4caf50" layoutX="1254.0" layoutY="612.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+       <Label layoutX="1280.0" layoutY="603.0" text="Stock alto" />
    </children>
 </AnchorPane>
