@@ -57,6 +57,11 @@ public class HistorialTransaccionesController implements Initializable {
     private CambioDao cambioDao;
     private UsuarioDao usuarioDao;
     private VentaCanceladaDao ventaCanceladaDao;
+    private final String buttonStyle = "-fx-background-color: transparent;" +
+            "-fx-padding: 5;" +
+            "-fx-cursor: hand;" +
+            "-fx-text-fill: #4A5568;" +
+            "-fx-font-size: 14px;";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -151,6 +156,7 @@ public class HistorialTransaccionesController implements Initializable {
                             Transaccion transaccion = getTableView().getItems().get(getIndex());
                             verDetallesTransaccion(transaccion);
                         });
+                        btnVerDetalles.setStyle(buttonStyle);
                     }
                     @Override
                     protected void updateItem(String item, boolean empty) {

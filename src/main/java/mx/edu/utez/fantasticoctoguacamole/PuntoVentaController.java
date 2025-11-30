@@ -72,6 +72,11 @@ public class PuntoVentaController implements Initializable {
     private SortedList<Producto> datosOrdenados;
     private ObservableList<ItemCarrito> carrito;
     private int idUsuarioActual; //Setear con el ID del usuario logueado
+    private final String buttonStyle = "-fx-background-color: transparent;" +
+            "-fx-padding: 5;" +
+            "-fx-cursor: hand;" +
+            "-fx-text-fill: #4A5568;" +
+            "-fx-font-size: 14px;";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -197,6 +202,8 @@ public class PuntoVentaController implements Initializable {
                             Producto producto = getTableView().getItems().get(getIndex());
                             quitarDelCarrito(producto);
                         });
+                        btnAgregar.setStyle(buttonStyle);
+                        btnQuitar.setStyle(buttonStyle);
                     }
                     @Override
                     protected void updateItem(String item, boolean empty) {

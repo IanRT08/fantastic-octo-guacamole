@@ -277,3 +277,26 @@
     -fx-background-color: #DDEEFE; /* Fondo aún más oscuro al presionar */
     -fx-translate-y: 1;
 }
+
+/*Botón Terciario*/
+.button-tertiary {
+    -fx-background-color: #F1F5F9; /* Gris claro */
+    -fx-border-color: #E2E8F0; /* Borde gris más sutil */
+    -fx-border-width: 1px;
+    -fx-text-fill: #4A5568; /* Texto gris oscuro */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 1);
+}
+
+.button-tertiary:hover {
+    -fx-background-color: #E2E8F0; /* Gris ligeramente más oscuro al pasar el mouse */
+    -fx-border-color: #CBD5E0;
+}
+
+.button-tertiary:pressed {
+    -fx-background-color: #CBD5E0; /* Gris aún más oscuro al presionar */
+    -fx-translate-y: 1;
+}
