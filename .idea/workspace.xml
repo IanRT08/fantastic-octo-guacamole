@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="99d62ca3-93fc-441b-9f82-8701865cc151" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/AdminDashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/AdminDashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionProductosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionProductosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionUsuariosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/mx/edu/utez/fantasticoctoguacamole/GestionUsuariosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/GestionProductos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/GestionProductos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/GestionUsuarios.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/GestionUsuarios.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/Styles/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/Styles/estilos.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/UserDashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/UserDashboard.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +100,7 @@
       <workItem from="1764390515448" duration="9000" />
       <workItem from="1764391686533" duration="627000" />
       <workItem from="1764443748931" duration="437000" />
-      <workItem from="1764444215766" duration="11269000" />
+      <workItem from="1764444215766" duration="14746000" />
     </task>
     <servers />
   </component>

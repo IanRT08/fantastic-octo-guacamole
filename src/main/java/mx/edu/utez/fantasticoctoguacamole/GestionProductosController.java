@@ -58,6 +58,11 @@ public class GestionProductosController implements Initializable {
     private FilteredList<Producto> datosFiltrados;
     private SortedList<Producto> datosOrdenados;
     private boolean mostrandoMasVendidos = false;
+    private final String buttonStyle = "-fx-background-color: transparent;" +
+            "-fx-padding: 5;" +
+            "-fx-cursor: hand;" +
+            "-fx-text-fill: #4A5568;" +
+            "-fx-font-size: 14px;";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -295,6 +300,9 @@ public class GestionProductosController implements Initializable {
                             Producto productoActual = getTableView().getItems().get(getIndex());
                             cambiarEstadoProducto(productoActual);
                         });
+                        btnEditar.setStyle(buttonStyle);
+                        btnVer.setStyle(buttonStyle);
+                        btnCambiar.setStyle(buttonStyle);
                     }
                     @Override
                     protected void updateItem(String item, boolean empty) {

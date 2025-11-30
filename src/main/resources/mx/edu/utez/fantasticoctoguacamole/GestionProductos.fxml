@@ -5,17 +5,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.GestionProductosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="779.0" prefWidth="1440.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.GestionProductosController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="650.0" layoutX="70.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="1300.0" />
-        <Circle fill="DODGERBLUE" layoutX="134.0" layoutY="129.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-        <Label layoutX="178.0" layoutY="105.0" text="Productos Registrados" />
-        <Label layoutX="178.0" layoutY="125.0" text="Gestiona y visualiza todos los productos del sistema" />
+      <Circle fill="DODGERBLUE" layoutX="1302.0" layoutY="134.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="1109.0" layoutY="83.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="346.0" layoutY="696.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="89.0" layoutY="675.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="650.0" layoutX="70.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" styleClass="card-background" width="1300.0" />
+        <Circle fill="DODGERBLUE" layoutX="134.0" layoutY="129.0" radius="24.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-icon-bg" />
+        <Label layoutX="178.0" layoutY="102.0" styleClass="title-label" text="Productos Registrados" />
+        <Label layoutX="178.0" layoutY="134.0" styleClass="subtitle-label" text="Gestiona y visualiza todos los productos del sistema" />
         <Button fx:id="botonAgregar" layoutX="1213.0" layoutY="104.0" mnemonicParsing="false" onAction="#agregarProducto" text="Agregar producto" />
         <Label layoutX="110.0" layoutY="173.0" text="Buscar productos" />
         <TextField fx:id="buscador" layoutX="110.0" layoutY="194.0" prefHeight="31.0" prefWidth="1219.0" promptText="Buscar por nombre, codigo o precio" />
-        <Label layoutX="110.0" layoutY="245.0" text="Filtrar por estado" />
-        <ChoiceBox fx:id="filtros" layoutX="109.0" layoutY="266.0" prefHeight="31.0" prefWidth="160.0" />
+        <Label layoutX="111.0" layoutY="237.0" text="Filtrar por estado" />
+        <ChoiceBox fx:id="filtros" layoutX="109.0" layoutY="256.0" prefHeight="31.0" prefWidth="160.0" />
         <TableView fx:id="tablaProducto" layoutX="109.0" layoutY="317.0" prefHeight="358.0" prefWidth="1219.0">
             <columns>
                 <TableColumn fx:id="tablaCodigo" prefWidth="200.0" text="Codigo" />
@@ -27,18 +31,18 @@
                 <TableColumn fx:id="tablaAcciones" prefWidth="205.0" text="Acciones" />
             </columns>
         </TableView>
-        <Button fx:id="volverMenu" layoutX="21.0" layoutY="19.0" mnemonicParsing="false" onAction="#regresarMenu" text="Volver al menu principal" />
+        <Button fx:id="volverMenu" layoutX="21.0" layoutY="19.0" mnemonicParsing="false" onAction="#regresarMenu" styleClass="button-secondary" text="Volver al menu principal" />
         <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="122.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/produIcon.png" />
             </image></ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="395.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" width="650.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="48.0" layoutX="395.0" layoutY="242.0" stroke="BLACK" strokeType="INSIDE" styleClass="card-background" width="650.0" />
       <Label layoutX="403.0" layoutY="255.0" text="Simbología:" />
-      <Circle fill="#f44336" layoutX="522.0" layoutY="264.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#f44336" layoutX="522.0" layoutY="264.0" radius="18.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Label layoutX="547.0" layoutY="255.0" text="Stock bajo" />
-      <Circle fill="#ff9800" layoutX="688.0" layoutY="264.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#ff9800" layoutX="688.0" layoutY="264.0" radius="18.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Label layoutX="719.0" layoutY="255.0" text="Stock medio" />
-      <Circle fill="#4caf50" layoutX="903.0" layoutY="264.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#4caf50" layoutX="903.0" layoutY="264.0" radius="18.0" stroke="TRANSPARENT" strokeType="INSIDE" />
       <Label layoutX="938.0" layoutY="255.0" text="Stock alto" />
       <Button fx:id="botonNormal" layoutX="1205.0" layoutY="269.0" mnemonicParsing="false" onAction="#volverAVistaNormal" text="Volver a vista normal" visible="false" />
     </children>

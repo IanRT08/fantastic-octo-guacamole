@@ -55,6 +55,11 @@ public class GestionUsuariosController implements Initializable {
     private ObservableList<Usuario> listaOriginal;
     private FilteredList<Usuario> datosFiltrados;
     private SortedList<Usuario> datosOrdenados;
+    private final String buttonStyle = "-fx-background-color: transparent;" +
+            "-fx-padding: 5;" +
+            "-fx-cursor: hand;" +
+            "-fx-text-fill: #4A5568;" +
+            "-fx-font-size: 14px;";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -242,6 +247,9 @@ public class GestionUsuariosController implements Initializable {
                             Usuario usuarioActual = getTableView().getItems().get(getIndex());
                             cambiarEstadoUsuario(usuarioActual);
                         });
+                        btnEditar.setStyle(buttonStyle);
+                        btnVer.setStyle(buttonStyle);
+                        btnCambiar.setStyle(buttonStyle);
                     }
                     @Override
                     protected void updateItem(String item, boolean empty) {

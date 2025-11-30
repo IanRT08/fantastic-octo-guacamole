@@ -35,8 +35,8 @@
     -fx-font-size: 13px;
 }
 
-/* 4. Campos de Texto (TextField y PasswordField) */
-.text-field, .password-field {
+/*TextField/Password/ChoiceBox*/
+.text-field, .password-field, .choice-box {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #E2E8F0; /* Borde gris muy suave */
     -fx-border-width: 1px;
@@ -45,6 +45,41 @@
     -fx-padding: 8px;
     -fx-prompt-text-fill: #A0AEC0;
 }
+
+.text-field:focused, .password-field:focused, .choice-box:focused {
+    -fx-border-color: #667EEA; /* Color primario al enfocar */
+    /* Sombra suave del color principal (Glow effect) */
+    -fx-effect: dropshadow(three-pass-box, rgba(102, 126, 234, 0.3), 8, 0, 0, 0);
+}
+
+/* Elementos internos del ChoiceBox */
+
+/* El botón que abre el menú del ChoiceBox */
+.choice-box .open-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* El símbolo de flecha dentro del ChoiceBox */
+.choice-box .arrow {
+    -fx-background-color: #718096; /* Color de la flecha */
+}
+
+/* El menú desplegable (popup) del ChoiceBox */
+.choice-box .context-menu {
+    -fx-background-color: white;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+/* Items dentro del menú desplegable */
+.choice-box .menu-item:hover {
+    -fx-background-color: #EBF4FF; /* Fondo azul claro al pasar el mouse */
+}
+.choice-box .menu-item .label {
+    -fx-text-fill: #2D3748;
+}
+
 
 .text-field:focused, .password-field:focused {
     -fx-border-color: #667EEA;
@@ -152,4 +187,93 @@
 .card-description {
     -fx-font-size: 12px;
     -fx-text-fill: #718096; /* Gris más claro */
+}
+
+/*ESTILOS DE TABLA*/
+
+.table-view {
+    /* Fondo de la tabla sin bordes visibles */
+    -fx-background-color: transparent;
+    -fx-border-color: #E2E8F0; /* Borde gris muy suave alrededor de la tabla */
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-table-cell-border-color: transparent; /* Oculta los bordes entre celdas */
+}
+
+/* Cabecera de la tabla (Header) */
+.table-view .column-header-background {
+    -fx-background-color: #F8FAFC; /* Color de fondo muy claro para la cabecera */
+    -fx-background-radius: 8px 8px 0 0; /* Solo esquinas superiores redondeadas */
+    -fx-border-width: 0 0 1px 0; /* Borde inferior sutil para separarla de las filas */
+    -fx-border-color: #E2E8F0;
+}
+
+/* Texto de la cabecera (Columnas) */
+.table-view .column-header .label {
+    -fx-text-fill: #718096; /* Gris más claro para los títulos de columna */
+    -fx-font-weight: bold;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8px 0 8px 0;
+}
+
+/* Filas (Rows) */
+.table-row-cell {
+    -fx-background-color: white; /* Fondo de fila blanco */
+    -fx-border-color: #F3F4F6; /* Borde muy sutil entre filas */
+    -fx-border-width: 0 0 1px 0;
+    -fx-background-insets: 0;
+    -fx-padding: 5px 0 5px 0;
+}
+
+/* Filas al pasar el mouse (Hover) */
+.table-row-cell:hover {
+    -fx-background-color: #F8FAFC; /* Fondo muy suave al pasar el mouse */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.03), 5, 0, 0, 0);
+}
+
+/* La última fila para quitar el borde inferior si la tabla no está llena */
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Celdas (TableView Cells) */
+.table-cell {
+    -fx-border-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 0 10px 0 10px;
+}
+
+/* Estilo específico para el texto de la columna de Usuario*/
+.cell-usuario-name {
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
+    -fx-font-size: 14px;
+}
+.cell-usuario-handle {
+    -fx-text-fill: #718096;
+    -fx-font-size: 12px;
+}
+
+/* Botón Secundario*/
+.button-secondary {
+    -fx-background-color: white; /* Fondo blanco */
+    -fx-border-color: #667EEA; /* Borde del color primario */
+    -fx-border-width: 1px;
+    -fx-text-fill: #667EEA; /* Texto del color primario */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.button-secondary:hover {
+    -fx-background-color: #EBF4FF; /* Fondo azul muy claro al pasar el mouse */
+    -fx-border-color: #5a6fd6;
+}
+
+.button-secondary:pressed {
+    -fx-background-color: #DDEEFE; /* Fondo aún más oscuro al presionar */
+    -fx-translate-y: 1;
 }
