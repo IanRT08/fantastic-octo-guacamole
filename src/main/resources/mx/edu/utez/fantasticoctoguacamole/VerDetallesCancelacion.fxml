@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesCancelacionController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesCancelacionController">
     <children>
         <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
-                        <Label text="Detalles de Venta Cancelada" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #FF9800;">
+                        <Label styleClass="title-label" text="Detalles de Venta Cancelada">
                             <HBox.margin>
                                 <Insets bottom="10.0" />
                             </HBox.margin>
@@ -31,34 +30,34 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label text="Folio Venta Original:" style="-fx-font-weight: bold;" />
+                        <Label style="-fx-font-weight: bold;" text="Folio Venta Original:" />
                         <Label fx:id="lblFolioOriginal" GridPane.columnIndex="1" />
 
-                        <Label text="Fecha de Venta:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" />
+                        <Label style="-fx-font-weight: bold;" text="Fecha de Venta:" GridPane.rowIndex="1" />
                         <Label fx:id="lblFechaVenta" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                        <Label text="Total de Venta:" style="-fx-font-weight: bold;" GridPane.rowIndex="2" />
+                        <Label style="-fx-font-weight: bold;" text="Total de Venta:" GridPane.rowIndex="2" />
                         <Label fx:id="lblTotalVenta" style="-fx-font-weight: bold; -fx-text-fill: #d32f2f;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                        <Label text="Vendedor:" style="-fx-font-weight: bold;" GridPane.columnIndex="2" />
+                        <Label style="-fx-font-weight: bold;" text="Vendedor:" GridPane.columnIndex="2" />
                         <Label fx:id="lblVendedor" GridPane.columnIndex="3" />
 
-                        <Label text="Fecha Cancelación:" style="-fx-font-weight: bold;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label style="-fx-font-weight: bold;" text="Fecha Cancelación:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label fx:id="lblFechaCancelacion" style="-fx-text-fill: #FF9800; -fx-font-weight: bold;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
-                        <Label text="Usuario que Canceló:" style="-fx-font-weight: bold;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label style="-fx-font-weight: bold;" text="Usuario que Canceló:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                         <Label fx:id="lblUsuarioCancelacion" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Motivo de Cancelación:" style="-fx-font-weight: bold;" />
-                        <TextArea fx:id="txtMotivo" editable="false" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: #FFF3E0; -fx-border-color: #FF9800;" wrapText="true" />
+                        <Label style="-fx-font-weight: bold;" text="Motivo de Cancelación:" />
+                        <TextArea fx:id="txtMotivo" editable="false" prefHeight="80.0" prefWidth="200.0" wrapText="true" />
                     </children>
                 </VBox>
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="Productos de la Venta:" style="-fx-font-weight: bold;" />
+                        <Label style="-fx-font-weight: bold;" text="Productos de la Venta:" />
                         <TableView fx:id="tablaProductos" prefHeight="200.0" prefWidth="200.0">
                             <columns>
                                 <TableColumn fx:id="colProducto" prefWidth="250.0" text="Producto" />
@@ -69,15 +68,15 @@
                         </TableView>
                     </children>
                 </VBox>
-                <HBox spacing="20.0" alignment="CENTER_RIGHT">
+                <HBox alignment="CENTER_RIGHT" spacing="20.0">
                     <children>
-                        <VBox spacing="5.0" alignment="CENTER_RIGHT">
+                        <VBox alignment="CENTER_RIGHT" spacing="5.0">
                             <children>
-                                <Label text="Resumen de Cancelación" style="-fx-font-weight: bold; -fx-text-fill: #FF9800;" />
-                                <Label fx:id="lblResumen" text="Stock restaurado correctamente" style="-fx-text-fill: #4CAF50; -fx-font-weight: bold;" />
+                                <Label style="-fx-font-weight: bold; -fx-text-fill: #FF9800;" text="Resumen de Cancelación" />
+                                <Label fx:id="lblResumen" style="-fx-text-fill: #4CAF50; -fx-font-weight: bold;" text="Stock restaurado correctamente" />
                             </children>
                         </VBox>
-                        <Button fx:id="btnCerrar" mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold;" />
+                        <Button fx:id="btnCerrar" mnemonicParsing="false" onAction="#cerrarVentana" styleClass="button-secondary" text="Cerrar" />
                     </children>
                 </HBox>
             </children>

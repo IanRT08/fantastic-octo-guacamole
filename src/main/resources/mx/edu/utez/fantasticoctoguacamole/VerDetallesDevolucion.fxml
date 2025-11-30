@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="483.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesDevolucionController">
+<AnchorPane prefHeight="483.0" prefWidth="800.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesDevolucionController">
     <children>
         <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Detalles de Devolución" />
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" styleClass="title-label" text="Detalles de Devolución" />
                 <GridPane hgap="10.0" vgap="10.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
@@ -47,7 +47,7 @@
                         <TableColumn fx:id="columnaSubtotalOrigen" prefWidth="212.60003662109375" text="Subtotal" />
                     </columns>
                 </TableView>
-                <Button mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" />
+                <Button mnemonicParsing="false" onAction="#cerrarVentana" styleClass="button-secondary" text="Cerrar" />
             </children>
         </VBox>
     </children>

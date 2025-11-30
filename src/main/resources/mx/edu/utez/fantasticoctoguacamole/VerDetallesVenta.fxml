@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesVentaController">
+<AnchorPane prefHeight="579.0" prefWidth="800.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesVentaController">
     <children>
         <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Comprobante de Venta">
+                <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass="title-label" text="Comprobante de Venta">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
@@ -45,7 +45,7 @@
                         <TableColumn fx:id="columnaSubtotal" prefWidth="148.20001220703125" text="Subtotal" />
                     </columns>
                 </TableView>
-                <Button mnemonicParsing="false" onAction="#cerrarVentana" text="Cerrar" />
+                <Button mnemonicParsing="false" onAction="#cerrarVentana" styleClass="button-secondary" text="Cerrar" />
             </children>
         </VBox>
     </children>
