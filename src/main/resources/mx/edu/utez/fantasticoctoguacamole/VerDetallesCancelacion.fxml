@@ -3,9 +3,11 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesCancelacionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.VerDetallesCancelacionController">
     <children>
+      <Circle fill="DODGERBLUE" layoutX="57.0" layoutY="527.0" radius="100.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
         <VBox spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -81,5 +83,6 @@
                 </HBox>
             </children>
         </VBox>
+      <Circle fill="DODGERBLUE" layoutX="786.0" layoutY="42.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
     </children>
 </AnchorPane>
