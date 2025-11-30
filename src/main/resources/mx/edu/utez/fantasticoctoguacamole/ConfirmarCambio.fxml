@@ -2,12 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.ConfirmarCambioController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="700.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.ConfirmarCambioController">
     <children>
+      <Circle fill="DODGERBLUE" layoutX="686.0" layoutY="29.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="686.0" layoutY="379.0" radius="100.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
         <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <Label text="Confirmar Cambio" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                <Label styleClass="title-label" text="Confirmar Cambio" />
                 <GridPane hgap="10.0" vgap="10.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
@@ -33,12 +36,12 @@
                         <Label fx:id="labelDiferencia" text="-" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
-                <Label text="Motivo del cambio:" style="-fx-font-weight: bold;" />
+                <Label style="-fx-font-weight: bold;" text="Motivo del cambio:" />
                 <TextArea fx:id="textAreaMotivo" prefHeight="100.0" promptText="Ingrese el motivo del cambio..." />
                 <HBox spacing="10.0">
                     <children>
                         <Button fx:id="btnConfirmar" mnemonicParsing="false" onAction="#confirmar" text="Confirmar Cambio" />
-                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+                        <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" styleClass="button-secondary" text="Cancelar" />
                     </children>
                 </HBox>
             </children>

@@ -2,14 +2,15 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.ProcesarDevolucionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.ProcesarDevolucionController">
     <children>
+      <Circle fill="DODGERBLUE" layoutX="730.0" layoutY="530.0" radius="100.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="786.0" layoutY="34.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
         <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <Label fx:id="labelTitulo" text="Procesar Devolución/Cambio" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                <Label fx:id="labelTitulo" styleClass="title-label" text="Procesar Devolución/Cambio" />
                 <GridPane hgap="10.0" vgap="10.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,7 +28,7 @@
                         <Label fx:id="labelFecha" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
-                <Label text="Seleccione productos para devolver/cambiar:" style="-fx-font-weight: bold;" />
+                <Label style="-fx-font-weight: bold;" text="Seleccione productos para devolver/cambiar:" />
                 <TableView fx:id="tablaDetalles" prefHeight="250.0">
                     <columns>
                         <TableColumn fx:id="columnaSeleccionar" prefWidth="80.0" text="Seleccionar" />
@@ -38,13 +39,13 @@
                         <TableColumn fx:id="columnaSubtotal" prefWidth="100.0" text="Subtotal" />
                     </columns>
                 </TableView>
-                <Label text="Motivo:" style="-fx-font-weight: bold;" />
+                <Label style="-fx-font-weight: bold;" text="Motivo:" />
                 <TextArea fx:id="textAreaMotivo" prefHeight="80.0" promptText="Ingrese el motivo de la devolución o cambio..." />
-                <Label fx:id="labelTotalDevolucion" text="Total a reembolsar: $0.00" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                <Label fx:id="labelTotalDevolucion" style="-fx-font-weight: bold; -fx-font-size: 14px;" text="Total a reembolsar: $0.00" />
                 <HBox spacing="10.0">
                     <children>
                         <Button fx:id="btnProcesar" mnemonicParsing="false" onAction="#procesarDevolucion" text="Procesar Devolución" />
-                        <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+                        <Button mnemonicParsing="false" onAction="#cancelar" styleClass="button-secondary" text="Cancelar" />
                     </children>
                 </HBox>
             </children>
