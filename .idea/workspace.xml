@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="99d62ca3-93fc-441b-9f82-8701865cc151" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/EditarUsuarios.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/EditarUsuarios.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/RegistrarUsuario.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/RegistrarUsuario.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/Styles/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/Styles/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/EditarPerfil.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/EditarPerfil.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/EditarProducto.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/EditarProducto.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/RegistrarProducto.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/RegistrarProducto.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/VerProducto.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/VerProducto.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/VerUsuarios.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mx/edu/utez/fantasticoctoguacamole/VerUsuarios.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +99,7 @@
       <workItem from="1764390515448" duration="9000" />
       <workItem from="1764391686533" duration="627000" />
       <workItem from="1764443748931" duration="437000" />
-      <workItem from="1764444215766" duration="18634000" />
+      <workItem from="1764444215766" duration="20853000" />
     </task>
     <servers />
   </component>

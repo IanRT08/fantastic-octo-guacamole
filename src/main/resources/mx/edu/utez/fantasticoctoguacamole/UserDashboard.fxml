@@ -38,6 +38,6 @@
             <image>
                 <Image url="@Images/ventasIcon.png" />
             </image></ImageView>
-      <Button fx:id="btnEditarPerfil" layoutX="671.0" layoutY="252.0" mnemonicParsing="false" onAction="#abrirEditarUsuario" text="Editar perfil" />
+      <Button fx:id="btnEditarPerfil" layoutX="671.0" layoutY="252.0" mnemonicParsing="false" onAction="#abrirEditarUsuario" styleClass="button-tertiary" text="Editar perfil" />
     </children>
 </AnchorPane>

@@ -6,16 +6,20 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.EditarPerfilController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="779.0" prefWidth="1440.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.EditarPerfilController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="630.0" layoutX="470.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
-        <Circle fill="DODGERBLUE" layoutX="720.0" layoutY="101.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="1361.0" layoutY="160.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="1169.0" layoutY="101.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="442.0" layoutY="684.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="178.0" layoutY="695.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="630.0" layoutX="470.0" layoutY="65.0" stroke="BLACK" strokeType="INSIDE" styleClass="card-background" width="500.0" />
+        <Circle fill="DODGERBLUE" layoutX="720.0" layoutY="101.0" radius="24.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-icon-bg" />
         <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="708.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/editarIcon.png" />
             </image></ImageView>
-        <Label layoutX="684.0" layoutY="140.0" text="Editar usuario" />
-        <Label layoutX="651.0" layoutY="166.0" text="Edite los datos del usuario" />
+        <Label layoutX="643.0" layoutY="135.0" styleClass="title-label" text="Editar usuario" />
+        <Label layoutX="639.0" layoutY="169.0" styleClass="subtitle-label" text="Edite los datos del usuario" />
         <Label layoutX="510.0" layoutY="196.0" text="Editar nombre *" />
         <TextField fx:id="nombre" layoutX="510.0" layoutY="217.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa el nombre" />
         <TextField fx:id="aPaterno" layoutX="510.0" layoutY="279.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa apellido paterno" />
@@ -41,7 +45,7 @@
             </children>
         </AnchorPane>
 
-        <Label layoutX="576.0" layoutY="496.0" text="Mínimo 8 caracteres, debe incluir mayúscula, minúscula y número">
+        <Label layoutX="515.0" layoutY="497.0" styleClass="subtitle-label" text="Mínimo 8 caracteres, debe incluir mayúscula, minúscula y número">
             <font>
                 <Font size="10.0" />
             </font>
@@ -64,7 +68,7 @@
             </children>
         </AnchorPane>
         <Label layoutX="510.0" layoutY="511.0" text="Confirmar nueva contraseña" />
-        <Button fx:id="editarBoton" layoutX="509.0" layoutY="643.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="422.0" text="Editar perfil" />
-        <Button fx:id="regresarBoton" layoutX="1349.0" layoutY="25.0" mnemonicParsing="false" text="Regresar " />
+        <Button fx:id="editarBoton" layoutX="509.0" layoutY="653.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="422.0" text="Editar perfil" />
+        <Button fx:id="regresarBoton" layoutX="1338.0" layoutY="25.0" mnemonicParsing="false" styleClass="button-secondary" text="Regresar " />
     </children>
 </AnchorPane>

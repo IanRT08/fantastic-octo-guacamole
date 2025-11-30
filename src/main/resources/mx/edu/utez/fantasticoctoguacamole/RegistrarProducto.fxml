@@ -5,16 +5,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.RegistrarProductoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="779.0" prefWidth="1440.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.RegistrarProductoController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="730.0" layoutX="470.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
-        <Circle fill="DODGERBLUE" layoutX="720.0" layoutY="79.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
-        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="708.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+      <Circle fill="DODGERBLUE" layoutX="1357.0" layoutY="105.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="421.0" layoutY="726.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="146.0" layoutY="657.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="1121.0" layoutY="135.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="730.0" layoutX="470.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" styleClass="card-background" width="500.0" />
+        <Circle fill="DODGERBLUE" layoutX="696.0" layoutY="79.0" radius="24.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-icon-bg" />
+        <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="684.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/productoIcon.png" />
             </image></ImageView>
-        <Label layoutX="667.0" layoutY="124.0" text="Agregar producto" />
-        <Label layoutX="623.0" layoutY="155.0" text="Ingresa los datos del nuevo producto" />
+        <Label layoutX="637.0" layoutY="124.0" text="Agregar producto" />
+        <Label layoutX="573.0" layoutY="154.0" text="Ingresa los datos del nuevo producto" />
         <Label layoutX="510.0" layoutY="196.0" text="Nombre *" />
         <TextField fx:id="nombre" layoutX="510.0" layoutY="217.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa el nombre" />
         <Label layoutX="510.0" layoutY="330.0" text="Descripción del producto" />
@@ -24,8 +28,8 @@
         <TextField fx:id="precio" layoutX="511.0" layoutY="599.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingrese precio" />
         <TextField fx:id="stock" layoutX="510.0" layoutY="658.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingrese cantidad disponible en el inventario" />
         <Label layoutX="510.0" layoutY="637.0" text="Stock *" />
-        <Button fx:id="agregarBoton" layoutX="510.0" layoutY="704.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="31.0" prefWidth="421.0" text="Agregar producto" />
-        <Button fx:id="regresarBoton" layoutX="1349.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresarMenu" text="Regresar " />
+        <Button fx:id="agregarBoton" layoutX="510.0" layoutY="710.0" mnemonicParsing="false" onAction="#agregarProducto" prefHeight="31.0" prefWidth="421.0" text="Agregar producto" />
+        <Button fx:id="regresarBoton" layoutX="1337.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresarMenu" styleClass="button-secondary" text="Regresar " />
       <TextArea fx:id="descripcion" layoutX="510.0" layoutY="352.0" prefHeight="211.0" prefWidth="421.0" promptText="Ingrese una descripción opcional del producto" />
     </children>
 </AnchorPane>
