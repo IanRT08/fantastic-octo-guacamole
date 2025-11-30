@@ -6,16 +6,20 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="779.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.RegistrarUsuariosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="779.0" prefWidth="1440.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.RegistrarUsuariosController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="730.0" layoutX="470.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
-        <Circle fill="DODGERBLUE" layoutX="720.0" layoutY="79.0" radius="24.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="DODGERBLUE" layoutX="371.0" layoutY="682.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="1374.0" layoutY="79.0" radius="150.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="1113.0" layoutY="135.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="156.0" layoutY="664.0" radius="200.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="730.0" layoutX="470.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" styleClass="card-background" width="500.0" />
+        <Circle fill="DODGERBLUE" layoutX="720.0" layoutY="79.0" radius="24.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-icon-bg" />
         <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="709.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Images/agregarIcon.png" />
             </image></ImageView>
-        <Label layoutX="667.0" layoutY="124.0" text="Agregar usuario" />
-        <Label layoutX="603.0" layoutY="155.0" text="Ingresa los datos del nuevo usuario" />
+        <Label layoutX="630.0" layoutY="117.0" styleClass="title-label" text="Agregar usuario" />
+        <Label layoutX="612.0" layoutY="156.0" styleClass="subtitle-label" text="Ingresa los datos del nuevo usuario" />
         <Label layoutX="510.0" layoutY="196.0" text="Nombre *" />
         <TextField fx:id="nombre" layoutX="510.0" layoutY="217.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa el nombre" />
         <TextField fx:id="aPaterno" layoutX="510.0" layoutY="279.0" prefHeight="31.0" prefWidth="421.0" promptText="Ingresa apellido paterno" />
@@ -41,7 +45,7 @@
             </children>
         </AnchorPane>
 
-        <Label layoutX="576.0" layoutY="496.0" text="Mínimo 8 caracteres, debe incluir mayúscula, minúscula y número">
+        <Label layoutX="521.0" layoutY="497.0" styleClass="card-description" text="Mínimo 8 caracteres, debe incluir mayúscula, minúscula y número">
             <font>
                 <Font size="10.0" />
             </font>
@@ -66,7 +70,7 @@
         </AnchorPane>
         <Label layoutX="510.0" layoutY="511.0" text="Confirmar contraseña *" />
         <ChoiceBox fx:id="roles" layoutX="510.0" layoutY="652.0" prefHeight="31.0" prefWidth="421.0" />
-        <Button fx:id="agregarBoton" layoutX="510.0" layoutY="704.0" mnemonicParsing="false" onAction="#agregarUsuario" prefHeight="31.0" prefWidth="421.0" text="Agregar usuario" />
-        <Button fx:id="regresarBoton" layoutX="1349.0" layoutY="25.0" mnemonicParsing="false" onAction="#regresarMenu" text="Regresar " />
+        <Button fx:id="agregarBoton" layoutX="510.0" layoutY="709.0" mnemonicParsing="false" onAction="#agregarUsuario" prefHeight="31.0" prefWidth="421.0" text="Agregar usuario" />
+        <Button fx:id="regresarBoton" layoutX="1340.0" layoutY="22.0" mnemonicParsing="false" onAction="#regresarMenu" styleClass="button-secondary" text="Regresar " />
     </children>
 </AnchorPane>

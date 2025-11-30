@@ -36,7 +36,7 @@
 }
 
 /*TextField/Password/ChoiceBox*/
-.text-field, .password-field, .choice-box {
+.text-field, .password-field, .choice-box, .date-picker {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #E2E8F0; /* Borde gris muy suave */
     -fx-border-width: 1px;
@@ -46,7 +46,7 @@
     -fx-prompt-text-fill: #A0AEC0;
 }
 
-.text-field:focused, .password-field:focused, .choice-box:focused {
+.text-field:focused, .password-field:focused, .choice-box:focused, date-picker:focused {
     -fx-border-color: #667EEA; /* Color primario al enfocar */
     /* Sombra suave del color principal (Glow effect) */
     -fx-effect: dropshadow(three-pass-box, rgba(102, 126, 234, 0.3), 8, 0, 0, 0);
