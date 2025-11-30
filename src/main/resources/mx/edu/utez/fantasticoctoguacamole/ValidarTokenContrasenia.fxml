@@ -2,30 +2,35 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.ValidarTokenContraseniaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" stylesheets="@Styles/estilos.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mx.edu.utez.fantasticoctoguacamole.ValidarTokenContraseniaController">
     <children>
+      <Circle fill="DODGERBLUE" layoutX="30.0" layoutY="486.0" radius="100.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
+      <Circle fill="DODGERBLUE" layoutX="500.0" layoutY="32.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="circle-bg-big" />
         <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" prefHeight="400.0" prefWidth="400.0" spacing="20.0">
-            <Label text="Restablecer Contraseña">
-                <font>
-                    <Font size="20.0" />
-                </font>
-            </Label>
-
-            <Label text="Ingresa el token recibido y tu nueva contraseña" />
-
-            <TextField fx:id="correoField" prefWidth="300.0" promptText="Correo electrónico *" />
-
-            <TextField fx:id="tokenField" prefWidth="300.0" promptText="Token de verificación *" />
-
-            <PasswordField fx:id="nuevaContraseniaField" prefWidth="300.0" promptText="Nueva contraseña *" />
-
-            <PasswordField fx:id="confirmarContraseniaField" prefWidth="300.0" promptText="Confirmar nueva contraseña *" />
-
-            <Button fx:id="restablecerBtn" mnemonicParsing="false" onAction="#restablecerContrasenia" prefWidth="300.0" text="Restablecer Contraseña" />
-
-            <Button fx:id="volverBtn" mnemonicParsing="false" onAction="#volverASolicitud" prefWidth="300.0" text="Volver" />
+           <children>
+               <Label styleClass="title-label" text="Restablecer Contraseña">
+                   <font>
+                       <Font size="20.0" />
+                   </font>
+               </Label>
+   
+               <Label styleClass="subtitle-label" text="Ingresa el token recibido y tu nueva contraseña" />
+   
+               <TextField fx:id="correoField" prefWidth="300.0" promptText="Correo electrónico *" />
+   
+               <TextField fx:id="tokenField" prefWidth="300.0" promptText="Token de verificación *" />
+   
+               <PasswordField fx:id="nuevaContraseniaField" prefWidth="300.0" promptText="Nueva contraseña *" />
+   
+               <PasswordField fx:id="confirmarContraseniaField" prefWidth="300.0" promptText="Confirmar nueva contraseña *" />
+   
+               <Button fx:id="restablecerBtn" mnemonicParsing="false" onAction="#restablecerContrasenia" prefWidth="300.0" text="Restablecer Contraseña" />
+   
+               <Button fx:id="volverBtn" mnemonicParsing="false" onAction="#volverASolicitud" prefWidth="300.0" styleClass="button-secondary" text="Volver" />
+           </children>
         </VBox>
     </children>
 </AnchorPane>
