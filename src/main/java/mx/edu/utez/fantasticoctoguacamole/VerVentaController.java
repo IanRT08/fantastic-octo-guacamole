@@ -65,6 +65,11 @@ public class VerVentaController implements Initializable {
     private VentaDao ventaDao;
     private LocalDate fechaMinima;
     private LocalDate fechaMaxima;
+    private final String buttonStyle = "-fx-background-color: transparent;" +
+            "-fx-padding: 5;" +
+            "-fx-cursor: hand;" +
+            "-fx-text-fill: #4A5568;" +
+            "-fx-font-size: 14px;";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -279,6 +284,8 @@ public class VerVentaController implements Initializable {
                             Venta venta = getTableView().getItems().get(getIndex());
                             cancelarVenta(venta);
                         });
+                        btnVerDetalles.setStyle(buttonStyle);
+                        btnCancelar.setStyle(buttonStyle);
                     }
                     @Override
                     protected void updateItem(String item, boolean empty) {

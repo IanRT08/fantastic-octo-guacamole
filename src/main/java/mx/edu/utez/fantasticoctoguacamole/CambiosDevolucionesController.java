@@ -52,6 +52,11 @@ public class CambiosDevolucionesController implements Initializable {
     private SortedList<Venta> datosOrdenados;
     private VentaDao ventaDao;
     private DevolucionDao devolucionDao;
+    private final String buttonStyle = "-fx-background-color: transparent;" +
+            "-fx-padding: 5;" +
+            "-fx-cursor: hand;" +
+            "-fx-text-fill: #4A5568;" +
+            "-fx-font-size: 14px;";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -139,6 +144,7 @@ public class CambiosDevolucionesController implements Initializable {
                             } else {
                                 mostrarAlerta("No elegible", "Esta venta tiene más de 30 días y no es elegible para devolución", Alert.AlertType.WARNING);
                             }
+                            btnDevolucion.setStyle(buttonStyle);
                         });
                         btnCambio.setOnAction(event -> {
                             Venta venta = getTableView().getItems().get(getIndex());
@@ -147,7 +153,10 @@ public class CambiosDevolucionesController implements Initializable {
                             } else {
                                 mostrarAlerta("No elegible", "Esta venta tiene más de 30 días y no es elegible para cambio", Alert.AlertType.WARNING);
                             }
+                            btnCambio.setStyle(buttonStyle);
                         });
+                        btnDevolucion.setStyle(buttonStyle);
+                        btnCambio.setStyle(buttonStyle);
                     }
                     @Override
                     protected void updateItem(String item, boolean empty) {
